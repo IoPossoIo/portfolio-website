@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing</title>
+    <link rel="stylesheet" href="src/style.scss">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        .pdf-container {
+            width: 80%;
+            height: 80%;
+            overflow: hidden;
+            position: relative;
+        }
+        .pdf-scroll {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: scroll 20s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        .content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Our Marketing Page!</h1>
+    <div class="pdf-container">
+        <div class="pdf-scroll">
+            <div class="content">
+                <h2>Unlock Your Potential!</h2>
+                <p>Discover the secrets to effective marketing strategies that can elevate your brand to new heights. Our comprehensive guide covers everything from social media tactics to email marketing campaigns.</p>
+                <p>Join us on this journey to transform your marketing approach and captivate your audience. With our expert insights, you'll learn how to engage customers like never before!</p>
+                <p>Don't miss out on the opportunity to revolutionize your marketing efforts. Scroll down to explore more!</p>
+                <p>---</p>
+                <p>Ready to take the next step? Let's dive into the world of marketing!</p>
+                <p>---</p>
+                <p>Our guide is packed with actionable tips, real-world examples, and innovative ideas that will inspire you to think outside the box.</p>
+                <p>Scroll down to see how you can implement these strategies today!</p>
+            </div>
+        </div>
+    </div>
+    <a href="index.html">Back to Home</a>
+</body>
+</html>
