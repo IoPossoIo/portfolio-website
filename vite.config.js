@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+  base: '/', // Set the base path for your assets
   build: {
     outDir: 'dist', // Output directory for the build
     rollupOptions: {
