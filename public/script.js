@@ -32,8 +32,11 @@ document.getElementById('contact').addEventListener('click', () => {
   document.querySelector('.quote').style.display = 'none'; // Hide quote
   document.querySelector('.folder-container').style.display = 'none'; // Hide folder container
   document.getElementById('middleText').style.display = 'block'; // Show middle text
-  document.getElementById('mainText').innerText = 'antoniotaurisanowrites@gmail.com'; // Set the email text
-  document.getElementById('mainText').style.fontSize = '4em'; // Make the text larger
+  
+  // Set the email text as a clickable link
+  const email = 'antoniotaurisanowrites@gmail.com';
+  document.getElementById('mainText').innerHTML = `<a href="mailto:${email}" style="color: inherit; text-decoration: none;">${email}</a>`; // Make email clickable
+  document.getElementById('mainText').style.fontSize = '1em'; // Make the text larger
 
   // Style the "Go home" link
   const goHomeLink = document.querySelector('.go-home');
@@ -49,8 +52,10 @@ document.getElementById('about').addEventListener('click', () => {
   document.querySelector('.quote').style.display = 'none'; // Hide quote
   document.querySelector('.folder-container').style.display = 'none'; // Hide folder container
   document.getElementById('middleText').style.display = 'block'; // Show middle text
-  document.getElementById('mainText').innerText = 'Antonio is 24 years old.\n\nThey love capturing movement and finding new ways to translate it into photography.\n\nThey love art in all its shapes and forms.\n\nThey do have a special thing for music though.\n\nSome of the written work for Almost Famous Zine can be found here: linktr.ee/someoneyoubelong';
-  document.getElementById('mainText').style.fontSize = '4em'; // Make the text larger
+  
+  // Set the about text with a link to Almost Famous Zine
+  document.getElementById('mainText').innerHTML = `Antonio is a marketing professional with a Data Analytics BSC and a passion for storytelling and creative strategy. <br><br>Adept at blending creativity with data-driven insights to develop consumer-first marketing initiatives by day.<br><br>Capturing movement through photography and writing for Almost Famous Zine</a> by night.`;
+  document.getElementById('mainText').style.fontSize = '3em'; // Make the text larger
 });
 
 // Ensure the "Go home" link is styled correctly
