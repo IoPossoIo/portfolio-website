@@ -28,7 +28,7 @@ logoContainer.addEventListener('mouseleave', () => {
 
 // Click event for CONTACT
 document.getElementById('contact').addEventListener('click', () => {
-  document.querySelector('.text-top-right').style.display = 'none'; // Hide top right text
+  document.querySelector('.text-top-right').style.display = 'yes'; // Hide top right text
   document.querySelector('.quote').style.display = 'none'; // Hide quote
   document.querySelector('.folder-container').style.display = 'none'; // Hide folder container
   document.getElementById('middleText').style.display = 'block'; // Show middle text
@@ -48,13 +48,13 @@ document.getElementById('contact').addEventListener('click', () => {
 
 // Click event for ABOUT
 document.getElementById('about').addEventListener('click', () => {
-  document.querySelector('.text-top-right').style.display = 'none'; // Hide top right text
+  document.querySelector('.text-top-right').style.display = 'yes'; // Hide top right text
   document.querySelector('.quote').style.display = 'none'; // Hide quote
   document.querySelector('.folder-container').style.display = 'none'; // Hide folder container
   document.getElementById('middleText').style.display = 'block'; // Show middle text
   
   // Set the about text with a link to Almost Famous Zine
-  document.getElementById('mainText').innerHTML = `Antonio is a marketing professional with a Data Analytics BSC and a passion for storytelling and creative strategy. <br><br>Adept at blending creativity with data-driven insights to develop consumer-first marketing initiatives by day.<br><br>Capturing movement through photography and writing for Almost Famous Zine</a> by night.`;
+  document.getElementById('mainText').innerHTML = `Antonio is a marketing professional with a Data Analytics BSC and a passion for storytelling and creative strategy. <br><br>Blendingcreativity with data-driven insights to develop consumer-first marketing initiatives by day.<br><br>Capturing movement through photography and writing for Almost Famous Zine</a> by night.`;
   document.getElementById('mainText').style.fontSize = '3em'; // Make the text larger
 });
 
@@ -71,3 +71,22 @@ bubbles.forEach(bubble => {
   });
 });
 
+// Click event for Marketing
+document.getElementById('Marketing').addEventListener('click', () => {
+  document.querySelector('.text-top-right').style.display = 'yes'; // Hide top right text
+  document.querySelector('.quote').style.display = 'none'; // Hide quote
+  document.querySelector('.folder-container').style.display = 'none'; // Hide folder container
+  document.getElementById('middleText').style.display = 'block'; // Show middle text
+  document.getElementById('mainText').innerHTML = 'COMING SOON';
+  document.getElementById('mainText').style.fontSize = '3em'; // Make the text larger
+});
+
+// Click event for Photography
+document.getElementById('Photography').addEventListener('click', () => {
+  document.querySelector('.text-top-right').style.display = 'yes'; // Hide top right text
+  document.querySelector('.quote').style.display = 'none'; // Hide quote
+  document.querySelector('.folder-container').style.display = 'none'; // Hide folder container
+  document.getElementById('middleText').style.display = 'block'; // Show middle text
+  document.getElementById('mainText').innerHTML = 'COMING SOON';
+  document.getElementById('mainText').style.fontSize = '3em'; // Make the text larger
+});
