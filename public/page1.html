@@ -1,57 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./images/TAURISANO-LOGO.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Antonio Taurisano</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/style.scss">
-  </head>
-  <body>
-    <div class="logo-container">
-      <a href="index.html">
-        <img src="./images/BLACK-LOGO.svg" alt="Logo" class="logo black" />
-        <img src="./images/WHITE-LOGO.svg" alt="White Logo" class="logo white" style="opacity: 0; position: absolute; top: 0; left: 0;" />
-      </a>
-    </div>
-
- 
-
-    <div class="quote">
-      <!-- quote text-->
-    </div>
-
-    <div class="middle-text" id="middleText" style="display: none;">
-      <div class="main-text" id="mainText"></div>
-      <a href="index.html" class="go-home">Go home</a>
-    </div>
-
+    <title>Coming Soon</title>
+    <style>
+        html, body {
+            margin: 0; /* Remove default margin */
+            height: 100%; /* Full height for both html and body */
+        }
+        body {
+            background-color: #f0e6d2; /* Beige background color */
+            font-family: 'Baskerville', serif; /* Use the Baskerville font */
+            color: black; /* Text color */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+        .text-container {
+            background: rgba(255, 255, 255, 0); /* Semi-transparent white background */
+            text-align: center; /* Center text */
+            text-transform: uppercase; /* Make text uppercase */
+        }
+        h1 {
+            font-size: 3em; /* Adjust font size as needed */
+            margin: 0; /* Remove default margin */
+        }
+    </style>
+</head>
+<body>
     <div class="text-container">
-         <!-- text in the center -->
+        <h1>Coming Soon</h1>
     </div>
-    <div class="gradient-bg">
-      <svg xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
-      <div class="gradients-container">
-        <div class="g1"></div>
-        <div class="g2"></div>
-        <div class="g3"></div>
-        <div class="g4"></div>
-        <div class="g5"></div>
-        <div class="interactive"></div>
-      </div>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
-    <script type="module" src="./public/script.js"></script>
-  </body>
+</body>
 </html>

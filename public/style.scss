@@ -1,0 +1,366 @@
+@font-face {
+  font-family: 'San Francisco';
+  src: url('../fonts/san-francisco.woff2') format('woff2'), /* Adjust the file extension if necessary */
+       url('../fonts/san-francisco.woff') format('woff'); /* Add other formats if available */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../fonts/SF-Pro-Display-Medium.otf') format('opentype'); /* Load the OTF font */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Baskerville';
+  src: url('/Users/bubblegum/animated-bg/fonts/BASKVILL.ttf') format('truetype');
+}
+
+html, body {
+  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif; /* Use SF Pro Display font */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Remove the background image */
+  /* background: url('./images/bliss.jpg') no-repeat center center fixed; */
+  background-color: #f0f0f0; /* Optional: Set a solid background color */
+  font-family: 'Baskerville', serif; /* Set default font for the body */
+}
+
+.text-container {
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 96px;
+  color: white;
+  opacity: 0.8;
+  user-select: none;
+  text-shadow: 1px 1px rgba(0,0,0,0.1);
+}
+
+:root {
+  --color-bg1: rgb(240, 230, 210);
+  --color-bg2: rgb(255, 245, 230);
+  --color1: 156, 175, 136;
+  --color2: 138, 189, 145;
+  --color3: 154, 199, 145;
+  --color4: 192, 199, 145;
+  --color5: 169, 189, 147;
+  --color-interactive: 156, 175, 136;
+  --circle-size: 80%;
+  --blending: hard-light;
+}
+
+@keyframes moveInCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+  50% {
+    transform: translateX(50%) translateY(10%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+}
+
+.gradient-bg {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+  z-index: 1;
+  background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+
+  svg {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 0;
+    height: 0;
+  }
+
+  .gradients-container {
+    filter: url(#goo) blur(40px);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .g1, .g2, .g3, .g4, .g5 {
+    z-index: 10;
+    position: absolute;
+    pointer-events: auto;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    background: radial-gradient(circle at center, rgba(178, 34, 34, 0.8) 0, rgba(178, 34, 34, 0) 50%) no-repeat;
+    will-change: transform, opacity;
+  }
+  .g1 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+
+    transform-origin: center center;
+    animation: moveVertical 30s ease infinite;
+
+    opacity: 1;
+  }
+
+  .g2 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+
+    transform-origin: calc(50% - 400px);
+    animation: moveInCircle 20s reverse infinite;
+
+    opacity: 1;
+  }
+
+  .g3 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2 + 200px);
+    left: calc(50% - var(--circle-size) / 2 - 500px);
+
+    transform-origin: calc(50% + 400px);
+    animation: moveInCircle 40s linear infinite;
+
+    opacity: 1;
+  }
+
+  .g4 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+
+    transform-origin: calc(50% - 200px);
+    animation: moveHorizontal 40s ease infinite;
+
+    opacity: 0.7;
+  }
+
+  .g5 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: calc(var(--circle-size) * 2);
+    height: calc(var(--circle-size) * 2);
+    top: calc(50% - var(--circle-size));
+    left: calc(50% - var(--circle-size));
+
+    transform-origin: calc(50% - 800px) calc(50% + 200px);
+    animation: moveInCircle 20s ease infinite;
+
+    opacity: 1;
+  }
+
+  .interactive {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: 100%;
+    height: 100%;
+    top: -50%;
+    left: -50%;
+
+    opacity: 0.7;
+  }
+}
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background-color: transparent;
+
+  .logo {
+    width: 100px;
+    height: auto;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: spin 10s linear infinite;
+  }
+
+  .white {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.folder-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.folder {
+  text-decoration: none;
+  text-align: center;
+}
+
+.folder-image {
+  width: 150px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.folder-image:hover {
+  transform: scale(1.1);
+}
+
+.folder-text {
+  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif; /* Use SF Pro Display font */
+  font-size: 20px; /* Adjusted font size to be smaller */
+  color: white; /* Change text color to white */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add black shadow for better visibility */
+  margin-top: 5px;
+}
+
+.logo-container a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color */
+}
+
+.text-top-right {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  text-align: right; /* Align text to the right */
+  font-family: 'Baskerville', serif; /* Use the custom font */
+  z-index: 10; /* Ensure it's above other elements */
+  background-color: transparent; /* Optional: semi-transparent background */
+  padding: 10px; /* Optional: add some padding */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.text-top-right a {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Set text color to black */
+}
+
+.contact {
+  font-size: 24px; /* Adjust size as needed */
+  font-weight: normal; /* Regular weight */
+}
+
+.about {
+  font-size: 24px; /* Adjust size as needed */
+  font-weight: normal; /* Regular weight */
+}
+
+.quote {
+  position: absolute;
+  bottom: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  font-family: 'Baskerville', serif; /* Use the custom font */
+  font-size: 20px; /* Adjust size as needed */
+  font-weight: bold; /* Make it a bit bolder */
+  text-transform: uppercase; /* Make text uppercase */
+  max-width: 300px; /* Limit width for better readability */
+  z-index: 10; /* Ensure it's above other elements */
+  background-color: transparent; /* Optional: semi-transparent background */
+  padding: 10px; /* Optional: add some padding */
+  text-transform: uppercase; /* Make text uppercase */
+  font-weight: normal; /* Adjust weight if needed */
+}
+
+.middle-text {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  text-align: center; /* Center text */
+  font-family: 'Baskerville', serif; /* Use the custom font */
+  z-index: 10; /* Ensure it's above other elements */
+  background-color: transparent; /* Ensure background is transparent */
+  padding: 0; /* Remove padding if any */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.middle-text a {
+  text-decoration: underline; /* Underline the link */
+  color: black; /* Set text color to black */
+  display: block; /* Make it a block element to detach it */
+  margin-top: 40px; /* Space above the link */
+  font-size: 3em; /* Set the font size for the "Go home" link */
+}
