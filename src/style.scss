@@ -377,22 +377,18 @@ body {
 }
 
 .image-container {
-    position: absolute;
-    top: 40%;
+    position: fixed;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
-    width: 75vw;
-    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 25;
-    padding: 0 5vw;
-    background-color: transparent;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 80vw;
+    max-width: 90vmax;
+    max-height: 80vh;
+    padding: 0;
 }
 
 .back-arrow {
@@ -407,23 +403,28 @@ body {
 
 .photo {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 60vh;
+    object-fit: contain;
     object-position: center;
-    max-height: 80vh;
 }
 
 /* Special styling for the landscape image (2nd position) */
 .photo.landscape {
-    grid-column: 2 / span 2;
-    height: 100%;
+    grid-column: 1 / span 3; // Make the landscape image span all three columns
+    height: auto; // Maintain aspect ratio
 }
 
 /* Ensure vertical images maintain consistent height */
 .photo.vertical {
-    height: 100%;
-    width: auto;
+    height: auto; // Maintain aspect ratio
+    width: 100%; // Ensure full width
     max-width: 100%;
+}
+
+/* Adjust the layout for the remaining images */
+.image-container > :nth-child(n+4) {
+    grid-column: span 1; // Each of the remaining images will take one column
 }
 
 .section-navigation {
@@ -453,6 +454,22 @@ body {
     letter-spacing: 0.5px;
     font-family: 'Baskerville', serif;
     font-size: 24px;
+
+    @media (max-height: 1000px) {
+        font-size: 22px;
+    }
+
+    @media (max-height: 900px) {
+        font-size: 20px;
+    }
+
+    @media (max-height: 800px) {
+        font-size: 18px;
+    }
+
+    @media (max-height: 700px) {
+        font-size: 16px;
+    }
 }
 
 .marketing-container {
@@ -590,10 +607,7 @@ body {
     }
 
     .text-top-right {
-        .contact, .about {
-            font-size: 10px !important;
-            margin: 3px 0;
-        }
+        font-size: 0.8em;
     }
 
     .logo-container .logo {
@@ -701,20 +715,18 @@ body {
     .nav-arrows {
         position: fixed;
         width: 100%;
-        top: 55%;
+        top: 50%;
         transform: translateY(-50%);
         display: flex;
         justify-content: space-between;
         padding: 0 20px;
         z-index: 27;
-        pointer-events: none;
     }
 
     .nav-arrow {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         cursor: pointer;
-        pointer-events: auto;
         background-color: rgba(255, 255, 255, 0.5);
         padding: 5px;
         border-radius: 50%;
@@ -726,22 +738,6 @@ body {
 
     .section-navigation {
         display: none !important;
-    }
-
-    #mainText {
-        font-size: 1.5em !important;
-    }
-
-    .middle-text {
-        .main-text {
-            font-size: 1.2em !important;
-            p {
-                font-size: 0.8em !important;
-            }
-        }
-        .go-home {
-            font-size: 0.8em !important;
-        }
     }
 }
 
@@ -777,28 +773,6 @@ body {
     #sectionNavigation {
         bottom: 15px;
         font-size: 12px;
-    }
-
-    .text-top-right {
-        .contact, .about {
-            font-size: 8px !important;
-        }
-    }
-
-    #mainText {
-        font-size: 1.2em !important;
-    }
-
-    .middle-text {
-        .main-text {
-            font-size: 1em !important;
-            p {
-                font-size: 0.7em !important;
-            }
-        }
-        .go-home {
-            font-size: 0.7em !important;
-        }
     }
 }
 
@@ -883,6 +857,131 @@ body {
     touch-action: none;
     -webkit-overflow-scrolling: none;
     overscroll-behavior: none;
+}
+
+@supports (-webkit-hyphens:none) {
+    @media screen and (max-width: 480px) {
+        .section-navigation {
+            bottom: 10px !important;
+            
+            // Hide GO HOME on very small Safari screens
+            .go-home {
+                display: none !important;
+            }
+        }
+
+        // Move section title up to make room
+        .section-title {
+            bottom: 8vh !important;
+        }
+
+        // Adjust spacing for other elements
+        #sectionNavigation {
+            bottom: 2vh !important;
+        }
+    }
+}
+
+/* Handle small vertical heights */
+@media screen and (max-height: 750px) {
+    .section-navigation {
+        display: none !important;
+    }
+
+    .section-title {
+        display: none !important;
+    }
+
+    #sectionNavigation {
+        display: none !important;
+    }
+
+    .image-container {
+        height: 80vh !important;
+        top: 50% !important;
+    }
+}
+
+/* Even more extreme for very small heights */
+@media screen and (max-height: 450px) {
+    .image-container {
+        height: 90vh !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 10px !important;
+            margin: 3px 0;
+        }
+    }
+
+    #mainText {
+        font-size: 1.5em !important;
+    }
+
+    .middle-text {
+        .main-text {
+            font-size: 1.2em !important;
+            p {
+                font-size: 0.8em !important;
+            }
+        }
+        .go-home {
+            font-size: 0.8em !important;
+        }
+    }
+
+    // Make email smaller in contact
+    .contact-email {
+        font-size: 0.8em !important;
+    }
+}
+
+/* Even smaller for very small screens */
+@media screen and (max-width: 480px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 8px !important;
+        }
+    }
+
+    #mainText {
+        font-size: 1.2em !important;
+    }
+
+    .middle-text {
+        .main-text {
+            font-size: 1em !important;
+            p {
+                font-size: 0.7em !important;
+            }
+        }
+        .go-home {
+            font-size: 0.7em !important;
+        }
+    }
+
+    // Make email even smaller on very small screens
+    .contact-email {
+        font-size: 0.7em !important;
+    }
+}
+
+.nav-arrows {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-arrow {
+    cursor: pointer;
+    width: 30px;
+    height: auto;
 }
 
 

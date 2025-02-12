@@ -170,124 +170,40 @@ document.querySelectorAll('#sectionNavigation .nav-item').forEach(item => {
     });
 });
 
+let currentIndex = 0; // Track the current image index
+
 function displayPhotographySection(section) {
     hideAllContent();
     document.querySelector('.text-top-right').style.display = 'block';
-    document.getElementById('sectionNavigation').style.display = 'flex';
-    document.getElementById('goBack').style.display = 'block';
-    document.getElementById('imageContainer').style.display = 'grid';
-    
-    // Show back arrow only in section view
-    const backArrow = document.querySelector('.back-arrow');
-    if (backArrow) {
-        backArrow.style.display = 'block';
-    }
-    
-    const container = document.getElementById('imageContainer');
-    container.innerHTML = '';
-    
-    // Create lightbox elements if they don't exist
-    if (!document.getElementById('lightbox')) {
-        const lightbox = document.createElement('div');
-        lightbox.id = 'lightbox';
-        lightbox.style.display = 'none';
-        lightbox.style.position = 'fixed';
-        lightbox.style.top = '0';
-        lightbox.style.left = '0';
-        lightbox.style.width = '100%';
-        lightbox.style.height = '100%';
-        lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-        lightbox.style.zIndex = '1000';
-        lightbox.style.display = 'none';
-        lightbox.style.justifyContent = 'center';
-        lightbox.style.alignItems = 'center';
-        lightbox.style.cursor = 'pointer';
-        
-        // Close lightbox when clicking anywhere
-        lightbox.addEventListener('click', () => {
-            lightbox.style.display = 'none';
-        });
-        
-        document.body.appendChild(lightbox);
-    }
-    
+    document.getElementById('sectionNavigation').style.display = 'flex'; // Show section navigation
+    document.getElementById('imageContainer').style.display = 'flex'; // Show image container
+
     const sectionData = photographySections[section];
     if (sectionData) {
-        sectionData.images.slice(0, 7).forEach((img, index) => {
-            const imgElement = document.createElement('img');
-            imgElement.src = img;
-            imgElement.className = 'photo';
-            if (index === 1) {
-                imgElement.classList.add('landscape');
-            } else {
-                imgElement.classList.add('vertical');
-            }
-            
-            // Add click handler for lightbox
-            imgElement.style.cursor = 'pointer';
-            imgElement.addEventListener('click', (e) => {
-                const lightbox = document.getElementById('lightbox');
-                const fullImg = document.createElement('img');
-                fullImg.src = img;
-                fullImg.style.maxHeight = '90vh';
-                fullImg.style.maxWidth = '90vw';
-                fullImg.style.objectFit = 'contain';
-                
-                lightbox.innerHTML = '';
-                lightbox.appendChild(fullImg);
-                lightbox.style.display = 'flex';
-                
-                e.stopPropagation(); // Prevent event bubbling
-            });
-            
-            container.appendChild(imgElement);
+        currentIndex = 0; // Reset index
+        updateImage(sectionData.images[currentIndex]); // Show the first image
+        document.getElementById('sectionTitle').innerHTML = sectionData.text; // Display the text
+        document.getElementById('sectionTitle').style.display = 'block'; // Ensure the title is visible
+
+        // Add click handlers for navigation arrows
+        const leftArrow = document.querySelector('.nav-arrow.left');
+        const rightArrow = document.querySelector('.nav-arrow.right');
+
+        leftArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + sectionData.images.length) % sectionData.images.length;
+            updateImage(sectionData.images[currentIndex]);
         });
-        
-        // Only add mobile navigation if on mobile
-        if (window.innerWidth <= 768) {
-            // Create a mobile-specific container
-            const mobileContainer = document.createElement('div');
-            mobileContainer.className = 'mobile-image-container';
-            
-            // Add single image that we'll update
-            const mobileImage = document.createElement('img');
-            mobileImage.src = sectionData.images[0];
-            mobileImage.className = 'mobile-photo';
-            mobileContainer.appendChild(mobileImage);
-            
-            // Add navigation arrows
-            const navArrows = document.createElement('div');
-            navArrows.className = 'nav-arrows';
-            navArrows.innerHTML = `
-                <img src="/images/arrow-left.png" class="nav-arrow left" alt="Previous">
-                <img src="/images/arrow-right.png" class="nav-arrow right" alt="Next">
-            `;
-            mobileContainer.appendChild(navArrows);
-            
-            // Replace the regular container content with mobile version
-            container.innerHTML = '';
-            container.appendChild(mobileContainer);
 
-            let currentIndex = 0;
-            
-            // Add click handlers for arrows
-            const leftArrow = navArrows.querySelector('.left');
-            const rightArrow = navArrows.querySelector('.right');
-
-            leftArrow.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + sectionData.images.length) % sectionData.images.length;
-                mobileImage.src = sectionData.images[currentIndex];
-            });
-
-            rightArrow.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % sectionData.images.length;
-                mobileImage.src = sectionData.images[currentIndex];
-            });
-        }
-        
-        document.getElementById('sectionTitle').innerHTML = sectionData.text;
-        document.getElementById('sectionTitle').style.display = 'block';
+        rightArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % sectionData.images.length;
+            updateImage(sectionData.images[currentIndex]);
+        });
     }
+}
+
+function updateImage(imageSrc) {
+    const currentImage = document.getElementById('currentImage');
+    currentImage.src = imageSrc; // Update the image source
 }
 
 function displayMarketingSection(section) {
