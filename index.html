@@ -32,6 +32,64 @@
       <a href="index.html" class="go-home">Go home</a>
     </div>
 
+    <div class="folder-grid" id="photographyFolders" style="display: none;">
+        <div class="folder" data-section="100 GECS">
+            <img src="./images/folder.png" alt="100 Gecs Folder" class="folder-image" />
+            <div class="folder-text">100 gecs</div>
+        </div>
+        <div class="folder" data-section="JULIEN BAKER">
+            <img src="./images/folder.png" alt="Julien Baker Folder" class="folder-image" />
+            <div class="folder-text">Julien Baker</div>
+        </div>
+        <div class="folder" data-section="ST. VINCENT">
+            <img src="./images/folder.png" alt="St. Vincent Folder" class="folder-image" />
+            <div class="folder-text">St. Vincent</div>
+        </div>
+        <div class="folder" data-section="THE PAPER KITES">
+            <img src="./images/folder.png" alt="The Paper Kites Folder" class="folder-image" />
+            <div class="folder-text">The Paper Kites</div>
+        </div>
+        <div class="folder" data-section="FENNE LILY">
+            <img src="./images/folder.png" alt="Fenne Lily Folder" class="folder-image" />
+            <div class="folder-text">Fenne Lily</div>
+        </div>
+        <div class="folder" data-section="YOUBET">
+            <img src="./images/folder.png" alt="Youbet Folder" class="folder-image" />
+            <div class="folder-text">Youbet</div>
+        </div>
+    </div>
+
+    <img src="./images/back-arrow.png" alt="Back" class="back-arrow" id="backToFolders" style="display: none;">
+
+    <div class="image-container" id="imageContainer" style="display: none;"></div>
+
+    <div class="section-title" id="sectionTitle" style="display: none;"></div>
+
+    <div class="section-navigation" id="sectionNavigation" style="display: none;">
+        <div class="nav-links">
+            <span class="nav-item" id="goBack">GO BACK</span>
+            <a href="index.html" class="nav-item">GO HOME</a>
+        </div>
+    </div>
+
+    <div class="marketing-container" id="marketingContainer" style="display: none;">
+        <img id="marketingImage" class="marketing-image" src="" alt="Marketing Image">
+        <div id="marketingText" class="marketing-text"></div>
+    </div>
+
+    <div class="marketing-navigation" id="marketingNavigation" style="display: none;">
+        <div class="nav-links">
+            <span class="nav-item" id="goBackMarketing">GO BACK</span>
+            <a href="index.html" class="nav-item">GO HOME</a>
+        </div>
+    </div>
+
+    <div class="navigation" id="navigation" style="display: none;">
+      <a href="index.html" class="nav-item">Go home</a>
+      <span class="nav-item" id="backButton">Back</span>
+      <span class="page-indicator">1/4</span>
+    </div>
+
     <div class="text-container">
          <!-- text in the center -->
     </div>
@@ -65,6 +123,38 @@
         <!-- Add more folders as needed -->
       </div>
     </div>
+
+    <!-- Add this after your existing containers -->
+    <div class="modal" id="imageModal" style="display: none;">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="enlargedImage">
+    </div>
+
+    <div class="folder-grid" id="marketingFolders" style="display: none;">
+        <div class="folder" data-section="BOOMBIT">
+            <img src="./images/folder.png" alt="Boombit Folder" class="folder-image" />
+            <div class="folder-text">Boombit</div>
+        </div>
+        <div class="folder" data-section="GALA GAMES">
+            <img src="./images/folder.png" alt="Gala Games Folder" class="folder-image" />
+            <div class="folder-text">Gala Games</div>
+        </div>
+        <div class="folder" data-section="PLANET MOJO">
+            <img src="./images/folder.png" alt="Planet Mojo Folder" class="folder-image" />
+            <div class="folder-text">Planet Mojo</div>
+        </div>
+        <div class="folder" data-section="EXTRA">
+            <img src="./images/folder.png" alt="Extra Folder" class="folder-image" />
+            <div class="folder-text">Extra</div>
+        </div>
+    </div>
+
+    <div class="slide-viewer" id="slideViewer" style="display: none;">
+        <div class="slide-arrow left">&lt;</div>
+        <img id="currentSlide" src="" alt="Marketing Slide">
+        <div class="slide-arrow right">&gt;</div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
     <script type="module" src="./public/script.js"></script>
   </body>
