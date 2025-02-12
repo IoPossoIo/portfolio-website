@@ -77,28 +77,28 @@ document.getElementById('about').addEventListener('click', () => {
 // Photography section data
 const photographySections = {
     "100 GECS": {
-        images: ["./images/100gecs/gecs1.jpg", "./images/100gecs/gecs2.jpg", "./images/100gecs/gecs3.jpg", "./images/100gecs/gecs4.jpg", 
-                "./images/100gecs/gecs5.jpg", "./images/100gecs/gecs6.jpg", "./images/100gecs/gecs7.jpg"],
+        images: ["/images/100gecs/gecs1.jpeg", "/images/100gecs/gecs2.jpeg", "/images/100gecs/gecs3.jpeg", "/images/100gecs/gecs4.jpeg", 
+                "/images/100gecs/gecs5.jpeg", "/images/100gecs/gecs6.jpeg", "/images/100gecs/gecs7.jpeg"],
         text: "<a href='https://almostfamouszine.com/100-gecs' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>100 gecs live at knockdown center, queens nyc shot for almost famous zine</a>"
     },
     "JULIEN BAKER": {
-        images: ["./images/julienbaker/baker1.jpeg", "./images/julienbaker/baker2.jpeg", "./images/julienbaker/baker3.jpeg",  "./images/julienbaker/baker4.jpeg", "./images/julienbaker/baker5.jpeg", "./images/julienbaker/baker6.jpeg", "./images/julienbaker/baker7.jpeg"],
+        images: ["/images/julienbaker/baker1.jpeg", "/images/julienbaker/baker2.jpeg", "/images/julienbaker/baker3.jpeg", "/images/julienbaker/baker4.jpeg", "/images/julienbaker/baker5.jpeg", "/images/julienbaker/baker6.jpeg", "/images/julienbaker/baker7.jpeg"],
         text: "<a href='https://almostfamouszine.com/julien-baker' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>julien baker live at earth hall, london shot for almost famous zine</a>"
     },
     "ST. VINCENT": {
-        images: ["./images/stvincent/vincent1.jpeg", "./images/stvincent/vincent2.jpeg", "./images/stvincent/vincent3.jpeg", "./images/stvincent/vincent4.jpeg", "./images/stvincent/vincent5.jpeg", "./images/stvincent/vincent6.jpeg", "./images/stvincent/vincent7.jpeg"],
+        images: ["/images/stvincent/vincent1.jpeg", "/images/stvincent/vincent2.jpeg", "/images/stvincent/vincent3.jpeg", "/images/stvincent/vincent4.jpeg", "/images/stvincent/vincent5.jpeg", "/images/stvincent/vincent6.jpeg", "/images/stvincent/vincent7.jpeg"],
         text: "<a href='https://almostfamouszine.com/welcome-to-the-all-born-screaming-tour-brought-to-you-by-st-vincent/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>st. vincent live at fabrique, milan shot for almost famous zine</a>"
     },
     "THE PAPER KITES": {
-        images: ["./images/paperkites/kites1.jpeg", "./images/paperkites/kites2.jpeg", "./images/paperkites/kites3.jpeg", "./images/paperkites/kites4.jpeg", "./images/paperkites/kites5.jpeg", "./images/paperkites/kites6.jpeg", "./images/paperkites/kites7.jpeg"],
+        images: ["/images/paperkites/kites1.jpeg", "/images/paperkites/kites2.jpeg", "/images/paperkites/kites3.jpeg", "/images/paperkites/kites4.jpeg", "/images/paperkites/kites5.jpeg", "/images/paperkites/kites6.jpeg", "/images/paperkites/kites7.jpeg"],
         text: "<a href='https://almostfamouszine.com/a-tale-of-the-paper-kites-dreamy-night-at-the-vega-in-copenhagen/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>the paper kites live at vega, copenhagen shot for almost famous zine</a>"
     },
     "FENNE LILY": {
-        images: ["./images/fennelily/lily1.jpeg", "./images/fennelily/lily2.jpeg", "./images/fennelily/lily3.jpeg", "./images/fennelily/lily4.jpeg", "./images/fennelily/lily5.jpeg", "./images/fennelily/lily6.jpeg", "./images/fennelily/lily7.jpeg"],
+        images: ["/images/fennelily/lily1.jpeg", "/images/fennelily/lily2.jpeg", "/images/fennelily/lily3.jpeg", "/images/fennelily/lily4.jpeg", "/images/fennelily/lily5.jpeg", "/images/fennelily/lily6.jpeg", "/images/fennelily/lily7.jpeg"],
         text: "<a href='https://almostfamouszine.com/on-hold-never-felt-this-good-fenne-lilys-opening-night-in-brooklyn/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>fenne lily live at the broadway, brooklyn nyc shot for almost famous zine</a>"
     },
     "YOUBET": {
-        images: ["./images/youbet/youbet1.jpeg", "./images/youbet/youbet2.jpeg", "./images/youbet/youbet3.jpeg", "./images/youbet/youbet4.jpeg", "./images/youbet/youbet5.jpeg", "./images/youbet/youbet6.jpeg", "./images/youbet/youbet7.jpeg"],
+        images: ["/images/youbet/youbet1.jpeg", "/images/youbet/youbet2.jpeg", "/images/youbet/youbet3.jpeg", "/images/youbet/youbet4.jpeg", "/images/youbet/youbet5.jpeg", "/images/youbet/youbet6.jpeg", "/images/youbet/youbet7.jpeg"],
         text: "youbet live at union pool, brooklyn nyc"
     }
 };
