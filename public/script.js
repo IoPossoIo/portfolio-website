@@ -247,8 +247,8 @@ function displayPhotographySection(section) {
             const navArrows = document.createElement('div');
             navArrows.className = 'nav-arrows';
             navArrows.innerHTML = `
-                <img src="/public/images/arrow-left.png" class="nav-arrow left" alt="Previous">
-                <img src="/public/images/arrow-right.png" class="nav-arrow right" alt="Next">
+                <img src="/images/arrow-left.png" class="nav-arrow left" alt="Previous">
+                <img src="/images/arrow-right.png" class="nav-arrow right" alt="Next">
             `;
             container.appendChild(navArrows);
         }
