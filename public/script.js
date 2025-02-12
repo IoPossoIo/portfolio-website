@@ -37,6 +37,7 @@ function hideAllContent() {
     document.getElementById('middleText').style.display = 'none';
     document.querySelector('.folder-container').style.display = 'none';
     document.querySelector('.quote').style.display = 'none';
+    document.getElementById('backToFolders').style.display = 'none'; // Hide back arrow
     
     // Ensure back arrow is hidden when content is cleared
     const backArrow = document.querySelector('.back-arrow');
@@ -335,10 +336,7 @@ document.addEventListener('keydown', (e) => {
 
 // Go back click handlers
 document.getElementById('goBack').addEventListener('click', () => {
-    hideAllContent();
-    document.querySelector('.text-top-right').style.display = 'block';
-    document.getElementById('photographyFolders').style.display = 'grid';
-    document.getElementById('sectionNavigation').style.display = 'flex';
+    showFolderGrid();
 });
 
 document.getElementById('goBackMarketing').addEventListener('click', () => {
@@ -347,4 +345,11 @@ document.getElementById('goBackMarketing').addEventListener('click', () => {
     document.getElementById('marketingFolders').style.display = 'grid';
     document.getElementById('marketingNavigation').style.display = 'flex';
 });
+
+function showFolderGrid() {
+    hideAllContent();
+    document.getElementById('photographyFolders').style.display = 'grid';
+    document.getElementById('sectionNavigation').style.display = 'flex'; // Show navigation
+    document.getElementById('goBack').style.display = 'none'; // Hide just the "GO BACK" button
+}
 
