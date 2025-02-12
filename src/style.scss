@@ -497,6 +497,12 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     z-index: 20;
+    
+    &::after {
+        content: '';
+        flex: auto;
+        margin-left: calc(50% - 2px);
+    }
 }
 
 .section-navigation, .marketing-navigation {
@@ -617,15 +623,19 @@ body {
         gap: 10px;
         width: 90vw;
         margin-top: 15vh;
+        &::after {
+            margin-left: calc(25% - 1px);
+        }
     }
 
     .section-title {
-        bottom: 8vh;
-        font-size: 12px;
+        bottom: 12vh;
+        font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 90vw;
+        padding: 0 10px;
     }
 
     .text-top-right {

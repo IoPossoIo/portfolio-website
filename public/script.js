@@ -432,8 +432,11 @@ document.querySelectorAll('#marketingFolders .folder').forEach(folder => {
             case 'PLANET MOJO':
                 window.open('https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo', '_blank');
                 break;
-            case 'EXTRA':
+            case 'EXTRA UN':
                 window.open('/UN_MONUSCO.pdf', '_blank');
+                break;
+            case 'EXTRA 360X':
+                window.open('/360X Art Pitch Deck.pdf', '_blank');
                 break;
         }
     });
