@@ -245,46 +245,43 @@ function displayPhotographySection(section) {
         
         // Only add mobile navigation if on mobile
         if (window.innerWidth <= 768) {
+            // Create a mobile-specific container
+            const mobileContainer = document.createElement('div');
+            mobileContainer.className = 'mobile-image-container';
+            
+            // Add single image that we'll update
+            const mobileImage = document.createElement('img');
+            mobileImage.src = sectionData.images[0];
+            mobileImage.className = 'mobile-photo';
+            mobileContainer.appendChild(mobileImage);
+            
+            // Add navigation arrows
             const navArrows = document.createElement('div');
             navArrows.className = 'nav-arrows';
             navArrows.innerHTML = `
                 <img src="/images/arrow-left.png" class="nav-arrow left" alt="Previous">
                 <img src="/images/arrow-right.png" class="nav-arrow right" alt="Next">
             `;
-            container.appendChild(navArrows);
+            mobileContainer.appendChild(navArrows);
+            
+            // Replace the regular container content with mobile version
+            container.innerHTML = '';
+            container.appendChild(mobileContainer);
 
-            // Make first image active on mobile
-            container.querySelectorAll('.photo').forEach((img, index) => {
-                if (index === 0) img.classList.add('active');
-                else img.classList.add('hidden');
-            });
-
+            let currentIndex = 0;
+            
             // Add click handlers for arrows
-            const leftArrow = container.querySelector('.nav-arrow.left');
-            const rightArrow = container.querySelector('.nav-arrow.right');
+            const leftArrow = navArrows.querySelector('.left');
+            const rightArrow = navArrows.querySelector('.right');
 
             leftArrow.addEventListener('click', () => {
-                const photos = container.querySelectorAll('.photo');
-                const currentActive = container.querySelector('.photo.active');
-                const currentIndex = Array.from(photos).indexOf(currentActive);
-                const newIndex = (currentIndex - 1 + photos.length) % photos.length;
-                
-                currentActive.classList.remove('active');
-                currentActive.classList.add('hidden');
-                photos[newIndex].classList.add('active');
-                photos[newIndex].classList.remove('hidden');
+                currentIndex = (currentIndex - 1 + sectionData.images.length) % sectionData.images.length;
+                mobileImage.src = sectionData.images[currentIndex];
             });
 
             rightArrow.addEventListener('click', () => {
-                const photos = container.querySelectorAll('.photo');
-                const currentActive = container.querySelector('.photo.active');
-                const currentIndex = Array.from(photos).indexOf(currentActive);
-                const newIndex = (currentIndex + 1) % photos.length;
-                
-                currentActive.classList.remove('active');
-                currentActive.classList.add('hidden');
-                photos[newIndex].classList.add('active');
-                photos[newIndex].classList.remove('hidden');
+                currentIndex = (currentIndex + 1) % sectionData.images.length;
+                mobileImage.src = sectionData.images[currentIndex];
             });
         }
         

@@ -659,6 +659,24 @@ body {
         font-size: 14px;
     }
 
+    .mobile-image-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90vw;
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-photo {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
     .nav-arrows {
         position: fixed;
         width: 100%;
@@ -668,17 +686,25 @@ body {
         justify-content: space-between;
         padding: 0 20px;
         z-index: 27;
-        pointer-events: none; // This allows clicks to pass through to images
+        pointer-events: none;
     }
 
     .nav-arrow {
         width: 30px;
         height: 30px;
         cursor: pointer;
-        pointer-events: auto; // Re-enable clicks just for arrows
+        pointer-events: auto;
         background-color: rgba(255, 255, 255, 0.5);
         padding: 5px;
         border-radius: 50%;
+    }
+
+    .back-arrow {
+        display: none !important;
+    }
+
+    .section-navigation {
+        display: none !important;
     }
 }
 
