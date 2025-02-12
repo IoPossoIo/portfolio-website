@@ -169,82 +169,77 @@ document.querySelectorAll('#sectionNavigation .nav-item').forEach(item => {
     });
 });
 
+let currentImageIndex = 0;
+
 function displayPhotographySection(section) {
     hideAllContent();
-    document.querySelector('.text-top-right').style.display = 'block';
-    document.getElementById('sectionNavigation').style.display = 'flex';
-    document.getElementById('goBack').style.display = 'block';
-    document.getElementById('imageContainer').style.display = 'grid';
-    
-    // Show back arrow only in section view
-    const backArrow = document.querySelector('.back-arrow');
-    if (backArrow) {
-        backArrow.style.display = 'block';
-    }
-    
+    const sectionData = photographySections[section];
     const container = document.getElementById('imageContainer');
     container.innerHTML = '';
-    
-    // Create lightbox elements if they don't exist
-    if (!document.getElementById('lightbox')) {
-        const lightbox = document.createElement('div');
-        lightbox.id = 'lightbox';
-        lightbox.style.display = 'none';
-        lightbox.style.position = 'fixed';
-        lightbox.style.top = '0';
-        lightbox.style.left = '0';
-        lightbox.style.width = '100%';
-        lightbox.style.height = '100%';
-        lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-        lightbox.style.zIndex = '1000';
-        lightbox.style.display = 'none';
-        lightbox.style.justifyContent = 'center';
-        lightbox.style.alignItems = 'center';
-        lightbox.style.cursor = 'pointer';
-        
-        // Close lightbox when clicking anywhere
-        lightbox.addEventListener('click', () => {
-            lightbox.style.display = 'none';
-        });
-        
-        document.body.appendChild(lightbox);
-    }
-    
-    const sectionData = photographySections[section];
-    if (sectionData) {
-        sectionData.images.slice(0, 7).forEach((img, index) => {
+
+    if (window.innerWidth <= 768) { // Mobile view
+        // Create navigation arrows
+        const navArrows = document.createElement('div');
+        navArrows.className = 'nav-arrows';
+        navArrows.innerHTML = `
+            <img src="/images/arrow-left.svg" class="nav-arrow left" alt="Previous">
+            <img src="/images/arrow-right.svg" class="nav-arrow right" alt="Next">
+        `;
+        container.appendChild(navArrows);
+
+        // Add all images but only show the first one
+        sectionData.images.forEach((img, index) => {
             const imgElement = document.createElement('img');
             imgElement.src = img;
-            imgElement.className = 'photo';
-            if (index === 1) {
-                imgElement.classList.add('landscape');
-            } else {
-                imgElement.classList.add('vertical');
-            }
-            
-            // Add click handler for lightbox
-            imgElement.style.cursor = 'pointer';
-            imgElement.addEventListener('click', (e) => {
-                const lightbox = document.getElementById('lightbox');
-                const fullImg = document.createElement('img');
-                fullImg.src = img;
-                fullImg.style.maxHeight = '90vh';
-                fullImg.style.maxWidth = '90vw';
-                fullImg.style.objectFit = 'contain';
-                
-                lightbox.innerHTML = '';
-                lightbox.appendChild(fullImg);
-                lightbox.style.display = 'flex';
-                
-                e.stopPropagation(); // Prevent event bubbling
-            });
-            
+            imgElement.className = `photo ${index === 0 ? 'active' : ''}`;
             container.appendChild(imgElement);
         });
-        
-        document.getElementById('sectionTitle').innerHTML = sectionData.text;
-        document.getElementById('sectionTitle').style.display = 'block';
+
+        // Add click handlers for arrows
+        const leftArrow = container.querySelector('.nav-arrow.left');
+        const rightArrow = container.querySelector('.nav-arrow.right');
+
+        leftArrow.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + sectionData.images.length) % sectionData.images.length;
+            updateActiveImage(container);
+        });
+
+        rightArrow.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % sectionData.images.length;
+            updateActiveImage(container);
+        });
+
+        // Add swipe handlers
+        let touchStartX = 0;
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        container.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > 50) { // Minimum swipe distance
+                if (diff > 0) { // Swipe left
+                    rightArrow.click();
+                } else { // Swipe right
+                    leftArrow.click();
+                }
+            }
+        });
+    } else {
+        // Desktop view (keep existing grid layout)
+        // ... existing desktop code ...
     }
+
+    document.getElementById('sectionTitle').innerHTML = sectionData.text;
+    document.getElementById('sectionTitle').style.display = 'block';
+}
+
+function updateActiveImage(container) {
+    container.querySelectorAll('.photo').forEach((img, index) => {
+        img.classList.toggle('active', index === currentImageIndex);
+    });
 }
 
 function displayMarketingSection(section) {

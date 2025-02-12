@@ -597,70 +597,72 @@ body {
     }
 
     .image-container {
-        top: 45%;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 1fr);
+        top: 50%;
         width: 90vw;
-        height: 65vh; // Reduced height to fit
-        gap: 8px;
-        padding: 0 2vw;
-    }
-
-    .photo.landscape {
-        grid-column: 1 / span 2;
-    }
-
-    .folder-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        width: 90vw;
-        margin-top: 15vh;
-    }
-
-    .section-title {
-        bottom: 8vh;
-        font-size: 16px;
-        padding: 0 10px;
-        width: 85vw; // Prevent text overflow
-    }
-
-    .marketing-container {
-        width: 95%;
-        margin-top: 60px;
-    }
-
-    .marketing-image {
-        max-width: 90%;
-    }
-
-    .back-arrow {
-        top: 15%;
-        left: 3vw;
-        width: 20px;
-    }
-
-    .modal-content {
-        max-width: 95%;
-    }
-
-    .close-modal {
-        top: 10px;
-        right: 20px;
+        height: 50vh;
+        display: block; // Change from grid to single image
+        padding: 0;
     }
 
     .photo {
-        max-height: none;
+        display: none; // Hide all photos by default
+        width: 100%;
+        height: 100%;
+        object-fit: contain; // Maintain aspect ratio
+    }
+
+    .photo.active {
+        display: block; // Show only active photo
+    }
+
+    .nav-arrows {
+        position: fixed;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 27;
+    }
+
+    .nav-arrow {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+    .section-title {
+        bottom: 15vh;
+        font-size: 14px;
+        width: 80vw;
+        white-space: normal;
+        line-height: 1.4;
     }
 
     .about-content {
-        font-size: 14px; // Smaller font for mobile
-        width: 85vw;
-        max-height: 70vh;
+        font-size: 14px;
+        width: 80vw;
+        top: 45%;
+        line-height: 1.4;
+        max-height: 60vh;
+    }
+
+    .text-top-right {
+        font-size: 12px;
+        top: 15px;
+        right: 15px;
+        width: auto;
+        text-align: right;
     }
 
     #sectionNavigation {
-        bottom: 20px;
+        bottom: 5vh;
         font-size: 14px;
+        width: 90vw;
+        display: flex;
+        justify-content: space-between;
     }
 }
 
