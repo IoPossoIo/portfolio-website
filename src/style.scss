@@ -397,8 +397,8 @@ body {
 
 .back-arrow {
     position: absolute;
-    top: 25%;
-    left: calc(12.5vw - 40px);
+    top: calc(40% - 30vh - 20px);
+    left: calc(50% - 37.5vw - 40px);
     width: 30px;
     height: auto;
     cursor: pointer;
@@ -597,25 +597,19 @@ body {
     }
 
     .image-container {
-        grid-template-columns: 1fr !important; // Force single column
-        grid-template-rows: 1fr !important;
-        height: 70vh;
-        width: 90vw;
-        gap: 0;
-        
-        .photo {
-            display: none;
-            &.active {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
+        top: 45%;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 95vw;
+        height: 80vh;
+        gap: 8px;
+        padding: 0 2vw;
+    }
 
-        .photo.landscape {
-            grid-column: auto; // Reset desktop grid settings
-        }
+    .back-arrow {
+        top: calc(45% - 40vh - 20px);
+        left: 3vw;
+        width: 20px;
     }
 
     .folder-grid {
@@ -639,12 +633,6 @@ body {
 
     .marketing-image {
         max-width: 90%;
-    }
-
-    .back-arrow {
-        top: 15%;
-        left: 3vw;
-        width: 20px;
     }
 
     .modal-content {
