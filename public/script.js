@@ -68,8 +68,8 @@ document.getElementById('about').addEventListener('click', () => {
     
     document.getElementById('mainText').innerHTML = `
         <p style="margin-bottom: 1em;">Antonio is a marketing professional with a <span style="color: #C65D57;">Data Analytics BSc</span> and a passion for storytelling and creative strategy.</p>
-        <p style="margin-bottom: 1em;">Blending creativity with data-driven insights to develop consumer-first marketing initiatives by day.</p>
-        <p><a href="https://almostfamouszine.com" style="color: inherit; text-decoration: none; font-size: inherit;">Capturing movement through photography and writing for <span style="color: #C65D57;">Almost Famous Zine</span> by night.</a></p>
+        <p style="margin-bottom: 1em;">Blending  <span style="color: #C65D57;">creativity </span>with data-driven insights to develop consumer-first marketing initiatives by day.</p>
+        <p style="margin-bottom: 1em;">Capturing movement through <span style="color: #C65D57;">photography and writing</span> by night.</p>
     `;
     document.getElementById('mainText').style.fontSize = '3em';
 });
@@ -247,8 +247,8 @@ function displayPhotographySection(section) {
             const navArrows = document.createElement('div');
             navArrows.className = 'nav-arrows';
             navArrows.innerHTML = `
-                <img src="/images/arrow-left.svg" class="nav-arrow left" alt="Previous">
-                <img src="/images/arrow-right.svg" class="nav-arrow right" alt="Next">
+                <img src="/public/images/arrow-left.png" class="nav-arrow left" alt="Previous">
+                <img src="/public/images/arrow-right.png" class="nav-arrow right" alt="Next">
             `;
             container.appendChild(navArrows);
         }

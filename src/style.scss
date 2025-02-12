@@ -682,6 +682,20 @@ body {
         padding: 5px;
         border-radius: 50%;
     }
+
+    .image-container {
+        .photo {
+            display: none;
+            
+            &.active {
+                display: block;
+            }
+            
+            &.hidden {
+                display: none;
+            }
+        }
+    }
 }
 
 /* Additional adjustments for very small screens */
