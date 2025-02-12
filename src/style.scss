@@ -727,6 +727,22 @@ body {
     .section-navigation {
         display: none !important;
     }
+
+    #mainText {
+        font-size: 1.5em !important;
+    }
+
+    .middle-text {
+        .main-text {
+            font-size: 1.2em !important;
+            p {
+                font-size: 0.8em !important;
+            }
+        }
+        .go-home {
+            font-size: 0.8em !important;
+        }
+    }
 }
 
 /* Additional adjustments for very small screens */
@@ -766,6 +782,22 @@ body {
     .text-top-right {
         .contact, .about {
             font-size: 8px !important;
+        }
+    }
+
+    #mainText {
+        font-size: 1.2em !important;
+    }
+
+    .middle-text {
+        .main-text {
+            font-size: 1em !important;
+            p {
+                font-size: 0.7em !important;
+            }
+        }
+        .go-home {
+            font-size: 0.7em !important;
         }
     }
 }
