@@ -252,6 +252,40 @@ function displayPhotographySection(section) {
                 <img src="/images/arrow-right.png" class="nav-arrow right" alt="Next">
             `;
             container.appendChild(navArrows);
+
+            // Make first image active on mobile
+            container.querySelectorAll('.photo').forEach((img, index) => {
+                if (index === 0) img.classList.add('active');
+                else img.classList.add('hidden');
+            });
+
+            // Add click handlers for arrows
+            const leftArrow = container.querySelector('.nav-arrow.left');
+            const rightArrow = container.querySelector('.nav-arrow.right');
+
+            leftArrow.addEventListener('click', () => {
+                const photos = container.querySelectorAll('.photo');
+                const currentActive = container.querySelector('.photo.active');
+                const currentIndex = Array.from(photos).indexOf(currentActive);
+                const newIndex = (currentIndex - 1 + photos.length) % photos.length;
+                
+                currentActive.classList.remove('active');
+                currentActive.classList.add('hidden');
+                photos[newIndex].classList.add('active');
+                photos[newIndex].classList.remove('hidden');
+            });
+
+            rightArrow.addEventListener('click', () => {
+                const photos = container.querySelectorAll('.photo');
+                const currentActive = container.querySelector('.photo.active');
+                const currentIndex = Array.from(photos).indexOf(currentActive);
+                const newIndex = (currentIndex + 1) % photos.length;
+                
+                currentActive.classList.remove('active');
+                currentActive.classList.add('hidden');
+                photos[newIndex].classList.add('active');
+                photos[newIndex].classList.remove('hidden');
+            });
         }
         
         document.getElementById('sectionTitle').innerHTML = sectionData.text;
