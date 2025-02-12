@@ -620,10 +620,18 @@ body {
     }
 
     .section-title {
-        bottom: 15vh;
-        font-size: 14px;
-        white-space: normal;
-        padding: 0 20px;
+        bottom: 8vh;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 90vw;
+    }
+
+    .text-top-right {
+        font-size: 11px;
+        top: 15px;
+        right: 15px;
     }
 
     .marketing-container {
@@ -661,11 +669,11 @@ body {
 
     .mobile-image-container {
         position: fixed;
-        top: 50%;
+        top: 55%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 90vw;
-        height: 70vh;
+        width: 85vw;
+        height: 60vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -680,7 +688,7 @@ body {
     .nav-arrows {
         position: fixed;
         width: 100%;
-        top: 50%;
+        top: 55%;
         transform: translateY(-50%);
         display: flex;
         justify-content: space-between;

@@ -384,3 +384,58 @@ function showFolderGrid() {
     document.getElementById('goBack').style.display = 'none'; // Hide just the "GO BACK" button
 }
 
+function handleMarketingClick(folder) {
+    switch(folder) {
+        case 'boombit':
+            // Open PDF in new tab
+            window.open('/a-brief-campaign-overview.pdf', '_blank');
+            break;
+            
+        case 'gala':
+            // Redirect to YouTube
+            window.open('https://www.youtube.com/watch?v=LJhwu2xsqaA', '_blank');
+            break;
+            
+        case 'mojo':
+            // Redirect to esportsinsider article
+            window.open('https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo', '_blank');
+            break;
+            
+        case 'extra':
+            // Open PDF in new tab
+            window.open('/UN_MONUSCO.pdf', '_blank');
+            break;
+    }
+}
+
+// Add this to your existing click handler setup
+document.querySelectorAll('.marketing-folder').forEach(folder => {
+    folder.addEventListener('click', () => {
+        const folderName = folder.getAttribute('data-folder');
+        handleMarketingClick(folderName);
+    });
+});
+
+// Add this after the existing click handlers
+
+// Handle marketing folder clicks
+document.querySelectorAll('#marketingFolders .folder').forEach(folder => {
+    folder.addEventListener('click', () => {
+        const section = folder.getAttribute('data-section');
+        switch(section) {
+            case 'BOOMBIT':
+                window.open('/a-brief-campaign-overview.pdf', '_blank');
+                break;
+            case 'GALA GAMES':
+                window.open('https://www.youtube.com/watch?v=LJhwu2xsqaA', '_blank');
+                break;
+            case 'PLANET MOJO':
+                window.open('https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo', '_blank');
+                break;
+            case 'EXTRA':
+                window.open('/UN_MONUSCO.pdf', '_blank');
+                break;
+        }
+    });
+});
+
