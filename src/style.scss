@@ -907,10 +907,6 @@ body {
         display: none !important;
     }
 
-    .section-title {
-        display: none !important;
-    }
-
     #sectionNavigation {
         display: none !important;
     }
@@ -918,6 +914,26 @@ body {
     .image-container {
         height: 80vh !important;
         top: 50% !important;
+    }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .image-container {
+        top: 45% !important; // Move images up slightly
+    }
+
+    .section-title {
+        display: block !important; // Always show the title
+        position: fixed;
+        bottom: 15vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        text-align: center;
+        font-size: 16px;
+        white-space: normal; // Allow text to wrap
+        line-height: 1.4;
     }
 }
 
