@@ -100,27 +100,56 @@ const photographySections = {
     },
     "YOUBET": {
         images: ["/images/youbet/youbet1.jpeg", "/images/youbet/youbet2.jpeg", "/images/youbet/youbet3.jpeg", "/images/youbet/youbet4.jpeg", "/images/youbet/youbet5.jpeg"],
-        text: "youbet live at union pool"
+        text: "youbet live at union pool, "
     }
 };
 
-// Marketing section data
-const marketingSections = {
+// Marketing section data structure
+const marketingFolders = {
     "BOOMBIT": {
-        image: "boombit.jpg",
-        text: "BoomBit project details..."
+        folders: ["F2P Campaign", "Creative", "Performance"],
+        links: {
+            "F2P Campaign": "/a-brief-campaign-overview.pdf"
+        },
+        icons: {
+            "F2P Campaign": "./images/pdf.png"
+        }
     },
     "GALA GAMES": {
-        image: "gala.jpg",
-        text: "Gala Games project details..."
+        folders: ["DreamWorks Partnership", "Creative", "Performance"],
+        links: {
+            "DreamWorks Partnership": "https://www.youtube.com/watch?v=LJhwu2xsqaA"
+        },
+        icons: {
+            "DreamWorks Partnership": "./images/video.png"
+        }
     },
     "PLANET MOJO": {
-        image: "mojo.jpg",
-        text: "Planet Mojo project details..."
+        folders: ["Talon Esports Partnership", "Creative", "Performance"],
+        links: {
+            "Talon Esports Partnership": "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo"
+        },
+        icons: {
+            "Talon Esports Partnership": "./images/text.png"
+        }
     },
-    "EXTRA": {
-        image: "extra.jpg",
-        text: "Extra project details..."
+    "UNITED NATIONS": {
+        folders: ["PowerBI Dashboard"],
+        links: {
+            "PowerBI Dashboard": "/UN_MONUSCO.pdf"
+        },
+        icons: {
+            "PowerBI Dashboard": "./images/pdf.png"
+        }
+    },
+    "360X ART": {
+        folders: ["Pitch Deck"],
+        links: {
+            "Pitch Deck": "/360X Art Pitch Deck.pdf"
+        },
+        icons: {
+            "Pitch Deck": "./images/pdf.png"
+        }
     }
 };
 
@@ -324,29 +353,7 @@ function showFolderGrid() {
     document.getElementById('goBack').style.display = 'none'; // Hide just the "GO BACK" button
 }
 
-function handleMarketingClick(folder) {
-    switch(folder) {
-        case 'boombit':
-            // Open PDF in new tab
-            window.open('/a-brief-campaign-overview.pdf', '_blank');
-            break;
-            
-        case 'gala':
-            // Redirect to YouTube
-            window.open('https://www.youtube.com/watch?v=LJhwu2xsqaA', '_blank');
-            break;
-            
-        case 'mojo':
-            // Redirect to esportsinsider article
-            window.open('https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo', '_blank');
-            break;
-            
-        case 'extra':
-            // Open PDF in new tab
-            window.open('/UN_MONUSCO.pdf', '_blank');
-            break;
-    }
-}
+
 
 // Add this to your existing click handler setup
 document.querySelectorAll('.marketing-folder').forEach(folder => {
@@ -356,31 +363,71 @@ document.querySelectorAll('.marketing-folder').forEach(folder => {
     });
 });
 
-// Add this after the existing click handlers
-
 // Handle marketing folder clicks
 document.querySelectorAll('#marketingFolders .folder').forEach(folder => {
     folder.addEventListener('click', () => {
         const section = folder.getAttribute('data-section');
-        switch(section) {
-            case 'BOOMBIT':
-                window.open('/a-brief-campaign-overview.pdf', '_blank');
-                break;
-            case 'GALA GAMES':
-                window.open('https://www.youtube.com/watch?v=LJhwu2xsqaA', '_blank');
-                break;
-            case 'PLANET MOJO':
-                window.open('https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo', '_blank');
-                break;
-            case 'EXTRA UN':
-                window.open('/UN_MONUSCO.pdf', '_blank');
-                break;
-            case 'EXTRA 360X':
-                window.open('/360X Art Pitch Deck.pdf', '_blank');
-                break;
+        const folderData = marketingFolders[section];
+        
+        if (folderData) {
+            document.getElementById('marketingFolders').style.display = 'none';
+            displayMarketingSubfolders(section, folderData.folders);
         }
     });
 });
+
+function displayMarketingSubfolders(parentSection, folders) {
+    const marketingContainer = document.getElementById('marketingContainer');
+    marketingContainer.innerHTML = '';
+    marketingContainer.style.display = 'block';
+    
+    const folderGrid = document.createElement('div');
+    folderGrid.className = 'folder-grid';
+    folderGrid.style.display = 'grid';
+    folderGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+
+    folders.forEach(folderName => {
+        const folder = document.createElement('div');
+        folder.className = 'folder';
+        
+        // Use the appropriate icon if specified, otherwise use folder.png
+        const iconPath = marketingFolders[parentSection].icons?.[folderName] || "./images/folder.png";
+        
+        folder.innerHTML = `
+            <img src="${iconPath}" alt="${folderName} Icon" class="folder-image" />
+            <div class="folder-text">${folderName}</div>
+        `;
+        
+        folder.addEventListener('click', () => {
+            const parentData = marketingFolders[parentSection];
+            if (parentData && parentData.links && parentData.links[folderName]) {
+                window.open(parentData.links[folderName], '_blank');
+            }
+        });
+
+        folderGrid.appendChild(folder);
+    });
+
+    marketingContainer.appendChild(folderGrid);
+
+    // Show navigation with GO BACK and GO HOME
+    const marketingNav = document.getElementById('marketingNavigation');
+    marketingNav.style.display = 'flex';
+    document.getElementById('goBackMarketing').style.display = 'inline-block';
+    
+    // Update GO BACK functionality
+    document.getElementById('goBackMarketing').onclick = () => {
+        hideAllContent();
+        document.getElementById('marketingFolders').style.display = 'grid';
+        document.getElementById('marketingFolders').style.gridTemplateColumns = 'repeat(3, 1fr)';
+        document.querySelector('.text-top-right').style.display = 'block';
+        marketingContainer.style.display = 'none';
+        
+        // Ensure marketing navigation stays visible with both buttons
+        marketingNav.style.display = 'flex';
+        document.getElementById('goBackMarketing').style.display = 'none';
+    };
+}
 
 // Ensure the about section is updated correctly
 function displayAboutSection() {
