@@ -740,20 +740,25 @@ body {
 
     .nav-arrows {
         position: fixed;
-        width: 92vw; // Reduced from 95vw to bring right arrow more to the left
+        width: 90vw; // Slightly narrower than before
         top: 50%;
-        transform: translateY(-50%);
-        left: -4vw; // Keep the left arrow position
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: space-between; // This ensures equal spacing
+        padding: 0 20px; // Add padding to push arrows away from edges
+        box-sizing: border-box;
         z-index: 27;
     }
 
     .nav-arrow {
-        width: 30px;
-        height: auto;
-        cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 5px;
-        border-radius: 50%;
+        &.left {
+            margin-left: -10px; // Push left arrow slightly more left
+        }
+        
+        &.right {
+            margin-right: -10px; // Push right arrow slightly more right
+        }
     }
 
     .back-arrow {
