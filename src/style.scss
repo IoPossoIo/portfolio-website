@@ -773,6 +773,21 @@ body {
     [src*="text.png"] {
         width: 50px;
     }
+
+    .nav-arrow.right {
+        right: -30px; // Push right arrow even further right
+    }
+
+    .text-top-right {
+        top: 25px;
+        .contact, .about {
+            font-size: 24px !important;
+        }
+    }
+
+    .logo {
+        font-size: 48px !important; // Much bigger logo with !important to override other styles
+    }
 }
 
 /* Additional adjustments for very small screens */
@@ -1099,7 +1114,7 @@ body {
     }
 
     .logo {
-        font-size: 32px;
+        font-size: 52px !important;
     }
 }
 
@@ -1117,7 +1132,7 @@ body {
     }
 
     .logo {
-        font-size: 32px;
+        font-size: 52px !important;
     }
 }
 
@@ -1135,7 +1150,7 @@ body {
     }
 
     .logo {
-        font-size: 28px;
+        font-size: 48px !important;
     }
 }
 
@@ -1152,7 +1167,20 @@ body {
     }
 
     .logo {
-        font-size: 24px;
+        font-size: 42px !important;
+    }
+}
+
+@media (max-width: 768px) { // Target mobile devices
+    .section-title {
+        display: block; // Ensure the section title is displayed
+        font-size: 20px; // Adjust font size for mobile
+        text-align: center; // Center the text
+        margin-top: 10px; // Add some space above the title
+        line-height: 1.2; // Adjust line height for better readability
+        white-space: normal; // Allow text to wrap
+        max-width: 90%; // Limit width for wrapping
+        overflow-wrap: break-word; // Allow breaking of long words
     }
 }
 
