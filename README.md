@@ -1,6 +1,6 @@
 **You shouldn't be here**
 
-[Just go see my portfolio](antoniotaurisano.com)
+[Just go see my portfolio](https://www.antoniotaurisano.com)
 
 Or look at this cute dog 👇
 
