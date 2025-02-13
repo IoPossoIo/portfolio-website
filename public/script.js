@@ -44,6 +44,7 @@ function hideAllContent() {
     if (backArrow) {
         backArrow.style.display = 'none';
     }
+    document.querySelector('.photography-folders-home').style.display = 'none';
 }
 
 // Click event for CONTACT
@@ -213,16 +214,12 @@ const marketingFolders = {
 // Click event for Photography
 document.getElementById('Photography').addEventListener('click', () => {
     hideAllContent();
-    document.querySelector('.text-top-right').style.display = 'block';
     document.getElementById('photographyFolders').style.display = 'grid';
-    document.getElementById('sectionNavigation').style.display = 'flex';
-    document.getElementById('goBack').style.display = 'none';
-    document.getElementById('backToFolders').style.display = 'none';
+    document.querySelector('.text-top-right').style.display = 'block';
     
-    // Explicitly hide back arrow
-    const backArrow = document.querySelector('.back-arrow');
-    if (backArrow) {
-        backArrow.style.display = 'none';
+    // Show the home button only on mobile
+    if (window.innerWidth <= 768) {
+        document.querySelector('.photography-folders-home').style.display = 'block';
     }
 });
 

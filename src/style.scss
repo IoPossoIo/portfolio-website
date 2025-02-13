@@ -800,6 +800,16 @@ body {
     .logo {
         font-size: 48px !important; // Much bigger logo with !important to override other styles
     }
+
+    #photographyFolders, #marketingFolders {
+        margin-top: -5vh !important; // Reduced from -20vh to -5vh for better centering
+        gap: 30px !important;
+        padding: 20px !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        justify-items: center;
+        align-items: start;
+    }
 }
 
 /* Additional adjustments for very small screens */
@@ -1193,6 +1203,34 @@ body {
         white-space: normal; // Allow text to wrap
         max-width: 90%; // Limit width for wrapping
         overflow-wrap: break-word; // Allow breaking of long words
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #marketingFolders:not([style*="display: none"]) ~ .gradient-bg,
+    #marketingContainer:not([style*="display: none"]) ~ .gradient-bg {
+        display: none !important;
+    }
+}
+
+.photography-folders-home {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Baskerville', serif;
+    z-index: 30;
+    
+    .photo-home-link {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: inherit;
+        font-size: 1.2em;
+        
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
