@@ -624,13 +624,13 @@ body {
     }
 
     .image-container {
-        top: 45%;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-        width: 95vw;
-        height: 80vh;
-        gap: 8px;
-        padding: 0 2vw;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .photo {
+        max-height: 50vh;
+        width: auto;
     }
 
     .back-arrow {
@@ -681,10 +681,6 @@ body {
     .close-modal {
         top: 10px;
         right: 20px;
-    }
-
-    .photo {
-        max-height: none;
     }
 
     .about-content {
