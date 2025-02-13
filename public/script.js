@@ -106,50 +106,101 @@ const photographySections = {
 
 // Marketing section data structure
 const marketingFolders = {
-    "BOOMBIT": {
-        folders: ["F2P Campaign", "Creative", "Performance"],
+    "SOCIAL MEDIA CONTENT": {
+        folders: [
+            "Hunters On-Chain 18 Seconds Sold Out!",
+            "Hunters On-Chain DappRadar Article",
+            "Planet Mojo New Game Announcement",
+            "Get Plucked Medium Article",
+            "VOX: What is it?"
+        ],
         links: {
-            "F2P Campaign": "/a-brief-campaign-overview.pdf"
+            "Hunters On-Chain 18 Seconds Sold Out!": "https://x.com/BoomLandGames/status/1620478702407778304",
+            "Hunters On-Chain DappRadar Article": "https://dappradar.com/blog/hunters-on-chain-game-guide",
+            "Planet Mojo Game Announcement": "https://x.com/WeArePlanetMojo/status/1776365595040047194",
+            "Get Plucked Medium Article": "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2",
+            "VOX: What is it?": "https://www.youtube.com/watch?v=ojEZtZars7Q"
         },
         icons: {
-            "F2P Campaign": "./images/pdf.png"
-        }
+            "Hunters On-Chain 18 Seconds Sold Out!": "./images/text.png",
+            "Hunters On-Chain DappRadar Article": "./images/text.png",
+            "Planet Mojo Game Announcement": "./images/video.png",
+            "Get Plucked Medium Article": "./images/text.png",
+            "VOX: What is it?": "./images/video.png"
+        },
+        headerText: "I swear i wrote copy and storyboarded this stuff without chatgpt"
     },
-    "GALA GAMES": {
-        folders: ["DreamWorks Partnership", "Creative", "Performance"],
+    "IP PARTNERSHIPS": {
+        folders: [
+            "VOX & DreamWorks Trolls",
+            "VOX & AMC's The Walking Dead ",
+            "Planet Mojo & WowWee Plushies",
+            "Planet Mojo & Talon Esports"
+        ],
         links: {
-            "DreamWorks Partnership": "https://www.youtube.com/watch?v=LJhwu2xsqaA"
+            "Gala Games: DreamWorks Trolls IP Partnership": "https://www.youtube.com/watch?v=LJhwu2xsqaA",
+            "Gala Games: The Walking Dead IP Partnership": "https://www.youtube.com/watch?v=mhnusMyUWm0",
+            "Planet Mojo: WowWee Partnership for Plushies": "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain",
+            "Planet Mojo: Talon Esports Partnership": "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo"
         },
         icons: {
-            "DreamWorks Partnership": "./images/video.png"
-        }
+            "Gala Games: DreamWorks Trolls IP Partnership": "./images/video.png",
+            "Gala Games: The Walking Dead IP Partnership": "./images/video.png",
+            "Planet Mojo: WowWee Partnership for Plushies": "./images/text.png",
+            "Planet Mojo: Talon Esports Partnership": "./images/text.png"
+        },
+        headerText: "a lot of cool partnerships with cool people!"
     },
-    "PLANET MOJO": {
-        folders: ["Talon Esports Partnership", "Creative", "Performance"],
+    "LIVESTREAMS": {
+        folders: [
+            "Get Plucked Mobile Game Release",
+            "Interview with Neo Tokyo",
+            "Interview with Decentraland"
+        ],
         links: {
-            "Talon Esports Partnership": "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo"
+            "Get Plucked Mobile Game Release": "https://www.youtube.com/watch?v=0bvVVXM1OqA",
+            "Interview with Neo Tokyo": "https://x.com/NeoTokyoCode/status/1834373045311676533",
+            "Interview with Decentraland": "https://www.linkedin.com/events/7208541648673210369/comments/"
         },
         icons: {
-            "Talon Esports Partnership": "./images/text.png"
-        }
+            "Get Plucked Mobile Game Release": "./images/video.png",
+            "Interview with Neo Tokyo": "./images/video.png",
+            "Interview with Decentraland": "./images/video.png"
+        },
+        headerText: "Bonus: in all these videos you can see my pretty face!!"
     },
-    "UNITED NATIONS": {
-        folders: ["PowerBI Dashboard"],
+    "METRICS": {
+        folders: [
+            "Planet Mojo Twitter Growth YoY",
+            "Boombit F2P Campaign Performance"
+        ],
         links: {
-            "PowerBI Dashboard": "/UN_MONUSCO.pdf"
+            "Planet Mojo Twitter Growth YoY": "/Planet Mojo Twitter - YoY Impact.png",
+            "Boombit F2P Campaign Performance": "/a-brief-campaign-overview.pdf"
         },
         icons: {
-            "PowerBI Dashboard": "./images/pdf.png"
-        }
+            "Planet Mojo Twitter Growth YoY": "./images/pdf.png",
+            "Boombit F2P Campaign Performance": "./images/pdf.png"
+        },
+        headerText: "maybe the real impact was the friends we made along the way?"
     },
-    "360X ART": {
-        folders: ["Pitch Deck"],
+    "DATA ANALYTICS": {
+        folders: [
+            "United Nations PowerBI Dashboard",
+            "A self-esteem journey through gender identities",
+            "360X Art Pitch Deck"
+        ],
         links: {
-            "Pitch Deck": "/360X Art Pitch Deck.pdf"
+            "United Nations PowerBI Dashboard": "/UN_MONUSCO.pdf",
+            "A self-esteem journey through gender identities": "https://rpubs.com/iopossoio/psychometrics",
+            "360X Art Pitch Deck": "/360X Art Pitch Deck.pdf"
         },
         icons: {
-            "Pitch Deck": "./images/pdf.png"
-        }
+            "United Nations PowerBI Dashboard": "./images/pdf.png",
+            "A self-esteem journey through gender identities": "./images/pdf.png",
+            "360X Art Pitch Deck": "./images/pdf.png"
+        },
+        headerText: "yeah I happen to have a degree in this stuff"
     }
 };
 
@@ -353,8 +404,6 @@ function showFolderGrid() {
     document.getElementById('goBack').style.display = 'none'; // Hide just the "GO BACK" button
 }
 
-
-
 // Add this to your existing click handler setup
 document.querySelectorAll('.marketing-folder').forEach(folder => {
     folder.addEventListener('click', () => {
@@ -381,6 +430,80 @@ function displayMarketingSubfolders(parentSection, folders) {
     marketingContainer.innerHTML = '';
     marketingContainer.style.display = 'block';
     
+    if (marketingFolders[parentSection].headerText) {
+        const headerText = document.createElement('div');
+        headerText.style.fontFamily = 'Comic Sans MS, cursive';
+        headerText.style.textAlign = 'center';
+        headerText.style.position = 'absolute';
+        headerText.style.top = '15%';
+        headerText.style.left = '50%';
+        headerText.style.transform = 'translateX(-50%)';
+        headerText.style.fontSize = '32px';
+        headerText.style.backgroundColor = 'transparent';
+        headerText.style.padding = '15px';
+        headerText.style.borderRadius = '10px';
+        headerText.style.zIndex = '100';
+        headerText.style.width = '80%';
+        headerText.style.lineHeight = '1.4';
+        headerText.style.animation = 'wobble 2s infinite';
+        
+        // Format text with line breaks and separate emoji line
+        let displayText = marketingFolders[parentSection].headerText;
+        if (parentSection === "LIVESTREAMS") {
+            displayText = "Bonus:\nin all these videos\nyou can see my pretty face!";
+        } else if (parentSection === "METRICS") {
+            displayText = "maybe the real impact\nwas the friends\nwe made along the way?";
+        } else if (parentSection === "DATA ANALYTICS") {
+            displayText = "yeah I happen to have\na degree in this stuff";
+        } else if (parentSection === "SOCIAL MEDIA CONTENT") {
+            displayText = "I swear i wrote copy and\nstoryboarded this stuff\nwithout chatgpt";
+        } else if (parentSection === "IP PARTNERSHIPS") {
+            displayText = "a lot of cool partnerships\nwith cool people!";
+        }
+        
+        // Simplified text formatting without per-letter spans
+        const formattedText = displayText.split('\n').join('<br>');
+            
+        headerText.innerHTML = `${formattedText}<br><span class="sparkles">✨ ✨ ✨</span>`;
+        
+        marketingContainer.appendChild(headerText);
+
+        // Update CSS for animations - only sparkles and overall wobble
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes wobble {
+                0%, 100% { transform: translateX(-50%) rotate(-1deg); }
+                50% { transform: translateX(-50%) rotate(1deg); }
+            }
+            
+            @keyframes sparkle {
+                0% { transform: scale(1) rotate(0deg); }
+                25% { transform: scale(1.2) rotate(90deg); }
+                50% { transform: scale(1) rotate(180deg); }
+                75% { transform: scale(1.2) rotate(270deg); }
+                100% { transform: scale(1) rotate(360deg); }
+            }
+            
+            .sparkles {
+                display: block;
+                margin-top: 10px;
+            }
+            
+            .sparkles span {
+                display: inline-block;
+                margin: 0 10px;
+                animation: sparkle 2s infinite;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add individual animation delays to sparkles
+        const sparkles = headerText.querySelector('.sparkles');
+        sparkles.innerHTML = Array(3).fill('✨')
+            .map((sparkle, i) => `<span style="animation-delay: ${i * 0.3}s">${sparkle}</span>`)
+            .join(' ');
+    }
+
     const folderGrid = document.createElement('div');
     folderGrid.className = 'folder-grid';
     folderGrid.style.display = 'grid';
