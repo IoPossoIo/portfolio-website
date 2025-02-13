@@ -45,6 +45,7 @@ function hideAllContent() {
         backArrow.style.display = 'none';
     }
     document.querySelector('.photography-folders-home').style.display = 'none';
+    document.querySelector('.mobile-back-button').style.display = 'none';
 }
 
 // Click event for CONTACT
@@ -107,7 +108,7 @@ const photographySections = {
     },
     "YOUBET": {
         images: ["/images/youbet/youbet1.jpeg", "/images/youbet/youbet2.jpeg", "/images/youbet/youbet3.jpeg", "/images/youbet/youbet4.jpeg", "/images/youbet/youbet5.jpeg"],
-        text: "youbet live at union pool, "
+        text: "youbet live at union pool"
     }
 };
 
@@ -305,6 +306,11 @@ function displayPhotographySection(section) {
             currentIndex = (currentIndex + 1) % sectionData.images.length;
             updateImage(sectionData.images[currentIndex]);
         });
+    }
+
+    // Show mobile back button
+    if (window.innerWidth <= 768) {
+        document.querySelector('.mobile-back-button').style.display = 'block';
     }
 }
 
@@ -579,3 +585,13 @@ function adjustFontSize() {
 // Call the function on load and on resize
 window.addEventListener('load', adjustFontSize);
 window.addEventListener('resize', adjustFontSize);
+
+// Add click handler for mobile back button
+document.querySelector('.mobile-back-button').addEventListener('click', () => {
+    hideAllContent();
+    document.getElementById('photographyFolders').style.display = 'grid';
+    document.querySelector('.text-top-right').style.display = 'block';
+    if (window.innerWidth <= 768) {
+        document.querySelector('.photography-folders-home').style.display = 'block';
+    }
+});
