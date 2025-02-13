@@ -27,6 +27,12 @@ body {
   height: 100%;
   background: linear-gradient(to bottom right, #F5F5F5, #E0E0E0); // Your gradient
   font-family: 'Baskerville', serif; /* Set default font for the body */
+
+  @media screen and (max-width: 768px) {
+    background: #F5F5DC !important; // Beige background for mobile
+    // Or use the exact color from your design:
+    // background: #E8E6D9 !important;
+  }
 }
 
 .content {
@@ -229,6 +235,12 @@ body {
     left: -50%;
 
     opacity: 0.7;
+  }
+
+  @media screen and (max-width: 768px) {
+    background: #F5F5DC !important; // Same beige color
+    // Or:
+    // background: #E8E6D9 !important;
   }
 }
 

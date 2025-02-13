@@ -55,8 +55,14 @@ document.getElementById('contact').addEventListener('click', () => {
     document.getElementById('marketingFolders').style.display = 'none';
     
     const email = 'antoniotaurisanowrites@gmail.com';
-    document.getElementById('mainText').innerHTML = `<a href="mailto:${email}" style="color: inherit; text-decoration: none;">${email}</a>`;
-    document.getElementById('mainText').style.fontSize = '1em';
+    const mainText = document.getElementById('mainText');
+    mainText.textContent = email;
+    mainText.style.fontSize = '1.5em'; // Match GO HOME size on desktop
+    
+    // Adjust for mobile
+    if (window.innerWidth <= 480) {
+        mainText.style.fontSize = '0.5em';
+    }
 });
 
 // Click event for ABOUT
