@@ -125,14 +125,14 @@ const marketingFolders = {
         links: {
             "Hunters On-Chain 18 Seconds Sold Out!": "https://x.com/BoomLandGames/status/1620478702407778304",
             "Hunters On-Chain DappRadar Article": "https://dappradar.com/blog/hunters-on-chain-game-guide",
-            "Planet Mojo Game Announcement": "https://x.com/WeArePlanetMojo/status/1776365595040047194",
+            "Planet Mojo New Game Announcement": "https://x.com/WeArePlanetMojo/status/1776365595040047194",
             "Get Plucked Medium Article": "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2",
             "VOX: What is it?": "https://www.youtube.com/watch?v=ojEZtZars7Q"
         },
         icons: {
             "Hunters On-Chain 18 Seconds Sold Out!": "./images/text.png",
             "Hunters On-Chain DappRadar Article": "./images/text.png",
-            "Planet Mojo Game Announcement": "./images/video.png",
+            "Planet Mojo New Game Announcement": "./images/text.png",
             "Get Plucked Medium Article": "./images/text.png",
             "VOX: What is it?": "./images/video.png"
         },
@@ -146,16 +146,16 @@ const marketingFolders = {
             "Planet Mojo & Talon Esports"
         ],
         links: {
-            "Gala Games: DreamWorks Trolls IP Partnership": "https://www.youtube.com/watch?v=LJhwu2xsqaA",
-            "Gala Games: The Walking Dead IP Partnership": "https://www.youtube.com/watch?v=mhnusMyUWm0",
-            "Planet Mojo: WowWee Partnership for Plushies": "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain",
-            "Planet Mojo: Talon Esports Partnership": "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo"
+            "VOX & DreamWorks Trolls": "https://www.youtube.com/watch?v=LJhwu2xsqaA",
+            "VOX & AMC's The Walking Dead ": "https://www.youtube.com/watch?v=mhnusMyUWm0",
+            "Planet Mojo & WowWee Plushies": "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain",
+            "Planet Mojo & Talon Esports": "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo"
         },
         icons: {
-            "Gala Games: DreamWorks Trolls IP Partnership": "./images/video.png",
-            "Gala Games: The Walking Dead IP Partnership": "./images/video.png",
-            "Planet Mojo: WowWee Partnership for Plushies": "./images/text.png",
-            "Planet Mojo: Talon Esports Partnership": "./images/text.png"
+            "VOX & DreamWorks Trolls": "./images/video.png",
+            "VOX & AMC's The Walking Dead ": "./images/video.png",
+            "Planet Mojo & WowWee Plushies": "./images/text.png",
+            "Planet Mojo & Talon Esports": "./images/text.png"
         },
         headerText: "a lot of cool partnerships with cool people!"
     },
