@@ -72,7 +72,7 @@ document.getElementById('about').addEventListener('click', () => {
         <p style="margin-bottom: 1em;">Blending  <span style="color: #C65D57;">creativity </span>with data-driven insights to develop consumer-first marketing initiatives by day.</p>
         <p style="margin-bottom: 1em;">Capturing movement through <span style="color: #C65D57;">photography and writing</span> by night.</p>
     `;
-    document.getElementById('mainText').style.fontSize = '3em';
+    document.getElementById('mainText').style.fontSize = '2em';
 });
 
 // Photography section data
@@ -358,3 +358,27 @@ document.querySelectorAll('#marketingFolders .folder').forEach(folder => {
     });
 });
 
+// Ensure the about section is updated correctly
+function displayAboutSection() {
+    const aboutText = "Your dynamic about text here...<br>Strategy<br>Day<br>"; // Add line breaks
+    document.getElementById('aboutContent').innerHTML = aboutText; // Update the about content
+    document.getElementById('aboutContainer').style.display = 'block'; // Ensure it's visible
+
+    // Hide marketing and photography folders
+    document.getElementById('photographyFolders').style.display = 'none'; // Hide photography folders
+    document.querySelector('.text-top-right').style.display = 'none'; // Hide marketing links
+}
+
+function adjustFontSize() {
+    const aboutContent = document.getElementById('aboutContent');
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+
+    // Calculate font size based on viewport dimensions
+    const baseFontSize = Math.min(viewportWidth / 20, viewportHeight / 15); // Adjust the divisor for desired size
+    aboutContent.style.fontSize = `${baseFontSize}px`; // Set the calculated font size
+}
+
+// Call the function on load and on resize
+window.addEventListener('load', adjustFontSize);
+window.addEventListener('resize', adjustFontSize);

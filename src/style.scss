@@ -373,7 +373,7 @@ body {
   color: black; /* Set text color to black */
   display: block; /* Make it a block element to detach it */
   margin-top: 40px; /* Space above the link */
-  font-size: 3em; /* Set the font size for the "Go home" link */
+  font-size: 2em; /* Set the font size for the "Go home" link */
 }
 
 .image-container {
@@ -404,7 +404,7 @@ body {
 .photo {
     width: 100%;
     height: auto;
-    max-height: 60vh;
+    max-height: 70vh;
     object-fit: contain;
     object-position: center;
 }
@@ -441,7 +441,7 @@ body {
 
 .section-title {
     position: absolute;
-    bottom: 8vh;
+    bottom: 10vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -453,22 +453,26 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-family: 'Baskerville', serif;
-    font-size: 24px;
+    font-size: 28px;
 
     @media (max-height: 1000px) {
-        font-size: 22px;
+        font-size: 26px;
     }
 
     @media (max-height: 900px) {
-        font-size: 20px;
+        font-size: 24px;
     }
 
     @media (max-height: 800px) {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     @media (max-height: 700px) {
-        font-size: 16px;
+        font-size: 20px;
+    }
+
+    @media (max-width: 600px) {
+        display: none;
     }
 }
 
@@ -804,16 +808,27 @@ body {
     }
 }
 
+.about-container {
+    display: none; // Hide by default
+    position: fixed; // Fixed position to center on the screen
+    top: 50%; // Center vertically
+    left: 50%; // Center horizontally
+    transform: translate(-50%, -50%); // Adjust for centering
+    width: 80vw; // Width of the container
+    max-width: 600px; // Maximum width
+    background-color: rgba(255, 255, 255, 0.8); // Semi-transparent background
+    padding: 20px; // Padding around the text
+    border-radius: 10px; // Optional: rounded corners
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); // Optional: shadow for depth
+    z-index: 100; // Ensure it appears above other content
+}
+
 .about-content {
-    max-width: 90vw;
-    margin: 0 auto;
-    word-wrap: break-word;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    font-size: 16px; // Base font size
+    text-align: center; // Center the text
+    font-size: 18px; // Base font size
+    color: #333; // Text color
+    font-family: 'Baskerville', serif; // Use Baskerville font
+    text-transform: uppercase; // Transform text to uppercase
 }
 
 .about-content a {
