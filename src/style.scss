@@ -1,0 +1,1263 @@
+@font-face {
+  font-family: 'San Francisco';
+  src: url('../fonts/san-francisco.woff2') format('woff2'), /* Adjust the file extension if necessary */
+       url('../fonts/san-francisco.woff') format('woff'); /* Add other formats if available */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../fonts/SF-Pro-Display-Medium.otf') format('opentype'); /* Load the OTF font */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Baskerville';
+  src: url('./fonts/baskerville.ttf') format('truetype');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; // Prevent scrolling
+  position: fixed; // Force fixed position
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #F5F5F5, #E0E0E0); // Your gradient
+  font-family: 'Baskerville', serif; /* Set default font for the body */
+
+  @media screen and (max-width: 768px) {
+    background: #F5F5DC !important; // Beige background for mobile
+    // Or use the exact color from your design:
+    // background: #E8E6D9 !important;
+  }
+}
+
+.content {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.text-container {
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 96px;
+  color: white;
+  opacity: 0.8;
+  user-select: none;
+  text-shadow: 1px 1px rgba(0,0,0,0.1);
+}
+
+:root {
+  --color-bg1: rgb(240, 230, 210);
+  --color-bg2: rgb(255, 245, 230);
+  --color1: 156, 175, 136;
+  --color2: 138, 189, 145;
+  --color3: 154, 199, 145;
+  --color4: 192, 199, 145;
+  --color5: 169, 189, 147;
+  --color-interactive: 156, 175, 136;
+  --circle-size: 80%;
+  --blending: hard-light;
+}
+
+@keyframes moveInCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+  50% {
+    transform: translateX(50%) translateY(10%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+}
+
+.gradient-bg {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+  z-index: 1;
+  background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+
+  svg {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 0;
+    height: 0;
+  }
+
+  .gradients-container {
+    filter: url(#goo) blur(40px);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .g1, .g2, .g3, .g4, .g5 {
+    z-index: 10;
+    position: absolute;
+    pointer-events: auto;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    background: radial-gradient(circle at center, rgba(178, 34, 34, 0.8) 0, rgba(178, 34, 34, 0) 50%) no-repeat;
+    will-change: transform, opacity;
+  }
+  .g1 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+
+    transform-origin: center center;
+    animation: moveVertical 30s ease infinite;
+
+    opacity: 1;
+  }
+
+  .g2 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+
+    transform-origin: calc(50% - 400px);
+    animation: moveInCircle 20s reverse infinite;
+
+    opacity: 1;
+  }
+
+  .g3 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2 + 200px);
+    left: calc(50% - var(--circle-size) / 2 - 500px);
+
+    transform-origin: calc(50% + 400px);
+    animation: moveInCircle 40s linear infinite;
+
+    opacity: 1;
+  }
+
+  .g4 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+
+    transform-origin: calc(50% - 200px);
+    animation: moveHorizontal 40s ease infinite;
+
+    opacity: 0.7;
+  }
+
+  .g5 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: calc(var(--circle-size) * 2);
+    height: calc(var(--circle-size) * 2);
+    top: calc(50% - var(--circle-size));
+    left: calc(50% - var(--circle-size));
+
+    transform-origin: calc(50% - 800px) calc(50% + 200px);
+    animation: moveInCircle 20s ease infinite;
+
+    opacity: 1;
+  }
+
+  .interactive {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+
+    width: 100%;
+    height: 100%;
+    top: -50%;
+    left: -50%;
+
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 768px) {
+    background: #F5F5DC !important; // Same beige color
+    // Or:
+    // background: #E8E6D9 !important;
+  }
+}
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background-color: transparent;
+
+  .logo {
+    width: 100px;
+    height: auto;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: spin 10s linear infinite;
+  }
+
+  .white {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.folder-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.folder {
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.folder-image {
+  width: 120px;
+  height: auto;
+  transition: transform 0.2s;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// New specific styling for file icons
+[src*="pdf.png"], 
+[src*="video.png"], 
+[src*="text.png"] {
+  width: 80px;  // Smaller than folder images
+  height: auto;
+}
+
+.folder-text {
+  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif; /* Use SF Pro Display font */
+  font-size: 20px; /* Adjusted font size to be smaller */
+  color: white; /* Change text color to white */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add black shadow for better visibility */
+  margin-top: 5px;
+}
+
+.logo-container a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color */
+}
+
+.text-top-right {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  text-align: right; /* Align text to the right */
+  font-family: 'Baskerville', serif; /* Use the custom font */
+  z-index: 10; /* Ensure it's above other elements */
+  background-color: transparent; /* Optional: semi-transparent background */
+  padding: 10px; /* Optional: add some padding */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.text-top-right a {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Set text color to black */
+}
+
+.contact, .about {
+  transition: text-decoration 0.3s ease;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.contact {
+  font-size: 24px; /* Adjust size as needed */
+  font-weight: normal; /* Regular weight */
+}
+
+.about {
+  font-size: 24px; /* Adjust size as needed */
+  font-weight: normal; /* Regular weight */
+}
+
+.quote {
+  position: absolute;
+  bottom: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  font-family: 'Baskerville', serif; /* Use the custom font */
+  font-size: 20px; /* Adjust size as needed */
+  font-weight: bold; /* Make it a bit bolder */
+  text-transform: uppercase; /* Make text uppercase */
+  max-width: 300px; /* Limit width for better readability */
+  z-index: 10; /* Ensure it's above other elements */
+  background-color: transparent; /* Optional: semi-transparent background */
+  padding: 10px; /* Optional: add some padding */
+  text-transform: uppercase; /* Make text uppercase */
+  font-weight: normal; /* Adjust weight if needed */
+}
+
+.middle-text {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  text-align: center; /* Center text */
+  font-family: 'Baskerville', serif; /* Use the custom font */
+  z-index: 10; /* Ensure it's above other elements */
+  background-color: transparent; /* Ensure background is transparent */
+  padding: 0; /* Remove padding if any */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.middle-text a {
+  text-decoration: underline; /* Underline the link */
+  color: black; /* Set text color to black */
+  display: block; /* Make it a block element to detach it */
+  margin-top: 40px; /* Space above the link */
+  font-size: 2em; /* Set the font size for the "Go home" link */
+}
+
+.image-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 25;
+    width: 80vw;
+    max-width: 90vmax;
+    max-height: 80vh;
+    padding: 0;
+}
+
+.back-arrow {
+    position: absolute;
+    top: calc(40% - 30vh - 20px);
+    left: calc(50% - 37.5vw - 40px);
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+    z-index: 26;
+}
+
+.photo {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Special styling for the landscape image (2nd position) */
+.photo.landscape {
+    grid-column: 1 / span 3; // Make the landscape image span all three columns
+    height: auto; // Maintain aspect ratio
+}
+
+/* Ensure vertical images maintain consistent height */
+.photo.vertical {
+    height: auto; // Maintain aspect ratio
+    width: 100%; // Ensure full width
+    max-width: 100%;
+}
+
+/* Adjust the layout for the remaining images */
+.image-container > :nth-child(n+4) {
+    grid-column: span 1; // Each of the remaining images will take one column
+}
+
+.section-navigation {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    z-index: 30;
+    font-family: 'Baskerville', serif;
+}
+
+.section-title {
+    position: absolute;
+    bottom: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90vw;
+    z-index: 26;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Baskerville', serif;
+    font-size: 28px;
+
+    @media (max-height: 1000px) {
+        font-size: 26px;
+    }
+
+    @media (max-height: 900px) {
+        font-size: 24px;
+    }
+
+    @media (max-height: 800px) {
+        font-size: 22px;
+    }
+
+    @media (max-height: 700px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 600px) {
+        display: none;
+    }
+}
+
+.marketing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.marketing-image {
+    max-width: 60%;
+    height: auto;
+}
+
+.marketing-text {
+    text-align: center;
+    font-family: 'Baskerville', serif;
+    font-size: 1.2em;
+    max-width: 800px;
+}
+
+.nav-item {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.page-indicator {
+    font-size: 1.5em;
+    color: black;
+}
+
+.folder-grid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    z-index: 20;
+    
+    &::after {
+        content: '';
+        flex: auto;
+        margin-left: calc(50% - 2px);
+    }
+}
+
+.section-navigation, .marketing-navigation {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    font-family: 'Baskerville', serif;
+    background-color: transparent;
+}
+
+.nav-item {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-family: 'Baskerville', serif;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Medium-small screens */
+@media screen and (max-width: 1024px) {
+    .image-container {
+        height: 55vh; // Slightly reduced height
+        width: 85vw; // Slightly increased width
+    }
+    
+    .photo {
+        object-fit: contain; // Prevent stretching
+    }
+
+    .section-title {
+        bottom: 10vh;
+        white-space: normal;
+        font-size: 22px;
+    }
+
+    .folder-image {
+        width: 100px;
+    }
+    
+    [src*="pdf.png"], 
+    [src*="video.png"], 
+    [src*="text.png"] {
+        width: 65px;
+    }
+}
+
+/* Mobile screens */
+@media screen and (max-width: 768px) {
+    .folder-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .folder-image {
+        width: 80px;
+    }
+
+    .text-top-right {
+        font-size: 14px;
+    }
+
+    .logo-container .logo {
+        width: 70px;
+    }
+
+    .middle-text {
+        width: 90%;
+        font-size: 0.8em;
+    }
+
+    .image-container {
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .photo {
+        max-height: 50vh;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .back-arrow {
+        top: calc(45% - 40vh - 20px);
+        left: 3vw;
+        width: 20px;
+    }
+
+    .folder-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 90vw;
+        margin-top: 15vh;
+        &::after {
+            margin-left: calc(25% - 1px);
+        }
+    }
+
+    .section-title {
+        display: block;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
+        line-height: 1.2;
+        white-space: normal;
+        max-width: 90%;
+        overflow-wrap: break-word;
+    }
+
+    .text-top-right {
+        font-size: 11px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .marketing-container {
+        width: 95%;
+        margin-top: 60px;
+    }
+
+    .marketing-image {
+        max-width: 90%;
+    }
+
+    .modal-content {
+        max-width: 95%;
+    }
+
+    .close-modal {
+        top: 10px;
+        right: 20px;
+    }
+
+    .about-content {
+        font-size: 14px; // Smaller font for mobile
+        width: 85vw;
+        max-height: 70vh;
+    }
+
+    #sectionNavigation {
+        bottom: 20px;
+        font-size: 14px;
+    }
+
+    .mobile-image-container {
+        position: fixed;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85vw;
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-photo {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .nav-arrows {
+        position: fixed;
+        width: 92vw; // Reduced from 95vw to bring right arrow more to the left
+        top: 50%;
+        transform: translateY(-50%);
+        left: -4vw; // Keep the left arrow position
+        z-index: 27;
+    }
+
+    .nav-arrow {
+        width: 30px;
+        height: auto;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 5px;
+        border-radius: 50%;
+    }
+
+    .back-arrow {
+        display: none !important;
+    }
+
+    .section-navigation {
+        display: none !important;
+    }
+
+    .folder-image {
+        width: 80px;
+    }
+    
+    [src*="pdf.png"], 
+    [src*="video.png"], 
+    [src*="text.png"] {
+        width: 50px;
+    }
+
+    .nav-arrow.right {
+        right: -30px; // Push right arrow even further right
+    }
+
+    .text-top-right {
+        top: 25px;
+        .contact, .about {
+            font-size: 24px !important;
+        }
+    }
+
+    .logo {
+        font-size: 48px !important; // Much bigger logo with !important to override other styles
+    }
+
+    #photographyFolders, #marketingFolders {
+        margin-top: -5vh !important; // Reduced from -20vh to -5vh for better centering
+        gap: 30px !important;
+        padding: 20px !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        justify-items: center;
+        align-items: start;
+    }
+}
+
+/* Additional adjustments for very small screens */
+@media screen and (max-width: 480px) {
+    .folder-image {
+        width: 60px;
+    }
+
+    .folder-text {
+        font-size: 16px;
+    }
+
+    .image-container {
+        top: 50%;
+        height: 60vh;
+    }
+
+    .section-title {
+        font-size: 14px;
+        bottom: 5vh;
+    }
+
+    .nav-item {
+        font-size: 1.2em;
+    }
+
+    .about-content {
+        font-size: 12px;
+        width: 80vw;
+    }
+
+    #sectionNavigation {
+        bottom: 15px;
+        font-size: 12px;
+    }
+
+    .folder-image {
+        width: 60px;
+    }
+    
+    [src*="pdf.png"], 
+    [src*="video.png"], 
+    [src*="text.png"] {
+        width: 40px;
+    }
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-navigation, .marketing-navigation {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    font-family: 'Baskerville', serif;
+    background-color: transparent;
+}
+
+/* Full screen adjustment */
+@media screen and (min-width: 1400px) {
+    .back-arrow {
+        top: 42%; // Adjusted for full screen alignment
+    }
+}
+
+.about-container {
+    display: none; // Hide by default
+    position: fixed; // Fixed position to center on the screen
+    top: 50%; // Center vertically
+    left: 50%; // Center horizontally
+    transform: translate(-50%, -50%); // Adjust for centering
+    width: 80vw; // Width of the container
+    max-width: 600px; // Maximum width
+    background-color: rgba(255, 255, 255, 0.8); // Semi-transparent background
+    padding: 20px; // Padding around the text
+    border-radius: 10px; // Optional: rounded corners
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); // Optional: shadow for depth
+    z-index: 100; // Ensure it appears above other content
+}
+
+.about-content {
+    text-align: center; // Center the text
+    font-size: 18px; // Base font size
+    color: #333; // Text color
+    font-family: 'Baskerville', serif; // Use Baskerville font
+    text-transform: uppercase; // Transform text to uppercase
+}
+
+.about-content a {
+    color: #C65D57;
+    text-decoration: none;
+}
+
+.about-content a:hover {
+    text-decoration: underline;
+    text-decoration-color: #C65D57;
+}
+
+// Add responsive font sizing
+@media screen and (max-width: 1200px) {
+    .about-content {
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .about-content {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .about-content {
+        font-size: 0.7em;
+        padding: 0 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .about-content {
+        font-size: 0.6em;
+    }
+}
+
+// Prevent touch events from causing unwanted scrolling
+* {
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overscroll-behavior: none;
+}
+
+@supports (-webkit-hyphens:none) {
+    @media screen and (max-width: 480px) {
+        .section-navigation {
+            bottom: 10px !important;
+            
+            // Hide GO HOME on very small Safari screens
+            .go-home {
+                display: none !important;
+            }
+        }
+
+        // Move section title up to make room
+        .section-title {
+            bottom: 8vh !important;
+        }
+
+        // Adjust spacing for other elements
+        #sectionNavigation {
+            bottom: 2vh !important;
+        }
+    }
+}
+
+/* Handle small vertical heights */
+@media screen and (max-height: 750px) {
+    .section-navigation {
+        display: none !important;
+    }
+
+    #sectionNavigation {
+        display: none !important;
+    }
+
+    .image-container {
+        height: 80vh !important;
+        top: 50% !important;
+    }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .image-container {
+        top: 45% !important; // Move images up slightly
+    }
+
+    .section-title {
+        display: block !important; // Always show the title
+        position: fixed;
+        bottom: 15vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        text-align: center;
+        font-size: 16px;
+        white-space: normal; // Allow text to wrap
+        line-height: 1.4;
+    }
+}
+
+/* Even more extreme for very small heights */
+@media screen and (max-height: 450px) {
+    .image-container {
+        height: 90vh !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 14px !important;
+            margin: 3px 0;
+        }
+    }
+
+    #mainText {
+        font-size: 1.5em !important;
+    }
+
+    .middle-text {
+        .main-text {
+            font-size: 1.2em !important;
+            p {
+                font-size: 0.8em !important;
+            }
+        }
+        .go-home {
+            font-size: 0.8em !important;
+        }
+    }
+
+    // Make email smaller in contact
+    .contact-email {
+        font-size: 0.8em !important;
+    }
+}
+
+/* Even smaller for very small screens */
+@media screen and (max-width: 480px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 12px !important;
+        }
+    }
+
+    #mainText {
+        font-size: 1.2em !important;
+    }
+
+    .middle-text {
+        .main-text {
+            font-size: 1em !important;
+            p {
+                font-size: 0.7em !important;
+            }
+        }
+        .go-home {
+            font-size: 0.7em !important;
+        }
+    }
+
+    // Make email even smaller on very small screens
+    .contact-email {
+        font-size: 0.7em !important;
+    }
+}
+
+.nav-arrows {
+    display: flex;
+    justify-content: space-between;
+    width: 88vw; // Reduced from 95vw to bring right arrow more to the left
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -4vw; // Keep the left arrow position
+}
+
+.nav-arrow {
+    cursor: pointer;
+    width: 30px;
+    height: auto;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .image-container {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90vw;
+    }
+
+    .photo {
+        max-height: 60vh;
+        max-width: 90vw;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .nav-arrows {
+        position: fixed;
+        width: 98vw; // Increased from 92vw to push arrows further apart
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: space-between;
+        z-index: 27;
+    }
+
+    .text-top-right {
+        .contact, .about {
+            font-size: 22px !important;
+        }
+    }
+
+    .section-title {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .logo {
+        font-size: 52px !important;
+    }
+}
+
+/* Tablet view */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 22px !important;
+        }
+    }
+
+    .section-title {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .logo {
+        font-size: 52px !important;
+    }
+}
+
+/* Mobile view */
+@media screen and (max-width: 768px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 20px !important;
+        }
+    }
+
+    .section-title {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    .logo {
+        font-size: 48px !important;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 480px) {
+    .text-top-right {
+        .contact, .about {
+            font-size: 18px !important;
+        }
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .logo {
+        font-size: 42px !important;
+    }
+}
+
+@media (max-width: 768px) { // Target mobile devices
+    .section-title {
+        display: block; // Ensure the section title is displayed
+        font-size: 20px; // Adjust font size for mobile
+        text-align: center; // Center the text
+        margin-top: 10px; // Add some space above the title
+        line-height: 1.2; // Adjust line height for better readability
+        white-space: normal; // Allow text to wrap
+        max-width: 90%; // Limit width for wrapping
+        overflow-wrap: break-word; // Allow breaking of long words
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #marketingFolders:not([style*="display: none"]) ~ .gradient-bg,
+    #marketingContainer:not([style*="display: none"]) ~ .gradient-bg {
+        display: none !important;
+    }
+}
+
+.photography-folders-home {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Baskerville', serif;
+    z-index: 30;
+    
+    .photo-home-link {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: inherit;
+        font-size: 1.2em;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.mobile-back-button {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Baskerville', serif;
+    text-transform: uppercase;
+    color: inherit;
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 30;
+    
+    @media screen and (max-width: 768px) {
+        &[style*="display: block"] {
+            display: block;
+        }
+    }
+}
+
+
+
+
+
+
+
+

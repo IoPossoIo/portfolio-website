@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/TAURISANO-LOGO-B4drlgfa.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Antonio Taurisano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/main-BO1ZBwP7.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-CJgn37Sn.css">
+  </head>
+  <body>
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="/assets/BLACK-LOGO-CR7DPZOU.svg" alt="Logo" class="logo black" />
+        <img src="/assets/WHITE-LOGO-8LGvuqke.svg" alt="White Logo" class="logo white" style="opacity: 0; position: absolute; top: 0; left: 0;" />
+      </a>
+    </div>
+
+    <div class="text-top-right">
+      <div class="contact" id="contact" style="cursor: pointer;">CONTACT</div>
+      <div class="about" id="about" style="cursor: pointer;">ABOUT</div>
+    </div>
+
+    <div class="quote">
+      <!-- quote text-->
+    </div>
+
+    <div class="middle-text" id="middleText" style="display: none;">
+      <div class="main-text" id="mainText"></div>
+      <a href="index.html" class="go-home">Go home</a>
+    </div>
+
+    <div class="folder-grid" id="photographyFolders" style="display: none;">
+        <div class="folder" data-section="100 GECS">
+            <img src="/assets/folder-DhpvlT7W.png" alt="100 Gecs Folder" class="folder-image" />
+            <div class="folder-text">100 gecs</div>
+        </div>
+        <div class="folder" data-section="JULIEN BAKER">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Julien Baker Folder" class="folder-image" />
+            <div class="folder-text">Julien Baker</div>
+        </div>
+        <div class="folder" data-section="ST. VINCENT">
+            <img src="/assets/folder-DhpvlT7W.png" alt="St. Vincent Folder" class="folder-image" />
+            <div class="folder-text">St. Vincent</div>
+        </div>
+        <div class="folder" data-section="THE PAPER KITES">
+            <img src="/assets/folder-DhpvlT7W.png" alt="The Paper Kites Folder" class="folder-image" />
+            <div class="folder-text">The Paper Kites</div>
+        </div>
+        <div class="folder" data-section="FENNE LILY">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Fenne Lily Folder" class="folder-image" />
+            <div class="folder-text">Fenne Lily</div>
+        </div>
+        <div class="folder" data-section="YOUBET">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Youbet Folder" class="folder-image" />
+            <div class="folder-text">Youbet</div>
+        </div>
+    </div>
+
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAACA0lEQVR4nO3cu2tUQRhA8SOCFjYWERF8gCQqrgoiEoIK0XRqjKV/pa9GtLcRO0Es1DS+MIkm6wMTIjcsbEREzQw4zOfO+cH0H/dk927unXtBkiRJkiRJkiRJkiRJkiRVswPY7vGv7zDwAPg+XA+B87WHatU5YAXoflmrwIXaw7VmCuj/JsbmelR7wJZMAst/idENv7521R60BWeBj1vE2Ayys/awo+4M8CEhRjc80aug08BSYow+cMwa5ZwCFhJjfAGmjVHO4C/9XUaMi8Yo5yjwNiPGJWOUjfEmMcZXYMYY5RwBXifG+AZcNkY5ExkxVoErxihnHHiVEeOqMco5BMxnxJg1RjkHgZcZMa4Zo5wDwIuMGHPGKBvjeWKMNeB6wVmatz8jxjpwo/kjVtBe4KkxYtgHPEuMMWprBbgL9PgPPxmjvD4BJ2vH2AM8CXAwuiDrfs0Yu4HHAQ5CF2it1dxHZhBiBRkY8yuLn4PcIwBP6vw4qZ8giJZ/9i4Dd4DjBOM/hgF56SQgLy4G5OX3gLxBFZC3cANyk0NAbgMKyI1yAbmVNCA3Wwfk4wgB+cDOCDzS1qs9cAtyHvq8XXvYVqR+UhZrD9qSyYQXB3wGttUetCVTW7xaY3BnThVePtP/ww7BcLdJW9EDbg7PGe+BW8aQJEmSJEmSJEmSJEmSJEniH9sA55WtLsz50PAAAAAASUVORK5CYII=" alt="Back" class="back-arrow" id="backToFolders" style="display: none;">
+
+    <div class="image-container" id="imageContainer" style="display: none;"></div>
+
+    <div class="section-title" id="sectionTitle" style="display: none;"></div>
+
+    <div class="section-navigation" id="sectionNavigation" style="display: none;">
+        <div class="nav-links">
+            <span class="nav-item" id="goBack">GO BACK</span>
+            <a href="index.html" class="nav-item">GO HOME</a>
+        </div>
+    </div>
+
+    <div class="marketing-container" id="marketingContainer" style="display: none;">
+        <img id="marketingImage" class="marketing-image" src="" alt="Marketing Image">
+        <div id="marketingText" class="marketing-text"></div>
+    </div>
+
+    <div class="marketing-navigation" id="marketingNavigation" style="display: none;">
+        <div class="nav-links">
+            <span class="nav-item" id="goBackMarketing">GO BACK</span>
+            <a href="index.html" class="nav-item">GO HOME</a>
+        </div>
+    </div>
+
+    <div class="navigation" id="navigation" style="display: none;">
+      <a href="index.html" class="nav-item">Go home</a>
+      <span class="nav-item" id="backButton">Back</span>
+      <span class="page-indicator">1/4</span>
+    </div>
+
+    <div class="text-container">
+         <!-- text in the center -->
+    </div>
+    <div class="gradient-bg">
+      <svg xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+      <div class="gradients-container">
+        <div class="g1"></div>
+        <div class="g2"></div>
+        <div class="g3"></div>
+        <div class="g4"></div>
+        <div class="g5"></div>
+        <div class="interactive"></div>
+      </div>
+      <div class="folder-container">
+        <a class="folder" ID="Marketing" style="cursor: pointer" draggable="true">
+          <img src="/assets/folder-DhpvlT7W.png" alt="Folder 1" class="folder-image" />
+          <div class="folder-text">Marketing</div>
+        </a>
+        <a class="folder" ID="Photography" style="cursor: pointer" draggable="true">
+          <img src="/assets/folder-DhpvlT7W.png" alt="Folder 2" class="folder-image" />
+          <div class="folder-text">Photography</div>
+        </a>
+        <!-- Add more folders as needed -->
+      </div>
+    </div>
+
+    <!-- Add this after your existing containers -->
+    <div class="modal" id="imageModal" style="display: none;">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="enlargedImage">
+    </div>
+
+    <div class="folder-grid" id="marketingFolders" style="display: none;">
+        <div class="folder" data-section="BOOMBIT">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Boombit Folder" class="folder-image" />
+            <div class="folder-text">Boombit</div>
+        </div>
+        <div class="folder" data-section="GALA GAMES">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Gala Games Folder" class="folder-image" />
+            <div class="folder-text">Gala Games</div>
+        </div>
+        <div class="folder" data-section="PLANET MOJO">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Planet Mojo Folder" class="folder-image" />
+            <div class="folder-text">Planet Mojo</div>
+        </div>
+        <div class="folder" data-section="EXTRA">
+            <img src="/assets/folder-DhpvlT7W.png" alt="Extra Folder" class="folder-image" />
+            <div class="folder-text">Extra</div>
+        </div>
+    </div>
+
+    <div class="slide-viewer" id="slideViewer" style="display: none;">
+        <div class="slide-arrow left">&lt;</div>
+        <img id="currentSlide" src="" alt="Marketing Slide">
+        <div class="slide-arrow right">&gt;</div>
+    </div>
+
+  </body>
+</html>
