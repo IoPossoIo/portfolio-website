@@ -112,102 +112,48 @@ const photographySections = {
     }
 };
 
-// Marketing section data structure
+// Marketing section data structure (refactored to define each item once)
 const marketingFolders = {
     "SOCIAL MEDIA CONTENT": {
-        folders: [
-            "Hunters On-Chain 18 Seconds Sold Out!",
-            "Hunters On-Chain DappRadar Article",
-            "Planet Mojo New Game Announcement",
-            "Get Plucked Medium Article",
-            "VOX: What is it?"
+        items: [
+            { label: "Hunters On-Chain 18 Seconds Sold Out!", link: "https://x.com/BoomLandGames/status/1620478702407778304", icon: "./images/text.png" },
+            { label: "Hunters On-Chain DappRadar Article", link: "https://dappradar.com/blog/hunters-on-chain-game-guide", icon: "./images/text.png" },
+            { label: "Planet Mojo New Game Announcement", link: "https://x.com/WeArePlanetMojo/status/1776365595040047194", icon: "./images/text.png" },
+            { label: "Get Plucked Medium Article", link: "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2", icon: "./images/text.png" },
+            { label: "VOX: What the helly?", link: "https://www.youtube.com/watch?v=ojEZtZars7Q", icon: "./images/video.png" }
         ],
-        links: {
-            "Hunters On-Chain 18 Seconds Sold Out!": "https://x.com/BoomLandGames/status/1620478702407778304",
-            "Hunters On-Chain DappRadar Article": "https://dappradar.com/blog/hunters-on-chain-game-guide",
-            "Planet Mojo New Game Announcement": "https://x.com/WeArePlanetMojo/status/1776365595040047194",
-            "Get Plucked Medium Article": "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2",
-            "VOX: What is it?": "https://www.youtube.com/watch?v=ojEZtZars7Q"
-        },
-        icons: {
-            "Hunters On-Chain 18 Seconds Sold Out!": "./images/text.png",
-            "Hunters On-Chain DappRadar Article": "./images/text.png",
-            "Planet Mojo New Game Announcement": "./images/text.png",
-            "Get Plucked Medium Article": "./images/text.png",
-            "VOX: What is it?": "./images/video.png"
-        },
         headerText: "I swear i wrote copy and storyboarded this stuff without chatgpt"
     },
     "IP PARTNERSHIPS": {
-        folders: [
-            "VOX & DreamWorks Trolls",
-            "VOX & AMC's The Walking Dead ",
-            "Planet Mojo & WowWee Plushies",
-            "Planet Mojo & Talon Esports"
+        items: [
+            { label: "VOX & DreamWorks Trolls", link: "https://www.youtube.com/watch?v=LJhwu2xsqaA", icon: "./images/video.png" },
+            { label: "VOX & AMC's The Walking Dead ", link: "https://www.youtube.com/watch?v=mhnusMyUWm0", icon: "./images/video.png" },
+            { label: "Planet Mojo & WowWee Plushies", link: "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain", icon: "./images/text.png" },
+            { label: "Planet Mojo & Talon Esports", link: "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo", icon: "./images/text.png" }
         ],
-        links: {
-            "VOX & DreamWorks Trolls": "https://www.youtube.com/watch?v=LJhwu2xsqaA",
-            "VOX & AMC's The Walking Dead ": "https://www.youtube.com/watch?v=mhnusMyUWm0",
-            "Planet Mojo & WowWee Plushies": "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain",
-            "Planet Mojo & Talon Esports": "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo"
-        },
-        icons: {
-            "VOX & DreamWorks Trolls": "./images/video.png",
-            "VOX & AMC's The Walking Dead ": "./images/video.png",
-            "Planet Mojo & WowWee Plushies": "./images/text.png",
-            "Planet Mojo & Talon Esports": "./images/text.png"
-        },
         headerText: "a lot of cool partnerships with cool people!"
     },
     "LIVESTREAMS": {
-        folders: [
-            "Get Plucked Mobile Game Release",
-            "Interview with Neo Tokyo",
-            "Interview with Decentraland"
+        items: [
+            { label: "Get Plucked Mobile Game Release", link: "https://www.youtube.com/watch?v=0bvVVXM1OqA", icon: "./images/video.png" },
+            { label: "Interview with Neo Tokyo", link: "https://x.com/NeoTokyoCode/status/1834373045311676533", icon: "./images/video.png" },
+            { label: "Interview with Decentraland", link: "https://www.linkedin.com/events/7208541648673210369/comments/", icon: "./images/video.png" }
         ],
-        links: {
-            "Get Plucked Mobile Game Release": "https://www.youtube.com/watch?v=0bvVVXM1OqA",
-            "Interview with Neo Tokyo": "https://x.com/NeoTokyoCode/status/1834373045311676533",
-            "Interview with Decentraland": "https://www.linkedin.com/events/7208541648673210369/comments/"
-        },
-        icons: {
-            "Get Plucked Mobile Game Release": "./images/video.png",
-            "Interview with Neo Tokyo": "./images/video.png",
-            "Interview with Decentraland": "./images/video.png"
-        },
         headerText: "Bonus: in all these videos you can see my pretty face!!"
     },
     "METRICS": {
-        folders: [
-            "Planet Mojo Twitter Growth YoY",
-            "Boombit F2P Campaign Performance"
+        items: [
+            { label: "Planet Mojo Twitter Growth YoY", link: "/Planet Mojo Twitter - YoY Impact.png", icon: "./images/pdf.png" },
+            { label: "Boombit F2P Campaign Performance", link: "/a-brief-campaign-overview.pdf", icon: "./images/pdf.png" }
         ],
-        links: {
-            "Planet Mojo Twitter Growth YoY": "/Planet Mojo Twitter - YoY Impact.png",
-            "Boombit F2P Campaign Performance": "/a-brief-campaign-overview.pdf"
-        },
-        icons: {
-            "Planet Mojo Twitter Growth YoY": "./images/pdf.png",
-            "Boombit F2P Campaign Performance": "./images/pdf.png"
-        },
         headerText: "maybe the real impact was the friends we made along the way?"
     },
     "DATA ANALYTICS": {
-        folders: [
-            "United Nations PowerBI Dashboard",
-            "A self-esteem journey through gender identities",
-            "360X Art Pitch Deck"
+        items: [
+            { label: "United Nations PowerBI Dashboard", link: "/UN_MONUSCO.pdf", icon: "./images/pdf.png" },
+            { label: "A self-esteem journey through gender identities", link: "https://rpubs.com/iopossoio/psychometrics", icon: "./images/pdf.png" },
+            { label: "360X Art Pitch Deck", link: "/360X Art Pitch Deck.pdf", icon: "./images/pdf.png" }
         ],
-        links: {
-            "United Nations PowerBI Dashboard": "/UN_MONUSCO.pdf",
-            "A self-esteem journey through gender identities": "https://rpubs.com/iopossoio/psychometrics",
-            "360X Art Pitch Deck": "/360X Art Pitch Deck.pdf"
-        },
-        icons: {
-            "United Nations PowerBI Dashboard": "./images/pdf.png",
-            "A self-esteem journey through gender identities": "./images/pdf.png",
-            "360X Art Pitch Deck": "./images/pdf.png"
-        },
         headerText: "yeah I happen to have a degree in this stuff"
     }
 };
@@ -429,17 +375,20 @@ document.querySelectorAll('#marketingFolders .folder').forEach(folder => {
         
         if (folderData) {
             document.getElementById('marketingFolders').style.display = 'none';
-            displayMarketingSubfolders(section, folderData.folders);
+            // Pass the unified items list instead of separate arrays/maps
+            displayMarketingSubfolders(section, folderData.items);
         }
     });
 });
 
-function displayMarketingSubfolders(parentSection, folders) {
+function displayMarketingSubfolders(parentSection, items) {
     const marketingContainer = document.getElementById('marketingContainer');
     marketingContainer.innerHTML = '';
     marketingContainer.style.display = 'block';
     
-    if (marketingFolders[parentSection].headerText) {
+    // To re-enable the marketing header text and sparkles animations, change `false &&` to just the condition below
+    // e.g., `if (marketingFolders[parentSection].headerText) {`
+    if (false && marketingFolders[parentSection].headerText) {
         const headerText = document.createElement('div');
         headerText.className = 'marketing-header-text';
         headerText.style.display = window.innerHeight > 600 ? 'block' : 'none';
@@ -520,22 +469,21 @@ function displayMarketingSubfolders(parentSection, folders) {
     folderGrid.style.display = 'grid';
     folderGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
 
-    folders.forEach(folderName => {
+    items.forEach(item => {
         const folder = document.createElement('div');
         folder.className = 'folder';
         
-        // Use the appropriate icon if specified, otherwise use folder.png
-        const iconPath = marketingFolders[parentSection].icons?.[folderName] || "./images/folder.png";
+        // Use the item's icon if specified, otherwise use folder.png
+        const iconPath = item.icon || "./images/folder.png";
         
         folder.innerHTML = `
-            <img src="${iconPath}" alt="${folderName} Icon" class="folder-image" />
-            <div class="folder-text">${folderName}</div>
+            <img src="${iconPath}" alt="${item.label} Icon" class="folder-image" />
+            <div class="folder-text">${item.label}</div>
         `;
         
         folder.addEventListener('click', () => {
-            const parentData = marketingFolders[parentSection];
-            if (parentData && parentData.links && parentData.links[folderName]) {
-                window.open(parentData.links[folderName], '_blank');
+            if (item.link) {
+                window.open(item.link, '_blank');
             }
         });
 
