@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cursor Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-area {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ccc;
+            margin: 20px 0;
+            padding: 20px;
+            cursor: url('/images/standard-cursor.png'), auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cursor Test Page</h1>
+    <p>Hover over the area below to see if the custom cursor appears:</p>
+    
+    <div class="test-area">
+        <h2>Test Area</h2>
+        <p>Move your cursor over this box.</p>
+        <a href="#">Test Link</a>
+    </div>
+    
+    <h3>Image Test:</h3>
+    <img src="/images/standard-cursor.png" alt="Cursor Image" style="max-width: 100px;">
+    
+    <p>If you can see the image above but not the cursor, there might be an issue with the cursor image format or size.</p>
+</body>
+</html>

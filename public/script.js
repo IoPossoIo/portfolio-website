@@ -56,7 +56,7 @@ document.getElementById('contact').addEventListener('click', () => {
     document.getElementById('photographyFolders').style.display = 'none';
     document.getElementById('marketingFolders').style.display = 'none';
     
-    const email = 'antoniotaurisanowrites@gmail.com';
+    const email = 'hello@antoniotaurisano.com';
     const mainText = document.getElementById('mainText');
     mainText.textContent = email;
     mainText.style.fontSize = '1.5em'; // Match GO HOME size on desktop
@@ -441,20 +441,22 @@ function displayMarketingSubfolders(parentSection, folders) {
     
     if (marketingFolders[parentSection].headerText) {
         const headerText = document.createElement('div');
+        headerText.className = 'marketing-header-text';
+        headerText.style.display = window.innerHeight > 600 ? 'block' : 'none';
         headerText.style.fontFamily = 'Comic Sans MS, cursive';
         headerText.style.textAlign = 'center';
         headerText.style.position = 'absolute';
-        headerText.style.top = '15%';
+        headerText.style.top = '5%';
         headerText.style.left = '50%';
         headerText.style.transform = 'translateX(-50%)';
-        headerText.style.fontSize = '32px';
+        headerText.style.fontSize = '28px';
         headerText.style.backgroundColor = 'transparent';
         headerText.style.padding = '15px';
         headerText.style.borderRadius = '10px';
         headerText.style.zIndex = '100';
         headerText.style.width = '80%';
         headerText.style.lineHeight = '1.4';
-        headerText.style.animation = 'wobble 2s infinite';
+        headerText.style.animation = 'wobble 5s infinite';
         
         // Format text with line breaks and separate emoji line
         let displayText = marketingFolders[parentSection].headerText;
@@ -582,9 +584,19 @@ function adjustFontSize() {
     aboutContent.style.fontSize = `${baseFontSize}px`; // Set the calculated font size
 }
 
+// Handle window resize
+function handleResize() {
+    adjustFontSize();
+    // Update header text visibility based on window height and width
+    const headerText = document.querySelector('.marketing-header-text');
+    if (headerText) {
+        headerText.style.display = (window.innerHeight > 600 && window.innerWidth > 768) ? 'block' : 'none';
+    }
+}
+
 // Call the function on load and on resize
-window.addEventListener('load', adjustFontSize);
-window.addEventListener('resize', adjustFontSize);
+window.addEventListener('load', handleResize);
+window.addEventListener('resize', handleResize);
 
 // Add click handler for mobile back button
 document.querySelector('.mobile-back-button').addEventListener('click', () => {

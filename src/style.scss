@@ -18,6 +18,16 @@
   src: url('./fonts/baskerville.ttf') format('truetype');
 }
 
+// Custom cursor styles
+html {
+  cursor: url('https://static.cargo.site/images/up.png') 16 16, auto !important;
+}
+
+a, button, .interactive-element, .nav-item, .folder, .back-arrow {
+  cursor: url('https://static.cargo.site/images/up.png') 24 24, pointer !important;
+  position: relative; /* Ensure cursor works properly on these elements */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -988,6 +998,13 @@ body {
         height: 80vh !important;
         top: 50% !important;
     }
+}
+
+// Hide header text on small screens
+.marketing-header-text {
+  @media (max-width: 768px), (max-height: 600px) {
+    display: none !important;
+  }
 }
 
 /* Mobile adjustments */
