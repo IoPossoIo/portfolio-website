@@ -120,7 +120,7 @@ const marketingFolders = {
             { label: "Hunters On-Chain DappRadar Article", link: "https://dappradar.com/blog/hunters-on-chain-game-guide", icon: "./images/text.png" },
             { label: "Planet Mojo New Game Announcement", link: "https://x.com/WeArePlanetMojo/status/1776365595040047194", icon: "./images/text.png" },
             { label: "Get Plucked Medium Article", link: "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2", icon: "./images/text.png" },
-            { label: "VOX: What the helly?", link: "https://www.youtube.com/watch?v=ojEZtZars7Q", icon: "./images/video.png" }
+            { label: "VOX: What is it?", link: "https://www.youtube.com/watch?v=ojEZtZars7Q", icon: "./images/video.png" }
         ],
         headerText: "I swear i wrote copy and storyboarded this stuff without chatgpt"
     },
