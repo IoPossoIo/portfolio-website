@@ -3,11 +3,65 @@ function isSafari() {
   return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
 
+// Global XP window helpers
+function openCentered(win, iconId) {
+  if (!win) return;
+  if (iconId) {
+    const icon = document.getElementById(iconId);
+    if (icon) icon.style.display = 'none';
+  }
+  win.style.display = 'block';
+  win.style.position = 'absolute';
+  win.style.zIndex = '100';
+  // Force a reflow and add animation class on the next frame to prevent position jump
+  win.classList.remove('zoom-in');
+  // Always (re)enable dragging on open
+  dragElement(win);
+  // Defer animation to next frame to ensure layout is settled
+  requestAnimationFrame(() => {
+    win.classList.add('zoom-in');
+    setTimeout(() => win.classList.remove('zoom-in'), 240);
+  });
+}
+
+function closeWindow(win, iconId) {
+  if (!win) return;
+  win.style.display = 'none';
+  if (iconId) {
+    const icon = document.getElementById(iconId);
+    if (icon) icon.style.display = 'block';
+  }
+}
+
 // Disable the interactive element if the browser is Safari
 if (isSafari()) {
   const interactiveElement = document.querySelector('.interactive');
   if (interactiveElement) {
     interactiveElement.style.display = 'none'; // Hide the interactive element
+  }
+}
+
+// Global helpers (not Safari-only)
+function rectsOverlap(a, b) {
+  return !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
+}
+
+function triggerBinFeedback() {
+  const recycleBin = document.getElementById('recycleBin');
+  if (recycleBin) {
+    recycleBin.classList.add('bin-bounce');
+    setTimeout(() => recycleBin.classList.remove('bin-bounce'), 700);
+  }
+  const clippy = document.querySelector('.clippy-helper .clippy-bubble');
+  if (clippy) {
+    clippy.style.display = 'block';
+    const body = clippy.querySelector('.bubble-body');
+    if (body) {
+      const p = body.querySelector('p') || document.createElement('p');
+      p.textContent = 'Looks like you’re trying to delete something. Need help?';
+      if (!p.parentElement) body.prepend(p);
+    }
+    setTimeout(() => { clippy.style.display = ''; }, 3500);
   }
 }
 
@@ -76,7 +130,7 @@ document.getElementById('about').addEventListener('click', () => {
     document.getElementById('marketingFolders').style.display = 'none';
     
     document.getElementById('mainText').innerHTML = `
-        <p style="margin-bottom: 1em;">Antonio is a marketing professional with a <span style="color: #C65D57;">Data Analytics BSc</span> and a passion for storytelling and creative strategy.</p>
+        <p style="margin-bottom: 1em;">Antonio is a marketing <span class="rainbow-professional">professional</span> with a <span style="color: #C65D57;">Data Analytics BSc</span> and a passion for storytelling and creative strategy.</p>
         <p style="margin-bottom: 1em;">Blending  <span style="color: #C65D57;">creativity </span>with data-driven insights to develop consumer-first marketing initiatives by day.</p>
         <p style="margin-bottom: 1em;">Capturing movement through <span style="color: #C65D57;">photography and writing</span> by night.</p>
     `;
@@ -158,16 +212,43 @@ const marketingFolders = {
     }
 };
 
-// Click event for Photography
-document.getElementById('Photography').addEventListener('click', () => {
-    hideAllContent();
-    document.getElementById('photographyFolders').style.display = 'grid';
-    document.querySelector('.text-top-right').style.display = 'block';
-    
-    // Show the home button only on mobile
-    if (window.innerWidth <= 768) {
-        document.querySelector('.photography-folders-home').style.display = 'block';
+// Initialize photography section
+function initPhotography() {
+    // Set up click handler for Photography folder
+    const photoLink = document.getElementById('Photography');
+    if (photoLink) {
+        photoLink.addEventListener('click', (e) => {
+            if (e && e.preventDefault) e.preventDefault();
+            showFolderGrid();
+            document.querySelector('.text-top-right').style.display = 'block';
+        });
     }
+
+    // Initialize folder click handlers
+    document.querySelectorAll('#photographyFolders .folder').forEach(folder => {
+        folder.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = folder.getAttribute('data-section');
+            if (section) {
+                displayPhotographySection(section);
+            }
+        });
+    });
+
+    // Handle photography navigation clicks
+    document.querySelectorAll('#sectionNavigation .nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const section = item.dataset.section;
+            if (section && photographySections[section]) {
+                displayPhotographySection(section);
+            }
+        });
+    });
+}
+
+// Call initialization on DOM content loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initPhotography();
 });
 
 // Click event for Marketing
@@ -205,8 +286,35 @@ let currentIndex = 0; // Track the current image index
 function displayPhotographySection(section) {
     hideAllContent();
     document.querySelector('.text-top-right').style.display = 'block';
-    document.getElementById('sectionNavigation').style.display = 'flex'; // Show section navigation
-    document.getElementById('imageContainer').style.display = 'flex'; // Show image container
+    
+    // Show the image container
+    const imageContainer = document.getElementById('imageContainer');
+    if (imageContainer) {
+        imageContainer.style.display = 'flex';
+    }
+    
+    // Show the section title
+    const sectionTitle = document.getElementById('sectionTitle');
+    if (sectionTitle) {
+        sectionTitle.style.display = 'block';
+    }
+    
+    // Set up navigation
+    const sectionNav = document.getElementById('sectionNavigation');
+    if (sectionNav) {
+        sectionNav.style.display = 'flex';
+        sectionNav.style.justifyContent = 'center';
+        sectionNav.style.margin = '20px 0';
+        
+        // Show GO BACK button
+        const goBack = sectionNav.querySelector('#goBack');
+        if (goBack) {
+            goBack.style.display = 'inline-block';
+            goBack.onclick = () => {
+                showFolderGrid();
+            };
+        }
+    }
 
     const sectionData = photographySections[section];
     if (sectionData) {
@@ -253,6 +361,102 @@ function displayPhotographySection(section) {
             updateImage(sectionData.images[currentIndex]);
         });
     }
+
+  // Get window references
+  const musicPlayer = document.getElementById('musicPlayer');
+  const gifViewer = document.getElementById('gifViewer');
+  const aboutWindow = document.getElementById('aboutWindow');
+
+  // (icon bindings and helpers handled globally)
+
+  // Enhanced About window with typewriter animation and expansion
+  const typewriterText = document.getElementById('typewriterText');
+  const aboutWindowEl = document.getElementById('aboutWindow');
+  const aboutContent = document.getElementById('aboutContent');
+  const typewriterContainer = document.getElementById('typewriterContainer');
+  
+  // About window: keep small; open a separate details window on click (not drag)
+  if (aboutWindowEl) {
+    aboutWindowEl.classList.remove('expanded');
+    aboutWindowEl.classList.add('compact');
+    setTimeout(() => dragElement(aboutWindowEl), 100);
+
+    let startX = 0, startY = 0, moved = false, pointerId = null;
+    const moveThreshold = 6;
+
+    const onDown = (e) => {
+      if (e.button !== undefined && e.button !== 0) return; // left click only
+      pointerId = e.pointerId || null;
+      startX = e.clientX; startY = e.clientY; moved = false;
+      aboutWindowEl.setPointerCapture?.(pointerId);
+    };
+    const onMove = (e) => {
+      if (pointerId == null) return;
+      if (Math.abs(e.clientX - startX) > moveThreshold || Math.abs(e.clientY - startY) > moveThreshold) {
+        moved = true;
+      }
+    };
+    const onUp = (e) => {
+      if (pointerId == null) return;
+      aboutWindowEl.releasePointerCapture?.(pointerId);
+      pointerId = null;
+      if (!moved) {
+        openAboutDetailsWindow();
+      }
+    };
+    aboutWindowEl.addEventListener('pointerdown', onDown);
+    aboutWindowEl.addEventListener('pointermove', onMove);
+    aboutWindowEl.addEventListener('pointerup', onUp);
+  }
+
+  function openAboutDetailsWindow() {
+    // prevent duplicates
+    const existing = document.getElementById('aboutDetailsWindow');
+    if (existing) { existing.style.display = 'block'; existing.style.zIndex = '3000'; return; }
+
+    const win = document.createElement('div');
+    win.id = 'aboutDetailsWindow';
+    win.className = 'window-xp zoom-in';
+    win.style.position = 'absolute';
+    win.style.width = '520px';
+    win.style.left = '20vw';
+    win.style.top = '18vh';
+    win.innerHTML = `
+      <div class="title-bar">
+        <div class="title-bar-text">About & Contact</div>
+        <div class="title-bar-controls"><button aria-label="Close"></button></div>
+      </div>
+      <div class="window-body" style="max-height:60vh; overflow:auto;">
+        <div style="text-align: center; margin-bottom: 20px; padding: 20px;">
+          <img src="/me.png" alt="Antonio Taurisano" style="width: 200px; height: auto; border-radius: 12px; border: 3px solid #D4D0C8; box-shadow: 0 0 20px rgba(0,0,0,0.3); display: block; background: white;" onerror="console.error('Failed to load image: /me.png'); this.style.display='none'; this.parentElement.innerHTML='<div style=\'color: red; font-size: 24px; padding: 20px; background: #FFE5E5; border: 2px solid red; border-radius: 8px;\'>Image failed to load</div>';" onload="console.log('Image loaded successfully: /me.png'); this.style.opacity='1';">
+        </div>
+      </div>`;
+    document.body.appendChild(win);
+    const body = win.querySelector('.window-body');
+    if (body) {
+      if (aboutContent) {
+        const clone = aboutContent.cloneNode(true);
+        clone.style.display = 'block';
+        body.appendChild(clone);
+      } else {
+        // Only add fallback text if there's no existing content
+        if (!body.querySelector('img')) {
+          body.innerHTML += '<p>About content coming soon.</p>';
+        }
+      }
+      // Append contact quick links if present in top-right markup was removed/hidden
+      const contact = document.getElementById('contact');
+      if (contact) {
+        const contactClone = contact.cloneNode(true);
+        contactClone.style.display = 'block';
+        contactClone.style.marginTop = '8px';
+        body.appendChild(contactClone);
+      }
+    }
+    win.querySelector('.title-bar-controls button').addEventListener('click', () => win.remove());
+    dragElement(win);
+    setTimeout(() => win.classList.remove('zoom-in'), 260);
+  }
 
     // Show mobile back button
     if (window.innerWidth <= 768) {
@@ -354,9 +558,30 @@ document.getElementById('goBackMarketing').addEventListener('click', () => {
 
 function showFolderGrid() {
     hideAllContent();
-    document.getElementById('photographyFolders').style.display = 'grid';
-    document.getElementById('sectionNavigation').style.display = 'flex'; // Show navigation
-    document.getElementById('goBack').style.display = 'none'; // Hide just the "GO BACK" button
+    
+    // Show photography folders
+    const folders = document.getElementById('photographyFolders');
+    if (folders) {
+        folders.style.display = 'grid';
+        folders.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        folders.style.gap = '20px';
+        folders.style.padding = '20px';
+    }
+    
+    document.body.classList.remove('photography-bg');
+    document.querySelector('.text-top-right').style.display = 'block';
+    
+    // Show the navigation with GO BACK and GO HOME
+    const sectionNav = document.getElementById('sectionNavigation');
+    if (sectionNav) {
+        sectionNav.style.display = 'flex';
+        
+        // Hide GO BACK button in grid view
+        const goBack = sectionNav.querySelector('#goBack');
+        if (goBack) {
+            goBack.style.display = 'none';
+        }
+    }
 }
 
 // Add this to your existing click handler setup
@@ -473,8 +698,8 @@ function displayMarketingSubfolders(parentSection, items) {
         const folder = document.createElement('div');
         folder.className = 'folder';
         
-        // Use the item's icon if specified, otherwise use folder.png
-        const iconPath = item.icon || "./images/folder.png";
+        // Use the item's icon if specified, otherwise use Windows XP-style transparent PNG folder icon
+        const iconPath = item.icon || "/windows-update/folder.png";
         
         folder.innerHTML = `
             <img src="${iconPath}" alt="${item.label} Icon" class="folder-image" />
@@ -554,4 +779,1082 @@ document.querySelector('.mobile-back-button').addEventListener('click', () => {
     if (window.innerWidth <= 768) {
         document.querySelector('.photography-folders-home').style.display = 'block';
     }
+});
+
+// -----------------------------
+// Simple client-side routing
+// -----------------------------
+const routes = new Set(['/', '/photography', '/boombit', '/gala-games', '/mystic-moose', '/test']);
+
+function renderRoute(pathname) {
+  // Normalize
+  if (!routes.has(pathname)) pathname = '/';
+
+  // Always show background container
+  const gradientBg = document.querySelector('.gradient-bg');
+  if (gradientBg) gradientBg.style.display = 'flex';
+
+  // Route class toggling for CSS-driven differences
+  document.body.classList.remove('route-home', 'route-nonhome');
+
+  // Reset everything
+  hideAllContent();
+
+  // On all routes, keep top links visible
+  const topRight = document.querySelector('.text-top-right');
+  if (topRight) topRight.style.display = 'block';
+
+  // Toggle reveal-layer per route (only on main page)
+  const reveal = document.querySelector('.reveal-layer');
+  const gradients = document.querySelector('.gradients-container');
+  const wallpaper = document.querySelector('.wallpaper-layer');
+  const blobEls = document.querySelectorAll('.g1, .g2, .g3, .g4, .g5, .interactive');
+  switch (pathname) {
+    case '/photography': {
+      document.body.classList.add('route-nonhome');
+      if (reveal) reveal.style.display = 'none';
+      // Use wallpaper + starfield like home, hide gradients/blobs
+      if (gradients) { 
+        gradients.style.display = 'none';
+        gradients.style.visibility = 'hidden';
+        gradients.style.opacity = '0';
+      }
+      blobEls.forEach(el => {
+        el.style.display = 'none';
+        el.style.visibility = 'hidden';
+        el.style.opacity = '0';
+        el.style.animationPlayState = 'paused';
+      });
+      if (wallpaper) wallpaper.style.display = 'block';
+      const starFieldP = document.getElementById('starField');
+      if (starFieldP) starFieldP.style.display = 'block';
+      // Hide XP windows and star field when not on home
+      const _mp1 = document.getElementById('musicPlayer');
+      const _gv1 = document.getElementById('gifViewer');
+      const _aw1 = document.getElementById('aboutWindow');
+      const _sf1 = document.getElementById('starField');
+      if (_mp1) _mp1.style.display = 'none';
+      if (_gv1) _gv1.style.display = 'none';
+      if (_aw1) _aw1.style.display = 'none';
+      if (_sf1) _sf1.style.display = 'none';
+      // Show the folders grid like after clicking photography
+      const grid = document.getElementById('photographyFolders');
+      if (grid) grid.style.display = 'grid';
+      if (window.innerWidth <= 768) {
+        const home = document.querySelector('.photography-folders-home');
+        if (home) home.style.display = 'block';
+      }
+      break;
+    }
+    case '/boombit':
+    case '/gala-games':
+    case '/mystic-moose':
+    case '/test': {
+      document.body.classList.add('route-nonhome');
+      if (reveal) reveal.style.display = 'none';
+      // Use wallpaper + starfield like home
+      if (gradients) { 
+        gradients.style.display = 'none';
+        gradients.style.visibility = 'hidden';
+        gradients.style.opacity = '0';
+      }
+      blobEls.forEach(el => {
+        el.style.display = 'none';
+        el.style.visibility = 'hidden';
+        el.style.opacity = '0';
+        el.style.animationPlayState = 'paused';
+      });
+      if (wallpaper) wallpaper.style.display = 'block';
+      const starFieldM = document.getElementById('starField');
+      if (starFieldM) starFieldM.style.display = 'block';
+      // Blank: just background animations visible
+      // Nothing else to show
+      // Hide XP windows and star field when not on home
+      const _mp2 = document.getElementById('musicPlayer');
+      const _gv2 = document.getElementById('gifViewer');
+      const _aw2 = document.getElementById('aboutWindow');
+      const _sf2 = document.getElementById('starField');
+      if (_mp2) _mp2.style.display = 'none';
+      if (_gv2) _gv2.style.display = 'none';
+      if (_aw2) _aw2.style.display = 'none';
+      if (_sf2) _sf2.style.display = 'none';
+      break;
+    }
+    case '/':
+    default: {
+      document.body.classList.add('route-home');
+      if (reveal) reveal.style.display = 'none';
+      // Disable all background effects on home page for better performance
+      if (gradients) { 
+        gradients.style.display = 'none'; 
+        gradients.style.visibility = 'hidden'; 
+        gradients.style.opacity = '0'; 
+      }
+      blobEls.forEach(el => {
+        el.style.display = 'none';
+        el.style.visibility = 'hidden';
+        el.style.opacity = '0';
+        el.style.animationPlayState = 'paused';
+      });
+      if (wallpaper) wallpaper.style.display = 'block';
+      // Main page: show folder-container
+      const folders = document.querySelector('.folder-container');
+      if (folders) folders.style.display = 'flex';
+      const quote = document.querySelector('.quote');
+      if (quote) quote.style.display = 'block';
+      
+      // Show star field on home page
+      const starField = document.getElementById('starField');
+      if (starField) starField.style.display = 'block';
+
+      // Open default XP windows on home and hide their desktop icons
+      try {
+        const mp = document.getElementById('musicPlayer');
+        const gv = document.getElementById('gifViewer');
+        const aw = document.getElementById('aboutWindow');
+        const iconMusic = document.getElementById('iconMusic');
+        const iconGifs = document.getElementById('iconGifs');
+        const iconAbout = document.getElementById('iconAbout');
+        
+        if (mp) {
+          mp.style.display = 'block';
+          mp.style.position = 'absolute';
+          mp.style.zIndex = '2000';
+          mp.style.visibility = 'visible';
+          mp.style.opacity = '1';
+          // Ensure draggable after a brief delay
+          setTimeout(() => dragElement(mp), 50);
+          if (iconMusic) iconMusic.style.display = 'none';
+        }
+        if (gv) {
+          gv.style.display = 'block';
+          gv.style.position = 'absolute';
+          gv.style.zIndex = '2000';
+          gv.style.visibility = 'visible';
+          gv.style.opacity = '1';
+          // Ensure draggable after a brief delay
+          setTimeout(() => dragElement(gv), 50);
+          if (iconGifs) iconGifs.style.display = 'none';
+          // Load GIF
+          if (typeof loadCatGif === 'function') {
+            loadCatGif();
+          }
+        }
+        if (aw) {
+          aw.style.display = 'block';
+          aw.style.position = 'absolute';
+          aw.style.zIndex = '2000';
+          aw.style.visibility = 'visible';
+          aw.style.opacity = '1';
+          // Start in compact mode with just animated text
+          aw.classList.add('compact');
+          aw.classList.remove('expanded');
+          const _aboutContent = document.getElementById('aboutContent');
+          if (_aboutContent) {
+            _aboutContent.style.display = 'none'; // Hidden initially
+            // Make clickable to expand
+            aw.addEventListener('click', (e) => {
+              if (!e.target.closest('.title-bar-controls') && !e.target.closest('button')) {
+                _aboutContent.style.display = 'block';
+                aw.classList.add('expanded');
+                aw.classList.remove('compact');
+              }
+            });
+          }
+          // Ensure draggable after a longer delay for smoother initialization
+          setTimeout(() => dragElement(aw), 100);
+          if (iconAbout) iconAbout.style.display = 'none';
+        }
+      } catch {}
+      break;
+    }
+  }
+}
+
+function navigateTo(pathname) {
+  if (location.pathname !== pathname) {
+    history.pushState({}, '', pathname);
+  }
+  renderRoute(pathname);
+}
+
+// Handle back/forward
+window.addEventListener('popstate', () => {
+  renderRoute(location.pathname);
+});
+
+// Interactive Star Field - only in sky area (top 40% of screen) and main page only
+function initStarField() {
+  const starField = document.getElementById('starField');
+  if (!starField) return;
+  
+  const stars = [];
+  const isMobile = window.innerWidth <= 768;
+  const numStars = isMobile ? 25 : 50; // Fewer stars on mobile
+  let mouseX = 0;
+  let mouseY = 0;
+  
+  // Create stars only in top 40% of screen (sky area)
+  for (let i = 0; i < numStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Random size classes
+    const sizes = ['small', 'medium', 'large'];
+    const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+    star.classList.add(randomSize);
+    
+    // Random position - only in top 40% of screen (sky area)
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * (window.innerHeight * 0.4); // Only top 40%
+    
+    star.style.left = '0';
+    star.style.top = '0';
+    star.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    
+    // Random animation delay for twinkling
+    star.style.animationDelay = Math.random() * 3 + 's';
+    
+    starField.appendChild(star);
+    stars.push({
+      element: star,
+      originalX: x,
+      originalY: y,
+      currentX: x,
+      currentY: y
+    });
+  }
+  
+  // Mouse tracking with optimized animation
+  let animationFrame = null;
+  
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Cancel previous animation frame to prevent stacking
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+    
+    // Use requestAnimationFrame for smooth animations
+    animationFrame = requestAnimationFrame(() => {
+      stars.forEach(star => {
+        const dx = mouseX - star.currentX;
+        const dy = mouseY - star.currentY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Cursor interaction radius (smaller on mobile)
+        const interactionRadius = isMobile ? 60 : 100;
+        
+        if (distance < interactionRadius) {
+          // Star reacts to cursor
+          star.element.classList.add('cursor-near');
+          
+          // Subtle repulsion effect
+          const force = (interactionRadius - distance) / interactionRadius;
+          const repelX = (star.currentX - mouseX) * force * 0.3;
+          const repelY = (star.currentY - mouseY) * force * 0.3;
+          
+          star.currentX = star.originalX + repelX;
+          star.currentY = star.originalY + repelY;
+          
+          star.element.style.transform = `translate3d(${star.currentX}px, ${star.currentY}px, 0)`;
+        } else {
+          // Star returns to original position
+          star.element.classList.remove('cursor-near');
+          
+          // Smooth return animation
+          star.currentX += (star.originalX - star.currentX) * 0.1;
+          star.currentY += (star.originalY - star.currentY) * 0.1;
+          
+          star.element.style.transform = `translate3d(${star.currentX}px, ${star.currentY}px, 0)`;
+        }
+      });
+    });
+  });
+  
+  // Occasional shooting star
+  setInterval(() => {
+    if (Math.random() < 0.1) { // 10% chance every interval
+      createShootingStar();
+    }
+  }, 5000);
+  
+  function createShootingStar() {
+    const shootingStar = document.createElement('div');
+    shootingStar.className = 'star shooting large';
+    
+    // Start from random edge
+    const startX = Math.random() * window.innerWidth;
+    const startY = Math.random() * 200; // Upper portion of screen
+    
+    shootingStar.style.left = startX + 'px';
+    shootingStar.style.top = startY + 'px';
+    
+    starField.appendChild(shootingStar);
+    
+    // Remove after animation
+    setTimeout(() => {
+      if (shootingStar.parentNode) {
+        shootingStar.parentNode.removeChild(shootingStar);
+      }
+    }, 2000);
+  }
+  
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    stars.forEach(star => {
+      // Reposition stars proportionally
+      const xRatio = star.originalX / window.innerWidth;
+      const yRatio = star.originalY / window.innerHeight;
+      
+      star.originalX = xRatio * window.innerWidth;
+      star.originalY = yRatio * window.innerHeight;
+      star.currentX = star.originalX;
+      star.currentY = star.originalY;
+      
+      star.element.style.transform = `translate3d(${star.originalX}px, ${star.originalY}px, 0)`;
+    });
+  });
+}
+
+// Initial render
+document.addEventListener('DOMContentLoaded', () => {
+  renderRoute(location.pathname);
+  initStarField();
+  // Enhanced Clippy dialogue system
+  initClippyDialogue();
+
+  // Global About window typewriter animation
+  (function initTypewriter() {
+    const typewriterText = document.getElementById('typewriterText');
+    if (!typewriterText) return;
+    const messages = [
+      "Want to learn about my lore? 🧌",
+      "Data nerd alert: I got a Statistics degree ☝️🤓",
+      "Built my first online community at 14 on COD MW2 🫂",
+      "Coffee-to-creativity converter ☕",
+      "Spreadsheet wizard in disguise 🧙‍♂️",
+      "I can type 145 WPM ⚡️",
+      "Did you know I'm Diamond in Valorant and TFT? 💎",
+    ];
+    let iMsg = 0, iChar = 0, typing = true;
+    function tick() {
+      const msg = messages[iMsg];
+      if (typing) {
+        if (iChar < msg.length) {
+          typewriterText.textContent = msg.substring(0, iChar + 1);
+          iChar++;
+          setTimeout(tick, 50 + Math.random() * 50);
+        } else {
+          typing = false;
+          setTimeout(tick, 2000);
+        }
+      } else {
+        if (iChar > 0) {
+          typewriterText.textContent = msg.substring(0, iChar - 1);
+          iChar--;
+          setTimeout(tick, 30);
+        } else {
+          typing = true;
+          iMsg = (iMsg + 1) % messages.length;
+          setTimeout(tick, 500);
+        }
+      }
+    }
+    tick();
+  })();
+  
+  // Global desktop icon -> window open bindings
+  const gMusic = document.getElementById('musicPlayer');
+  const gGif = document.getElementById('gifViewer');
+  const gAbout = document.getElementById('aboutWindow');
+  const icMusic = document.getElementById('iconMusic');
+  const icGifs = document.getElementById('iconGifs');
+  const icAbout = document.getElementById('iconAbout');
+  const headerAboutLink = document.getElementById('about');
+  if (icMusic && gMusic) icMusic.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openCentered(gMusic, 'iconMusic'); });
+  if (icGifs && gGif) icGifs.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (typeof loadCatGif === 'function') loadCatGif(); openCentered(gGif, 'iconGifs'); });
+  if (icAbout && gAbout) icAbout.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openCentered(gAbout, 'iconAbout'); });
+  // Also open About via header top-right ABOUT link
+  if (headerAboutLink && gAbout) headerAboutLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openCentered(gAbout, 'iconAbout');
+    // Ensure draggable in case styles changed
+    dragElement(gAbout);
+  });
+
+  // Global close buttons -> re-show icons
+  const btnCloseMusic = document.getElementById('closeMusic');
+  const btnCloseGif = document.getElementById('closeGif');
+  const btnCloseAbout = document.getElementById('closeAbout');
+  if (btnCloseMusic && gMusic) btnCloseMusic.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(gMusic, 'iconMusic'); });
+  if (btnCloseGif && gGif) btnCloseGif.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(gGif, 'iconGifs'); });
+  if (btnCloseAbout && gAbout) btnCloseAbout.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(gAbout, 'iconAbout'); });
+
+  function initClippyDialogue() {
+    const clippyText = document.getElementById('clippyText');
+    const clippyOptions = document.getElementById('clippyOptions');
+    let currentQuest = null;
+    
+    const dialogues = {
+      help: {
+        text: "Need help? You can drag folders around, click them to explore Antonio's work, or try the windows on screen. The recycle bin has some... interesting content!",
+        options: [
+          { text: "Show me the photography", action: () => navigateTo('/photography') },
+          { text: "What's in the recycle bin?", response: "trash" },
+          { text: "Back to main menu", response: "main" }
+        ]
+      },
+      quest: {
+        text: "Ah, a fellow adventurer! I have some quests for you:",
+        options: [
+          { text: "🐱 Generate a cat GIF", action: () => startQuest('catgif') },
+          { text: "🗑️ Explore the recycle bin", action: () => startQuest('trash') },
+          { text: "🎵 Play some music", action: () => startQuest('music') },
+          { text: "Maybe later", response: "main" }
+        ]
+      },
+      about: {
+        text: "This is Antonio's digital portfolio! He's a marketing wizard by day, photographer by night. Think of me as your guide through his creative chaos!",
+        options: [
+          { text: "Tell me more about Antonio", action: () => openWindow('aboutWindow') },
+          { text: "Show me his work", response: "help" },
+          { text: "Back to main menu", response: "main" }
+        ]
+      },
+      joke: {
+        text: "Why did the marketer break up with the photographer? Because they couldn't focus on the same target audience!",
+        options: [
+          { text: "That's terrible!", response: "joke2" },
+          { text: "Tell me another", response: "joke3" },
+          { text: "Back to business", response: "main" }
+        ]
+      },
+      joke2: {
+        text: "I know, I know... I'm better at organizing files than telling jokes! 📎",
+        options: [
+          { text: "Give me a quest instead", response: "quest" },
+          { text: "Back to main menu", response: "main" }
+        ]
+      },
+      joke3: {
+        text: "What do you call a cat that works in marketing? A purr-suasion specialist! 🐱💼",
+        options: [
+          { text: "Okay, that's enough", response: "main" },
+          { text: "I want a real cat now", action: () => startQuest('catgif') }
+        ]
+      },
+      trash: {
+        text: "The recycle bin? Oh my... that's where Antonio's failed 'creative experiments' ended up. Proceed with caution!",
+        options: [
+          { text: "Open it anyway", action: () => openWindow('recycleBinWindow') },
+          { text: "Maybe not...", response: "main" }
+        ]
+      },
+      main: {
+        text: "Hello! I'm Clippy, your helpful assistant. I see you're exploring Antonio's portfolio!",
+        options: [
+          { text: "I need help navigating", response: "help" },
+          { text: "Give me a quest!", response: "quest" },
+          { text: "Tell me about this site", response: "about" },
+          { text: "Tell me a joke", response: "joke" }
+        ]
+      }
+    };
+    
+    function startQuest(questType) {
+      currentQuest = questType;
+      const questTexts = {
+        catgif: "Quest accepted! Generate a cat GIF using the Cat GIF Generator window. Click the 'Generate cat gif' button!",
+        trash: "Quest accepted! Explore the mysteries of the recycle bin. Double-click it to open!",
+        music: "Quest accepted! Open the music player and enjoy some tunes. The window should be open already!"
+      };
+      
+      updateDialogue({
+        text: questTexts[questType],
+        options: [
+          { text: "Quest completed!", action: () => completeQuest(questType) },
+          { text: "I need help", response: "help" },
+          { text: "Cancel quest", response: "main" }
+        ]
+      });
+      
+      // Auto-open relevant windows
+      if (questType === 'catgif') openWindow('gifViewer');
+      if (questType === 'music') openWindow('musicPlayer');
+    }
+    
+    function completeQuest(questType) {
+      const rewards = {
+        catgif: "Excellent! You've mastered the ancient art of cat GIF generation! 🏆 Your reward: infinite cat content!",
+        trash: "Brave explorer! You've uncovered Antonio's digital archaeology. 🏆 Some secrets are best left buried...",
+        music: "Wonderful! Music soothes the digital soul. 🏆 You've earned the title of 'Playlist Pioneer'!"
+      };
+      
+      updateDialogue({
+        text: rewards[questType],
+        options: [
+          { text: "Give me another quest!", response: "quest" },
+          { text: "Back to main menu", response: "main" }
+        ]
+      });
+      currentQuest = null;
+    }
+    
+    function openWindow(windowId) {
+      const win = document.getElementById(windowId);
+      if (win) {
+        win.style.display = 'block';
+        win.classList.add('zoom-in');
+        setTimeout(() => win.classList.remove('zoom-in'), 260);
+      }
+    }
+    
+    function updateDialogue(dialogue) {
+      if (clippyText) clippyText.textContent = dialogue.text;
+      if (clippyOptions) {
+        clippyOptions.innerHTML = '';
+        dialogue.options.forEach(option => {
+          const btn = document.createElement('button');
+          btn.className = 'btn clippy-btn';
+          btn.textContent = option.text;
+          btn.addEventListener('click', () => {
+            if (option.action) {
+              option.action();
+            } else if (option.response) {
+              updateDialogue(dialogues[option.response]);
+            }
+          });
+          clippyOptions.appendChild(btn);
+        });
+      }
+    }
+    
+    // Initialize with main dialogue
+    if (dialogues.main) updateDialogue(dialogues.main);
+  }
+
+  // Remove Clippy initialization
+// Clippy related code has been removed as per request
+
+// Recycle Bin functionality
+  const recycleBin = document.getElementById('recycleBin');
+  const recycleBinWindow = document.getElementById('recycleBinWindow');
+  const closeBin = document.getElementById('closeBin');
+
+  if (recycleBin && recycleBinWindow) {
+    recycleBin.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      recycleBinWindow.style.display = 'block';
+      recycleBinWindow.style.position = 'absolute';
+      recycleBinWindow.style.zIndex = '2000';
+      recycleBinWindow.style.visibility = 'visible';
+      recycleBinWindow.style.opacity = '1';
+      // Center the window without transform (to avoid drag position issues)
+      const centerX = (window.innerWidth - 400) / 2; // assuming 400px width
+      const centerY = (window.innerHeight - 300) / 2; // assuming 300px height
+      recycleBinWindow.style.left = centerX + 'px';
+      recycleBinWindow.style.top = centerY + 'px';
+      recycleBinWindow.style.transform = 'none'; // Remove transform to prevent drag conflicts
+      dragElement(recycleBinWindow);
+      console.log('Recycle Bin window opened');
+    });
+  }
+
+  if (closeBin && recycleBinWindow) {
+    closeBin.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      recycleBinWindow.style.display = 'none';
+    });
+  }
+
+  // Ensure Clippy sits on top
+  const clippyHelper = document.getElementById('clippyHelper');
+  if (clippyHelper) {
+    clippyHelper.style.zIndex = '1000';
+  }
+  const closeClippy = document.getElementById('closeClippyBubble');
+  if (closeClippy) {
+    closeClippy.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const bubble = document.querySelector('.clippy-helper .clippy-bubble');
+      if (bubble) bubble.style.display = 'none';
+    });
+  }
+
+  // Make all windows draggable
+  const allWindows = document.querySelectorAll('.window-xp, .window-xp-widget');
+  allWindows.forEach(window => {
+    if (window) {
+      dragElement(window);
+      console.log('Made window draggable:', window.id);
+    }
+  });
+  
+  // Make the recycle bin window draggable
+  dragElement(recycleBinWindow);
+
+  // Clickable files inside Recycle Bin (open data-link if provided)
+  recycleBinWindow.querySelectorAll('.folder[data-link]').forEach(el => {
+    el.addEventListener('click', () => {
+      const link = el.getAttribute('data-link');
+      if (link) window.open(link, '_blank');
+    });
+  });
+
+  // Brainrot Mode: XP-style toggle button (click/keyboard)
+  const brainrotToggle = document.getElementById('brainrotMode');
+  const brainrotVideos = document.getElementById('brainrotVideos');
+  const brainrotSources = [
+    '/windows-update/brainrot-1.mp4',
+    '/windows-update/brainrot-2.mp4',
+    '/windows-update/brainrot-3.mp4',
+    '/windows-update/brainrot-5.mp4' // removed brainrot-4
+  ];
+
+  function renderBrainrot(on) {
+    // Remove any existing brainrot windows
+    document.querySelectorAll('.brainrot-win').forEach(w => w.remove());
+    if (on) {
+      document.body.classList.add('brainrot-on');
+      // Spawn 5 XP windows sequentially like pop-up ads
+      // Default positions tuned to avoid left icons, Clippy and controls
+      const slots = [
+        { left: '12vw', top: '6vh'  }, // top-left (clear of Marketing/Photography)
+        { left: '68vw', top: '5vh'  }, // top-right (clear of GIF window)
+        { left: '70vw', top: '52vh' }, // bottom-right (nudged up)
+        { left: '14vw', top: '52h' }, // bottom-left (nudged up)
+      ];
+      brainrotSources.slice(0,4).forEach((src, idx) => {
+        setTimeout(() => {
+          const win = document.createElement('div');
+          win.className = 'window-xp brainrot-win zoom-in';
+          // Portrait window for 360x640 vertical videos (scaled down to fit viewport)
+          win.style.width = '220px';
+          win.style.height = '400px';
+          win.style.position = 'absolute';
+          win.style.left = (slots[idx] ? slots[idx].left : '10vw');
+          win.style.top  = (slots[idx] ? slots[idx].top  : '10vh');
+          win.style.zIndex = String(3000 + idx);
+          win.style.transition = 'none'; // avoid transform jitter during drag
+          win.style.willChange = 'left, top';
+          win.style.transform = 'none';
+          win.innerHTML = `
+            <div class="title-bar">
+              <div class="title-bar-text">Brainrot ${idx + 1}.mp4</div>
+              <div class="title-bar-controls"><button aria-label="Close"></button></div>
+            </div>
+            <div class="window-body" style="padding:0;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100% - 22px);">
+              <video src="${src}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+            </div>`;
+          document.body.appendChild(win);
+          // Close and drag hooks
+          win.querySelector('.title-bar-controls button').addEventListener('click', () => win.remove());
+          // reduce interference: remove zoom-in class after it runs
+          setTimeout(() => win.classList.remove('zoom-in'), 260);
+          // ensure smooth dragging only via title bar and avoid video capturing events
+          const vidEl = win.querySelector('video');
+          if (vidEl) vidEl.style.pointerEvents = 'none';
+          const title = win.querySelector('.title-bar');
+          if (title) {
+            title.style.userSelect = 'none';
+            title.style.pointerEvents = 'auto';
+            title.style.cursor = 'move';
+            const body = win.querySelector('.window-body');
+            title.addEventListener('pointerdown', () => {
+              if (body) body.style.pointerEvents = 'none';
+            });
+            title.addEventListener('pointerup', () => {
+              if (body) body.style.pointerEvents = '';
+            });
+          }
+          dragElement(win);
+        }, idx * 220); // staggered pop-ups
+      });
+    } else {
+      document.body.classList.remove('brainrot-on');
+    }
+  }
+
+  // Click/keyboard toggle
+  if (brainrotToggle) {
+    const updateVisual = (on) => {
+      brainrotToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+      brainrotToggle.classList.toggle('on', !!on);
+      const txt = brainrotToggle.querySelector('.txt');
+      if (txt) txt.textContent = on ? 'Brainrot Mode: On' : 'Brainrot Mode: Off';
+    };
+    const toggle = () => {
+      const on = brainrotToggle.getAttribute('aria-pressed') !== 'true';
+      updateVisual(on);
+      renderBrainrot(on);
+    };
+    brainrotToggle.addEventListener('click', toggle);
+    brainrotToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+    // Initialize off
+    updateVisual(false);
+  }
+
+  // 3D corner hover effect for XP windows (exclude brainrot popups)
+  (function enableCorner3D() {
+    const all = document.querySelectorAll('.window-xp, .window-xp-widget');
+    all.forEach(win => {
+      if (win.classList.contains('brainrot-win')) return;
+      let raf = null;
+      const reset = () => {
+        if (raf) cancelAnimationFrame(raf);
+        win.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        win.style.transform = win.style.transform?.replace(/rotate[XY]\([^)]*\)/g, '').trim() || '';
+      };
+      const handleMove = (e) => {
+        const rect = win.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;   // 0..1
+        const y = (e.clientY - rect.top) / rect.height;  // 0..1
+        const corner = 0.25; // Smaller corner area for more subtle effect
+        let rx = 0, ry = 0, apply = false;
+        if (x < corner && y < corner) { // top-left
+          rx = 4; ry = 4; apply = true; // Reduced from 8 to 4 degrees
+        } else if (x > 1-corner && y < corner) { // top-right
+          rx = 4; ry = -4; apply = true; // Reduced from 8 to 4 degrees
+        } else if (x < corner && y > 1-corner) { // bottom-left
+          rx = -4; ry = 4; apply = true; // Reduced from 8 to 4 degrees
+        } else if (x > 1-corner && y > 1-corner) { // bottom-right
+          rx = -4; ry = -4; apply = true; // Reduced from 8 to 4 degrees
+        }
+        if (!apply) { reset(); return; }
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          // preserve existing translate if any
+          const base = (win.dataset.baseTransform || win.style.transform || '').replace(/rotate[XY]\([^)]*\)/g, '').trim();
+          win.dataset.baseTransform = base;
+          win.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // Smooth transition
+          win.style.transform = `${base} rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+      };
+      win.addEventListener('pointermove', handleMove);
+      win.addEventListener('pointerleave', reset);
+    });
+  })();
+
+  // Enhanced cat GIF viewer with better functionality
+  const gifSingle = document.getElementById('gifSingle');
+  const btnGenCat = document.getElementById('btnGenCat');
+  // Cycle through a curated list of cat GIFs (typing first)
+  const catGifList = [
+    'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif',
+    'https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif',
+    'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFncDh3MHFxdWxwbHNxM290cG5paHA5Y3Zha2F1MXJoNGt3MHlzdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8vQSQ3cNXuDGo/giphy.gif',
+    'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGdhZWx5OHBrd243azZ5MGM3OWFldnZ2cTJ5bDdiZ3duZWNpcXI3cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif',
+    'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjR4ZnNmZTY0dXhsZjhiam94N24ya3p5cWx4OXJrYTRvbGNwYTZwbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5HSYaZTcRpYnS/giphy.gif',
+
+  ];
+  let catGifIndex = 0;
+  
+  async function loadCatGif() {
+    console.log('Loading cat GIF...');
+    if (btnGenCat) {
+      btnGenCat.textContent = 'Loading...';
+      btnGenCat.disabled = true;
+    }
+    
+    try {
+      // Round-robin through curated GIFs, starting with typing cat
+      const nextUrl = catGifList[catGifIndex % catGifList.length] + '?cb=' + Date.now();
+      catGifIndex++;
+      if (gifSingle) {
+        gifSingle.onerror = null;
+        gifSingle.src = nextUrl;
+        gifSingle.alt = 'Cat GIF';
+      }
+      
+    } catch (e) {
+      console.error('Error loading cat GIF:', e);
+      if (gifSingle) {
+        gifSingle.src = 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif';
+        gifSingle.alt = 'Cat GIF fallback';
+      }
+    } finally {
+      if (btnGenCat) {
+        btnGenCat.textContent = 'Generate cat GIF';
+        btnGenCat.disabled = false;
+      }
+    }
+  }
+  
+  if (gifSingle) loadCatGif();
+  if (btnGenCat) {
+    btnGenCat.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Generate cat GIF button clicked');
+      loadCatGif();
+    });
+  }
+
+  // Build a simple music player and load only 'Are You Bored Yet?' via iTunes Search API
+  const musicPlayerEl = document.getElementById('musicPlayer');
+  if (musicPlayerEl) {
+    // Get elements from the simple music interface
+    const trackInfo = document.getElementById('trackInfo');
+    const btnPrev = document.getElementById('prevBtn');
+    const btnPlay = document.getElementById('playBtn');
+    const btnNext = document.getElementById('nextBtn');
+    const progressFill = document.getElementById('progressFill');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    const audio = new Audio();
+    audio.preload = 'metadata';
+    let tracks = [];
+    let idx = 0;
+    let progTimer = null;
+
+    function setTrack(i) {
+      if (!tracks.length) return;
+      idx = (i + tracks.length) % tracks.length;
+      const t = tracks[idx];
+      audio.src = t.previewUrl;
+      if (trackInfo) trackInfo.textContent = `${t.trackName} — ${t.artistName}`;
+      if (progressFill) progressFill.style.width = '0%';
+      if (currentTimeEl) currentTimeEl.textContent = '0:00';
+      if (totalTimeEl) totalTimeEl.textContent = '0:00';
+    }
+
+      fetch('https://itunes.apple.com/search?term=Are%20You%20Bored%20Yet%20Clairo&entity=song&limit=25')
+        .then(r => r.json())
+        .then(data => {
+          const all = (data.results || []).filter(t => t.previewUrl);
+          // Strict filter: exact track and known artist (Wallows feat. Clairo)
+          tracks = all.filter(t => /are you bored yet\??/i.test(t.trackName||'') && /(wallows)/i.test(t.artistName||'') );
+          if (tracks.length) {
+            setTrack(0);
+          } else {
+            if (trackInfo) trackInfo.textContent = 'No previews available.';
+          }
+        })
+        .catch(() => { if (trackInfo) trackInfo.textContent = 'Failed to load tracks.'; });
+
+    if (btnPlay) {
+      btnPlay.addEventListener('click', () => {
+        if (!audio.src) return;
+        if (audio.paused) {
+          audio.play();
+          btnPlay.textContent = '⏸';
+          btnPlay.classList.add('playing');
+          // start progress updater
+          if (progTimer) clearInterval(progTimer);
+          progTimer = setInterval(() => {
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+              const pct = Math.min(100, (audio.currentTime / audio.duration) * 100);
+              if (progressFill) progressFill.style.width = pct + '%';
+              if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+              if (totalTimeEl) totalTimeEl.textContent = formatTime(audio.duration);
+            }
+          }, 200);
+        } else {
+          audio.pause();
+          btnPlay.textContent = '▶';
+          btnPlay.classList.remove('playing');
+          if (progTimer) { clearInterval(progTimer); progTimer = null; }
+        }
+      });
+    }
+    
+    if (btnPrev) btnPrev.addEventListener('click', () => { setTrack(idx - 1); if (!audio.paused) audio.play(); });
+    if (btnNext) btnNext.addEventListener('click', () => { setTrack(idx + 1); if (!audio.paused) audio.play(); });
+
+    audio.addEventListener('ended', () => {
+      if (btnPlay) {
+        btnPlay.textContent = '▶';
+        btnPlay.classList.remove('playing');
+      }
+      if (progTimer) { clearInterval(progTimer); progTimer = null; }
+      if (progressFill) progressFill.style.width = '0%';
+      if (currentTimeEl) currentTimeEl.textContent = '0:00';
+    });
+
+    // Click-to-seek
+    if (progressBar) {
+      progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const pct = Math.max(0, Math.min(1, x / rect.width));
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+          audio.currentTime = pct * audio.duration;
+          if (progressFill) progressFill.style.width = (pct * 100) + '%';
+          if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+          if (totalTimeEl) totalTimeEl.textContent = formatTime(audio.duration);
+        }
+      });
+    }
+
+    function formatTime(t) {
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    }
+  }
+
+  // Make desktop folders/icons draggable on home screen with a click threshold
+  const desktopItems = document.querySelectorAll('.folder-container > .folder, .folder-container > a.folder');
+  desktopItems.forEach(el => {
+    el.setAttribute('draggable', 'false');
+    makeDraggableIcon(el);
+    console.log('Made draggable:', el.id || el.className); // Debug log
+  });
+  // Disable native drag on images to avoid ghost image following cursor
+  document.querySelectorAll('.folder-image, .file-image').forEach(img => {
+    img.setAttribute('draggable', 'false');
+  });
+
+  let lastBinTriggerAt = 0;
+  function makeDraggableIcon(elmnt) {
+    let startX = 0, startY = 0, origX = 0, origY = 0, dragging = false;
+
+    elmnt.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return; // primary button only
+      e.preventDefault(); // stop native drag/select
+      elmnt.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = elmnt.getBoundingClientRect();
+      const parentRect = elmnt.parentElement.getBoundingClientRect();
+      origX = rect.left - parentRect.left;
+      origY = rect.top - parentRect.top;
+      elmnt.style.cursor = 'grabbing';
+
+      const onMove = (ev) => {
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+        if (!dragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+          dragging = true;
+          elmnt.style.position = 'absolute';
+          elmnt.style.zIndex = '5';
+          document.body.style.userSelect = 'none';
+        }
+        if (dragging) {
+          const parentRect = elmnt.parentElement.getBoundingClientRect();
+          const iconRect = elmnt.getBoundingClientRect();
+          let newLeft = origX + dx;
+          let newTop = origY + dy;
+          const maxLeft = parentRect.width - iconRect.width;
+          const maxTop = parentRect.height - iconRect.height;
+          newLeft = Math.max(0, Math.min(maxLeft, newLeft));
+          newTop = Math.max(0, Math.min(maxTop, newTop));
+          elmnt.style.left = `${newLeft}px`;
+          elmnt.style.top = `${newTop}px`;
+        }
+      };
+
+      const finish = (ev) => {
+        elmnt.releasePointerCapture(e.pointerId);
+        elmnt.removeEventListener('pointermove', onMove);
+        elmnt.removeEventListener('pointerup', finish);
+        elmnt.removeEventListener('pointercancel', finish);
+        elmnt.removeEventListener('pointerleave', finish);
+        document.body.style.userSelect = '';
+        elmnt.style.cursor = '';
+        if (dragging) {
+          // Suppress ONLY the immediate synthetic click on this element once
+          const cancelOnce = (clickEv) => {
+            clickEv.preventDefault();
+            clickEv.stopPropagation();
+            elmnt.removeEventListener('click', cancelOnce, true);
+          };
+          elmnt.addEventListener('click', cancelOnce, true);
+
+          // Detect drop over Recycle Bin and trigger Clippy
+          try {
+            if (elmnt && elmnt.id === 'recycleBin') return; // don't trigger when moving the bin itself
+            const binRect = recycleBin.getBoundingClientRect();
+            const iconRect = elmnt.getBoundingClientRect();
+            const now = Date.now();
+            if (rectsOverlap(iconRect, binRect) && now - lastBinTriggerAt > 1500) {
+              lastBinTriggerAt = now;
+              triggerBinFeedback();
+            }
+          } catch {}
+        }
+        dragging = false;
+      };
+
+      elmnt.addEventListener('pointermove', onMove);
+      elmnt.addEventListener('pointerup', finish);
+      elmnt.addEventListener('pointercancel', finish);
+      elmnt.addEventListener('pointerleave', finish);
+    }, { passive: false });
+  }
+
+  function dragElement(elmnt) {
+    if (!elmnt || elmnt.dataset.dragInit === 'true') return;
+    const handle = elmnt.querySelector('.title-bar') || elmnt;
+    handle.style.cursor = 'move';
+    elmnt.style.position = elmnt.style.position || 'absolute';
+
+    let startX = 0, startY = 0;
+    let origLeft = 0, origTop = 0;
+    let pointerId = null;
+    const moveThreshold = 5; // Slightly higher threshold for smoother feel
+    let hasMoved = false;
+    let isDragging = false;
+
+    const onPointerDown = (e) => {
+      if (e.button !== undefined && e.button !== 0) return; // only primary mouse
+      if (e.target.closest('.title-bar-controls') || e.target.closest('button') || e.target.closest('input')) return;
+      pointerId = e.pointerId || 'mouse';
+      handle.setPointerCapture && e.pointerId !== undefined && handle.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = elmnt.getBoundingClientRect();
+      origLeft = rect.left + window.scrollX;
+      origTop = rect.top + window.scrollY;
+      document.body.style.userSelect = 'none';
+      elmnt.style.zIndex = '2100';
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp, { once: true });
+      window.addEventListener('pointercancel', onPointerUp, { once: true });
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const onPointerMove = (e) => {
+      if (pointerId !== null && e.pointerId !== undefined && e.pointerId !== pointerId) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (!hasMoved && Math.hypot(dx, dy) < moveThreshold) {
+        return; // don't move until threshold exceeded
+      }
+      hasMoved = true;
+      let newLeft = origLeft + dx;
+      let newTop = origTop + dy;
+      // bounds in viewport
+      const rect = elmnt.getBoundingClientRect();
+      const maxLeft = window.innerWidth - rect.width;
+      const maxTop = window.innerHeight - rect.height;
+      newLeft = Math.max(0, Math.min(maxLeft, newLeft));
+      newTop = Math.max(0, Math.min(maxTop, newTop));
+      elmnt.style.left = newLeft + 'px';
+      elmnt.style.top = newTop + 'px';
+    };
+
+    const onPointerUp = (e) => {
+      window.removeEventListener('pointermove', onPointerMove);
+      document.body.style.userSelect = '';
+      elmnt.style.zIndex = '2000';
+      pointerId = null;
+      hasMoved = false;
+    };
+
+    handle.addEventListener('pointerdown', onPointerDown);
+    elmnt.dataset.dragInit = 'true';
+  }
 });

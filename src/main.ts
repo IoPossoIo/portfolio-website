@@ -4,6 +4,7 @@ import './style.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
     const interBubble = document.querySelector<HTMLDivElement>('.interactive')!;
+    const root = document.documentElement;
     let curX = 0;
     let curY = 0;
     let tgX = 0;
@@ -21,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', (event) => {
         tgX = event.clientX;
         tgY = event.clientY;
+        // Update CSS variables used by the reveal-layer mask
+        root.style.setProperty('--mx', `${event.clientX}px`);
+        root.style.setProperty('--my', `${event.clientY}px`);
     });
 
     move();
