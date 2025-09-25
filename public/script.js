@@ -1450,7 +1450,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="title-bar-controls"><button aria-label="Close"></button></div>
             </div>
             <div class="window-body" style="padding:0;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100% - 22px);">
-              <video src="${src}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+              <video src="${src}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;background:#000;"></video>
             </div>`;
           document.body.appendChild(win);
           // Close and drag hooks
