@@ -1669,40 +1669,45 @@ body {
 }
 
 .section-title {
-    position: absolute;
-    bottom: 10vh;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 90vw;
-    z-index: 26;
-    text-transform: none;
-    letter-spacing: 0.5px;
-    font-family: 'Baskerville', serif;
-    font-size: 28px;
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90vw;
+  z-index: 26;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.55);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  text-rendering: optimizeSpeed;
 
-    @media (max-height: 1000px) {
-        font-size: 26px;
-    }
+  @media (max-height: 1000px) {
+    font-size: 26px;
+  }
 
-    @media (max-height: 900px) {
-        font-size: 24px;
-    }
+  @media (max-height: 900px) {
+    font-size: 24px;
+  }
 
-    @media (max-height: 800px) {
-        font-size: 22px;
-    }
+  @media (max-height: 800px) {
+    font-size: 22px;
+  }
 
-    @media (max-height: 700px) {
-        font-size: 20px;
-    }
+  @media (max-height: 700px) {
+    font-size: 20px;
+  }
 
-    @media (max-width: 600px) {
-        display: none;
-    }
+  @media (max-width: 600px) {
+    display: none;
+  }
 }
 
 .marketing-container {
@@ -1727,10 +1732,19 @@ body {
 }
 
 .nav-item {
-    color: black;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.55);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  text-rendering: optimizeSpeed;
+
+  &:hover {
     text-decoration: underline;
-    cursor: pointer;
-    font-size: 2em; /* Much bigger navigation text */
+  }
 }
 
 .page-indicator {
@@ -1756,29 +1770,33 @@ body {
 }
 
 .section-navigation, .marketing-navigation {
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    z-index: 30;
-    font-family: 'Baskerville', serif;
-    background-color: transparent;
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  background-color: transparent;
 }
 
 .nav-item {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 2em; /* Much bigger navigation text */
-    font-family: 'Baskerville', serif;
-    
-    &:hover {
-        text-decoration: underline;
-    }
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.55);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  text-rendering: optimizeSpeed;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .modal {
@@ -1960,14 +1978,20 @@ body {
     }
 
     .section-title {
-        display: block;
-        font-size: 20px;
-        text-align: center;
-        margin-top: 10px;
-        line-height: 1.2;
-        white-space: normal;
-        max-width: 90%;
-        overflow-wrap: break-word;
+      display: block;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.2;
+      white-space: normal;
+      max-width: 90%;
+      overflow-wrap: break-word;
+      font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+      color: #fff;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.55);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: none;
+      text-rendering: optimizeSpeed;
     }
 
     .text-top-right {
@@ -2138,17 +2162,17 @@ body {
 }
 
 .section-navigation, .marketing-navigation {
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    z-index: 30;
-    font-family: 'Baskerville', serif;
-    background-color: transparent;
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  background-color: transparent;
 }
 
 /* Full screen adjustment */
@@ -2344,16 +2368,16 @@ body {
     }
 
     .section-title {
-        display: block !important; // Always show the title
-        position: fixed;
-        bottom: 15vh;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        text-align: center;
-        font-size: 16px;
-        white-space: normal; // Allow text to wrap
-        line-height: 1.4;
+      display: block;
+      font-size: 16px;
+      white-space: normal;
+      line-height: 1.4;
+      font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+      color: #fff;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.55);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: none;
+      text-rendering: optimizeSpeed;
     }
 }
 
@@ -2542,14 +2566,20 @@ body {
 
 @media (max-width: 768px) { // Target mobile devices
     .section-title {
-        display: block; // Ensure the section title is displayed
-        font-size: 20px; // Adjust font size for mobile
-        text-align: center; // Center the text
-        margin-top: 10px; // Add some space above the title
-        line-height: 1.2; // Adjust line height for better readability
-        white-space: normal; // Allow text to wrap
-        max-width: 90%; // Limit width for wrapping
-        overflow-wrap: break-word; // Allow breaking of long words
+      display: block;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.2;
+      white-space: normal;
+      max-width: 90%;
+      overflow-wrap: break-word;
+      font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+      color: #fff;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.55);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: none;
+      text-rendering: optimizeSpeed;
     }
 }
 
@@ -2561,44 +2591,44 @@ body {
 }
 
 .photography-folders-home {
-    display: none;
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Baskerville', serif;
-    z-index: 30;
-    
-    .photo-home-link {
-        text-decoration: none;
-        text-transform: none;
-        color: inherit;
-        font-size: 1.2em;
-        
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
+  display: none;
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  z-index: 30;
 
-.mobile-back-button {
-    display: none;
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Baskerville', serif;
+  .photo-home-link {
+    text-decoration: none;
     text-transform: none;
     color: inherit;
     font-size: 1.2em;
-    cursor: pointer;
-    z-index: 30;
-    
-    @media screen and (max-width: 768px) {
-        &[style*="display: block"] {
-            display: block;
-        }
+
+    &:hover {
+      text-decoration: underline;
     }
+  }
+}
+
+.mobile-back-button {
+  display: none;
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
+  text-transform: none;
+  color: inherit;
+  font-size: 1.2em;
+  cursor: pointer;
+  z-index: 30;
+
+  @media screen and (max-width: 768px) {
+    &[style*="display: block"] {
+      display: block;
+    }
+  }
 }
 
 

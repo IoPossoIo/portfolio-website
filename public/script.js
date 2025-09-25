@@ -1411,10 +1411,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const brainrotToggle = document.getElementById('brainrotMode');
   const brainrotVideos = document.getElementById('brainrotVideos');
   const brainrotSources = [
-    '/public/brainrot-1.mp4',
-    '/public/brainrot-2.mp4',
-    '/public/brainrot-3.mp4',
-    '/public/brainrot-5.mp4' // removed brainrot-4
+    '/brainrot-1.mp4',
+    '/brainrot-2.mp4',
+    '/brainrot-3.mp4',
+    '/brainrot-5.mp4' 
   ];
 
   function renderBrainrot(on) {
