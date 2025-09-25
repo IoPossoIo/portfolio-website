@@ -42,7 +42,10 @@ body.route-nonhome {
 
 @font-face {
   font-family: 'Baskerville';
-  src: url('./fonts/baskerville.ttf') format('truetype');
+  src: url('/fonts/BASKVILL.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Windows XP Tahoma font */

@@ -15,4 +15,5 @@ export default defineConfig({
     open: true, // Automatically open the app in the browser on server start
   },
   publicDir: 'public', // Ensure this points to your public directory
+  assetsInclude: ['**/*.ttf', '**/*.otf'], // Include font files in assets
 });
