@@ -1,9 +1,6 @@
 import './style.scss';
 
-// Define types for better type checking
-interface WindowElement extends HTMLElement {
-  style: CSSStyleDeclaration;
-}
+// Global variables for window management
 
 // Global variables for window management
 const windows = {
@@ -39,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function move() {
     curX += (tgX - curX) / 20;
     curY += (tgY - curY) / 20;
-    interBubble.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+    interBubble!.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
     requestAnimationFrame(move);
   }
 
@@ -110,7 +107,7 @@ function dragElement(elmnt: HTMLElement): void {
   
   if (!header) return;
   
-  header.onmousedown = dragMouseDown;
+  (header as HTMLElement).onmousedown = dragMouseDown;
 
   function dragMouseDown(e: MouseEvent): void {
     e.preventDefault();
