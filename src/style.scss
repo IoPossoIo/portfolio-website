@@ -605,6 +605,8 @@ body {
   position: absolute;
   border: 1px solid #A0A0A0; /* Light gray border instead of blue */
   background: #ECE9D8;
+  opacity: 0; /* Start hidden, will be shown by JS */
+  transition: opacity 0.2s ease; /* Smooth fade in */
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.8) inset; /* XP-style drop shadow */
   z-index: 2000; /* Ensure above gradients, wallpaper and folders */
   font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif;
@@ -706,22 +708,26 @@ body {
 }
 
 #musicPlayer {
-  top: 8%;
-  left: 15%;
+  top: 4%;
+  left: 12%;
   transform: none;
 }
 
 #gifViewer {
-  top: 5%;
+  top: 2%;
   right: 5%;
   transform: none;
 }
 
 #aboutWindow {
-  top: 30%;
-  left: 35%;
-  transform: none;
-  width: 400px;
+  position: absolute !important;
+  top: 15%;
+  left: calc(50% - 325px); /* 650px width / 2 = 325px */
+  width: 650px !important;
+  z-index: 2000 !important;
+  max-height: 85vh !important;
+  display: block !important;
+  opacity: 1 !important;
 }
 
 /* Enhanced About Window Styling - Windows XP style */
@@ -743,7 +749,8 @@ body {
   }
   
   &.expanded {
-    width: 550px !important; /* Much bigger expanded size */
+    width: 650px !important; /* Slightly bigger for the new layout */
+    height: auto !important; /* Let height be determined by content */
     cursor: default;
     
     .click-hint {
@@ -855,6 +862,77 @@ body {
     text-rendering: optimizeSpeed !important;
     letter-spacing: 0 !important;
     text-shadow: 0.5px 0 0 #000 !important;
+    .about-layout {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 12px;
+      margin-bottom: 8px;
+
+      .about-image-container {
+        flex-shrink: 0;
+        margin-right: 16px;
+        position: relative;
+
+        .about-profile-image {
+          width: 220px;
+          height: 220px;
+          border-radius: 0;
+          object-fit: cover;
+          border: 2px solid #A0A0A0;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .image-fallback {
+          width: 220px;
+          height: 220px;
+          border-radius: 0;
+          border: 2px solid #A0A0A0;
+          background: #F0F0F0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          color: #666;
+        }
+      }
+
+      .about-text-main {
+        flex: 1;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        p {
+          margin: 0;
+          line-height: 1.2;
+          font-size: 38px;
+          font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif !important;
+          font-weight: bold;
+        }
+
+        strong {
+          font-size: 38px;
+          font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif !important;
+        }
+      }
+    }
+
+    .about-text-content {
+      padding: 0 12px 8px 12px;
+
+      p {
+        margin: 8px 0;
+        line-height: 1.4;
+        font-size: 28px;
+        font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif !important;
+      }
+
+      strong {
+        font-size: 32px;
+        font-family: 'WindowsXPTahoma', Tahoma, 'Segoe UI', Verdana, sans-serif !important;
+      }
+    }
 
     p {
       margin: 16px 0;
@@ -1437,6 +1515,8 @@ body {
     gap: 16px;
     align-items: start;
     padding: 8px;
+    justify-content: center; /* Center the grid items */
+    min-height: 200px; /* Ensure minimum height for centering */
   }
 
   .folder {
@@ -1449,6 +1529,7 @@ body {
     width: 100%;
     max-width: 120px;
     gap: 0px; /* Remove any flex gap */
+    margin: 0 auto; /* Center individual items */
   }
 
   .file-image {
@@ -2638,3 +2719,412 @@ body {
 
 
 
+/* Photography section text styling */
+.photography-folders-home .photo-home-link {
+  color: #fff !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.55) !important;
+}
+/* Window startup animations with staggered delays */
+.animate-delay-6 { animation-delay: 0.6s; }
+.animate-delay-7 { animation-delay: 0.7s; }
+.animate-delay-8 { animation-delay: 0.8s; }
+
+/* Windows XP startup animation for desktop windows */
+@keyframes windowSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.window-startup {
+  animation: windowSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+/* Enhanced window startup animations - smoother and more staggered */
+.animate-delay-6 { animation-delay: 0.8s; }
+.animate-delay-7 { animation-delay: 1.0s; }
+.animate-delay-8 { animation-delay: 1.2s; }
+
+/* Windows XP startup animation - smoother easing */
+@keyframes windowSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  40% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.window-startup {
+  animation: windowSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+}
+/* Window startup animations - ensure delays work */
+.animate-delay-6 { 
+  animation-delay: 0.8s !important; 
+  animation-fill-mode: both !important;
+}
+.animate-delay-7 { 
+  animation-delay: 1.0s !important; 
+  animation-fill-mode: both !important;
+}
+.animate-delay-8 { 
+  animation-delay: 1.2s !important; 
+  animation-fill-mode: both !important;
+}
+
+/* Windows XP startup animation */
+@keyframes windowSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  40% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.window-startup {
+  animation: windowSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  animation-fill-mode: both !important;
+  opacity: 0 !important; /* Start invisible */
+}
+/* Debug: Ensure no other rules override window animations */
+.window-xp-widget {
+  animation: none !important; /* Remove any inherited animations */
+}
+
+.window-xp-widget.window-startup {
+  animation: windowSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  animation-fill-mode: both !important;
+  opacity: 1 !important; /* Override any opacity resets */
+}
+
+/* Ensure the animate class triggers properly */
+.window-startup.animate {
+  animation-play-state: running !important;
+}
+/* Force window startup animations to work */
+.window-startup {
+  opacity: 0 !important;
+  animation: windowSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  animation-fill-mode: both !important;
+  transform: translateY(30px) scale(0.95) !important; /* Start position */
+}
+
+.window-startup.animate-delay-6 {
+  animation-delay: 0.8s !important;
+}
+
+.window-startup.animate-delay-7 {
+  animation-delay: 1.0s !important;
+}
+
+.window-startup.animate-delay-8 {
+  animation-delay: 1.2s !important;
+}
+
+.window-startup.animate {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+/* Window startup animations - balanced approach */
+.window-startup {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  animation: windowSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+}
+
+.animate-delay-6 { animation-delay: 0.8s; }
+.animate-delay-7 { animation-delay: 1.0s; }
+.animate-delay-8 { animation-delay: 1.2s; }
+
+@keyframes windowSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  40% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+/* Removed legacy gradient background elements */
+.gradients-container,
+.g1, .g2, .g3, .g4, .g5,
+.interactive {
+  display: none !important;
+}
+/* Clean up window animation conflicts */
+.window-xp-widget {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.window-xp-widget.window-startup {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  animation: windowSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+}
+
+.window-startup.animate {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+/* Ensure window animations work properly */
+.window-xp,
+.window-xp-widget,
+.about-window {
+  animation: none !important;
+}
+
+.window-xp-widget.window-startup.animate-delay-6 {
+  animation-delay: 0.8s !important;
+}
+
+.window-xp-widget.window-startup.animate-delay-7 {
+  animation-delay: 1.0s !important;
+}
+
+.window-xp-widget.window-startup.animate-delay-8 {
+  animation-delay: 1.2s !important;
+}
+/* Window startup animation keyframes */
+@keyframes windowSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  40% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+/* Window popup animations */
+@keyframes windowPopup {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.window-popup {
+  animation: windowPopup 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-fill-mode: both;
+}
+
+/* Brainrot windows - ensure they display properly */
+.brainrot-win {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  display: block !important;
+  visibility: visible !important;
+
+  video {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .window-body {
+    opacity: 1 !important;
+    background: #000 !important;
+    padding: 0 !important;
+    height: calc(100% - 22px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+.window-entrance {
+  animation: windowEntrance 0.3s ease-out;
+  animation-fill-mode: both;
+}
+/* Different popup animations for variety */
+@keyframes musicPlayerPopup {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(40px) rotate(-5deg);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1.08) translateY(-8px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes gifViewerPopup {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(60px);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.12) translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes aboutWindowPopup {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  70% {
+    opacity: 0.6;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+#musicPlayer.window-popup {
+  animation: musicPlayerPopup 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+#gifViewer.window-entrance {
+  animation: gifViewerPopup 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#aboutWindow.window-entrance {
+  animation: aboutWindowPopup 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* Ensure popup animations work properly */
+.window-xp-widget {
+  animation-fill-mode: both !important;
+  transform-origin: center center !important;
+  will-change: transform, opacity !important;
+}
+
+/* Remove any conflicting animations */
+.window-xp-widget:not(.window-popup):not(.window-entrance) {
+  animation: none !important;
+}
+
+/* Make sure windows start hidden */
+.window-xp-widget[style*="display:none"] {
+  opacity: 0 !important;
+  transform: scale(0.8) translateY(20px) !important;
+}
+
+/* When window becomes visible, trigger animation */
+.window-xp-widget:not([style*="display:none"]) {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+/* Window popup animations */
+@keyframes windowPopup {
+  from { 
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.window-popup {
+  animation: windowPopup 0.3s ease-out forwards;
+}
+
+/* Music Player specific animation */
+@keyframes musicPlayerPopup {
+  from { 
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* GIF Viewer specific animation */
+@keyframes gifViewerPopup {
+  from { 
+    opacity: 0;
+    transform: scale(0.8) rotate(-2deg) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0) translateY(0);
+  }
+}
+
+/* About Window specific animation */
+@keyframes aboutWindowPopup {
+  from { 
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Apply animations to specific windows */
+#musicPlayer {
+  animation: musicPlayerPopup 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#gifViewer {
+  animation: gifViewerPopup 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+#aboutWindow {
+  animation: aboutWindowPopup 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}

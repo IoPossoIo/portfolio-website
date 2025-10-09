@@ -129,11 +129,41 @@ document.getElementById('about').addEventListener('click', () => {
     document.getElementById('photographyFolders').style.display = 'none';
     document.getElementById('marketingFolders').style.display = 'none';
     
+    // Create image with error handling
+    const img = new Image();
+    img.src = '/windows-update/me.jpeg';
+    img.alt = 'Antonio Taurisano';
+    img.style.width = '150px';
+    img.style.height = '150px';
+    img.style.borderRadius = '50%';
+    img.style.marginRight = '20px';
+    img.style.objectFit = 'cover';
+    img.style.border = '3px solid #C65D57';
+    
+    // Fallback to default image if not found
+    img.onerror = function() {
+      this.src = '/images/antonio-profile.jpg';
+    };
+    
     document.getElementById('mainText').innerHTML = `
-        <p style="margin-bottom: 1em;">Antonio is a marketing <span class="rainbow-professional">professional</span> with a <span style="color: #C65D57;">Data Analytics BSc</span> and a passion for storytelling and creative strategy.</p>
-        <p style="margin-bottom: 1em;">Blending  <span style="color: #C65D57;">creativity </span>with data-driven insights to develop consumer-first marketing initiatives by day.</p>
-        <p style="margin-bottom: 1em;">Capturing movement through <span style="color: #C65D57;">photography and writing</span> by night.</p>
+        <div style="display: flex; align-items: flex-start; margin-bottom: 1em;">
+            <div id="profile-image-container" style="flex-shrink: 0;">
+                <!-- Image will be inserted here by JavaScript -->
+            </div>
+            <div>
+                <p style="margin-top: 0; margin-bottom: 1em;">Antonio is a marketing <span class="rainbow-professional">professional</span> with a <span style="color: #C65D57;">Data Analytics BSc</span> and a passion for storytelling and creative strategy.</p>
+            </div>
+        </div>
+        <p style="margin-bottom: 1em; margin-left: 170px;">Blending  <span style="color: #C65D57;">creativity </span>with data-driven insights to develop consumer-first marketing initiatives by day.</p>
+        <p style="margin-bottom: 1em; margin-left: 170px;">Capturing movement through <span style="color: #C65D57;">photography and writing</span> by night.</p>
     `;
+    
+    // Insert the image after the container is created
+    const container = document.getElementById('profile-image-container');
+    if (container) {
+      container.appendChild(img);
+    }
+    
     document.getElementById('mainText').style.fontSize = '2em';
 });
 
@@ -142,27 +172,27 @@ const photographySections = {
     "100 GECS": {
         images: ["/images/100gecs/gecs1.jpeg", "/images/100gecs/gecs2.jpeg", "/images/100gecs/gecs3.jpeg", "/images/100gecs/gecs4.jpeg", 
                 "/images/100gecs/gecs5.jpeg", "/images/100gecs/gecs6.jpeg", "/images/100gecs/gecs7.jpeg"],
-        text: "<a href='https://almostfamouszine.com/surviving-100-gecs-pit-dazed-confused-and-alive/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>100 gecs live at knockdown center ✨ shot for almost famous zine</a>"
+        text: "<a href='https://almostfamouszine.com/surviving-100-gecs-pit-dazed-confused-and-alive/' style='color:#fff; text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>100 GECS LIVE AT KNOCKDOWN CENTER ✨ SHOT FOR ALMOST FAMOUS ZINE</a>"
     },
     "JULIEN BAKER": {
         images: ["/images/julienbaker/baker1.jpeg", "/images/julienbaker/baker2.jpeg", "/images/julienbaker/baker3.jpeg", "/images/julienbaker/baker4.jpeg", "/images/julienbaker/baker5.jpeg", "/images/julienbaker/baker6.jpeg", "/images/julienbaker/baker7.jpeg"],
-        text: "<a href='https://almostfamouszine.com/emotional-night-with-julien-baker-at-earth-hall/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>julien baker live at earth hall ✨ shot for almost famous zine</a>"
+        text: "<a href='https://almostfamouszine.com/emotional-night-with-julien-baker-at-earth-hall/' style='color:#fff; text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>JULIEN BAKER LIVE AT EARTH HALL ✨ SHOT FOR ALMOST FAMOUS ZINE</a>"
     },
     "ST. VINCENT": {
         images: ["/images/stvincent/vincent1.jpeg", "/images/stvincent/vincent2.jpeg", "/images/stvincent/vincent3.jpeg", "/images/stvincent/vincent4.jpeg", "/images/stvincent/vincent5.jpeg", "/images/stvincent/vincent6.jpeg", "/images/stvincent/vincent7.jpeg"],
-        text: "<a href='https://almostfamouszine.com/welcome-to-the-all-born-screaming-tour-brought-to-you-by-st-vincent/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>st. vincent live at fabrique ✨ shot for almost famous zine</a>"
+        text: "<a href='https://almostfamouszine.com/welcome-to-the-all-born-screaming-tour-brought-to-you-by-st-vincent/' style='color:#fff; text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>ST. VINCENT LIVE AT FABRIQUE ✨ SHOT FOR ALMOST FAMOUS ZINE</a>"
     },
     "THE PAPER KITES": {
         images: ["/images/paperkites/kites1.jpeg", "/images/paperkites/kites2.jpeg", "/images/paperkites/kites3.jpeg", "/images/paperkites/kites4.jpeg", "/images/paperkites/kites5.jpeg", "/images/paperkites/kites6.jpeg", "/images/paperkites/kites7.jpeg"],
-        text: "<a href='https://almostfamouszine.com/a-tale-of-the-paper-kites-dreamy-night-at-the-vega-in-copenhagen/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>the paper kites live at vega ✨ shot for almost famous zine</a>"
+        text: "<a href='https://almostfamouszine.com/a-tale-of-the-paper-kites-dreamy-night-at-the-vega-in-copenhagen/' style='color:#fff; text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>THE PAPER KITES LIVE AT VEGA ✨ SHOT FOR ALMOST FAMOUS ZINE</a>"
     },
     "FENNE LILY": {
         images: ["/images/fennelily/lily1.jpeg", "/images/fennelily/lily2.jpeg", "/images/fennelily/lily3.jpeg", "/images/fennelily/lily4.jpeg", "/images/fennelily/lily5.jpeg", "/images/fennelily/lily6.jpeg", "/images/fennelily/lily7.jpeg"],
-        text: "<a href='https://almostfamouszine.com/on-hold-never-felt-this-good-fenne-lilys-opening-night-in-brooklyn/' style='color:rgb(0, 0, 0); text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>fenne lily live at the broadway ✨ shot for almost famous zine</a>"
+        text: "<a href='https://almostfamouszine.com/on-hold-never-felt-this-good-fenne-lilys-opening-night-in-brooklyn/' style='color:#fff; text-decoration: none;' onmouseover='this.style.textDecoration=\"underline\"' onmouseout='this.style.textDecoration=\"none\"'>FENNE LILY LIVE AT THE BROADWAY ✨ SHOT FOR ALMOST FAMOUS ZINE</a>"
     },
     "YOUBET": {
         images: ["/images/youbet/youbet1.jpeg", "/images/youbet/youbet2.jpeg", "/images/youbet/youbet3.jpeg", "/images/youbet/youbet4.jpeg", "/images/youbet/youbet5.jpeg"],
-        text: "youbet live at union pool"
+        text: "<span style='color:#fff;'>YOUBET LIVE AT UNION POOL</span>"
     }
 };
 
@@ -927,18 +957,15 @@ function renderRoute(pathname) {
           if (iconMusic) iconMusic.style.display = 'none';
         }
         if (gv) {
-          gv.style.display = 'block';
+          // Keep gif viewer closed by default - only open when clicked
+          gv.style.display = 'none';
           gv.style.position = 'absolute';
           gv.style.zIndex = '2000';
           gv.style.visibility = 'visible';
           gv.style.opacity = '1';
           // Ensure draggable after a brief delay
           setTimeout(() => dragElement(gv), 50);
-          if (iconGifs) iconGifs.style.display = 'none';
-          // Load GIF
-          if (typeof loadCatGif === 'function') {
-            loadCatGif();
-          }
+          if (iconGifs) iconGifs.style.display = 'block'; // Show icon since window is closed
         }
         if (aw) {
           aw.style.display = 'block';
@@ -946,20 +973,21 @@ function renderRoute(pathname) {
           aw.style.zIndex = '2000';
           aw.style.visibility = 'visible';
           aw.style.opacity = '1';
-          // Start in compact mode with just animated text
-          aw.classList.add('compact');
-          aw.classList.remove('expanded');
+          // Start in expanded mode with content visible by default
+          aw.classList.add('expanded');
+          aw.classList.remove('compact');
           const _aboutContent = document.getElementById('aboutContent');
           if (_aboutContent) {
-            _aboutContent.style.display = 'none'; // Hidden initially
-            // Make clickable to expand
-            aw.addEventListener('click', (e) => {
-              if (!e.target.closest('.title-bar-controls') && !e.target.closest('button')) {
-                _aboutContent.style.display = 'block';
-                aw.classList.add('expanded');
-                aw.classList.remove('compact');
-              }
-            });
+            _aboutContent.style.display = 'block'; // Show content by default
+            // Hide typewriter container since we're showing full content
+            const typewriterContainer = document.getElementById('typewriterContainer');
+            if (typewriterContainer) {
+              typewriterContainer.style.display = 'none';
+            }
+            const clickHint = document.querySelector('.click-hint');
+            if (clickHint) {
+              clickHint.style.display = 'none';
+            }
           }
           // Ensure draggable after a longer delay for smoother initialization
           setTimeout(() => dragElement(aw), 100);
@@ -1121,10 +1149,133 @@ function initStarField() {
 
 // Initial render
 document.addEventListener('DOMContentLoaded', () => {
+  // First, disable animations
+  document.body.classList.add('no-animations');
+  
   renderRoute(location.pathname);
   initStarField();
-  // Enhanced Clippy dialogue system
   initClippyDialogue();
+  
+  // Show windows immediately without animation
+  const musicPlayer = document.getElementById('musicPlayer');
+  const aboutWindow = document.getElementById('aboutWindow');
+  
+  if (musicPlayer) {
+    musicPlayer.style.display = 'block';
+    musicPlayer.style.opacity = '1';
+    musicPlayer.style.transform = 'translate(100px, 100px) scale(1)';
+    musicPlayer.classList.remove('zoom-in');
+    musicPlayer.classList.add('zoom-in'); // Add startup animation
+  }
+  
+  if (aboutWindow) {
+    aboutWindow.classList.remove('zoom-in');
+    aboutWindow.classList.add('zoom-in'); // Add startup animation
+    // CSS handles all positioning and visibility now
+  }
+  
+  // Re-enable animations after a short delay
+  setTimeout(() => {
+    document.body.classList.remove('no-animations');
+  }, 100);
+
+  // Initialize brainrot mode
+  const brainrotToggle = document.getElementById('brainrotMode');
+  const brainrotVideos = document.getElementById('brainrotVideos');
+  // Brainrot mode videos
+  const brainrotSources = [
+    '/public/brainrot-1.mp4',
+    '/public/brainrot-2.mp4',
+    '/public/brainrot-3.mp4',
+    '/public/brainrot-5.mp4' 
+  ];
+
+  function renderBrainrot(on) {
+    // Remove any existing brainrot windows
+    document.querySelectorAll('.brainrot-win').forEach(w => w.remove());
+    if (on) {
+      document.body.classList.add('brainrot-on');
+      // Spawn 5 XP windows sequentially like pop-up ads
+      // Default positions tuned to avoid left icons, Clippy and controls
+      const slots = [
+        { left: '12vw', top: '6vh'  }, // top-left (clear of Marketing/Photography)
+        { left: '68vw', top: '5vh'  }, // top-right (clear of GIF window)
+        { left: '70vw', top: '52vh' }, // bottom-right (nudged up)
+        { left: '14vw', top: '52h' }, // bottom-left (nudged up)
+      ];
+      brainrotSources.slice(0,4).forEach((src, idx) => {
+        setTimeout(() => {
+          const win = document.createElement('div');
+          win.className = 'window-xp brainrot-win zoom-in';
+          // Portrait window for 360x640 vertical videos (scaled down to fit viewport)
+          win.style.width = '220px';
+          win.style.height = '400px';
+          win.style.position = 'absolute';
+          win.style.left = (slots[idx] ? slots[idx].left : '10vw');
+          win.style.top  = (slots[idx] ? slots[idx].top  : '10vh');
+          win.style.zIndex = String(3000 + idx);
+          win.style.transition = 'none'; // avoid transform jitter during drag
+          win.style.willChange = 'left, top';
+          win.style.transform = 'none';
+          win.innerHTML = `
+            <div class="title-bar">
+              <div class="title-bar-text">Brainrot ${idx + 1}.mp4</div>
+              <div class="title-bar-controls"><button aria-label="Close"></button></div>
+            </div>
+            <div class="window-body" style="padding:0;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100% - 22px);">
+              <video src="${src}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+            </div>`;
+          document.body.appendChild(win);
+          // Close and drag hooks
+          win.querySelector('.title-bar-controls button').addEventListener('click', () => win.remove());
+          // reduce interference: remove zoom-in class after it runs
+          setTimeout(() => win.classList.remove('zoom-in'), 260);
+          // ensure smooth dragging only via title bar and avoid video capturing events
+          const vidEl = win.querySelector('video');
+          if (vidEl) vidEl.style.pointerEvents = 'none';
+          const title = win.querySelector('.title-bar');
+          if (title) {
+            title.style.userSelect = 'none';
+            title.style.pointerEvents = 'auto';
+            title.style.cursor = 'move';
+            const body = win.querySelector('.window-body');
+            title.addEventListener('pointerdown', () => {
+              if (body) body.style.pointerEvents = 'none';
+            });
+            title.addEventListener('pointerup', () => {
+              if (body) body.style.pointerEvents = '';
+            });
+          }
+          dragElement(win);
+        }, idx * 220); // staggered pop-ups
+      });
+    } else {
+      document.body.classList.remove('brainrot-on');
+    }
+  }
+
+  // Click/keyboard toggle
+  if (brainrotToggle) {
+    const updateVisual = (on) => {
+      brainrotToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+      brainrotToggle.classList.toggle('on', !!on);
+      const txt = brainrotToggle.querySelector('.txt');
+      if (txt) txt.textContent = on ? 'Brainrot Mode: On' : 'Brainrot Mode: Off';
+    };
+    const toggle = () => {
+      const on = brainrotToggle.getAttribute('aria-pressed') !== 'true';
+      updateVisual(on);
+      renderBrainrot(on);
+    };
+    brainrotToggle.addEventListener('click', toggle);
+    brainrotToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+    updateVisual(false); // Initialize as off
+  }
 
   // Global About window typewriter animation
   (function initTypewriter() {
@@ -1406,104 +1557,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (link) window.open(link, '_blank');
     });
   });
-
-  // Brainrot Mode: XP-style toggle button (click/keyboard)
-  const brainrotToggle = document.getElementById('brainrotMode');
-  const brainrotVideos = document.getElementById('brainrotVideos');
-  const brainrotSources = [
-    '/brainrot-1.mp4',
-    '/brainrot-2.mp4',
-    '/brainrot-3.mp4',
-    '/brainrot-5.mp4' 
-  ];
-
-  function renderBrainrot(on) {
-    // Remove any existing brainrot windows
-    document.querySelectorAll('.brainrot-win').forEach(w => w.remove());
-    if (on) {
-      document.body.classList.add('brainrot-on');
-      // Spawn 5 XP windows sequentially like pop-up ads
-      // Default positions tuned to avoid left icons, Clippy and controls
-      const slots = [
-        { left: '12vw', top: '6vh'  }, // top-left (clear of Marketing/Photography)
-        { left: '68vw', top: '5vh'  }, // top-right (clear of GIF window)
-        { left: '70vw', top: '52vh' }, // bottom-right (nudged up)
-        { left: '14vw', top: '52h' }, // bottom-left (nudged up)
-      ];
-      brainrotSources.slice(0,4).forEach((src, idx) => {
-        setTimeout(() => {
-          const win = document.createElement('div');
-          win.className = 'window-xp brainrot-win zoom-in';
-          // Portrait window for 360x640 vertical videos (scaled down to fit viewport)
-          win.style.width = '220px';
-          win.style.height = '400px';
-          win.style.position = 'absolute';
-          win.style.left = (slots[idx] ? slots[idx].left : '10vw');
-          win.style.top  = (slots[idx] ? slots[idx].top  : '10vh');
-          win.style.zIndex = String(3000 + idx);
-          win.style.transition = 'none'; // avoid transform jitter during drag
-          win.style.willChange = 'left, top';
-          win.style.transform = 'none';
-          win.innerHTML = `
-            <div class="title-bar">
-              <div class="title-bar-text">Brainrot ${idx + 1}.mp4</div>
-              <div class="title-bar-controls"><button aria-label="Close"></button></div>
-            </div>
-            <div class="window-body" style="padding:0;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100% - 22px);">
-              <video src="${src}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;background:#000;"></video>
-            </div>`;
-          document.body.appendChild(win);
-          // Close and drag hooks
-          win.querySelector('.title-bar-controls button').addEventListener('click', () => win.remove());
-          // reduce interference: remove zoom-in class after it runs
-          setTimeout(() => win.classList.remove('zoom-in'), 260);
-          // ensure smooth dragging only via title bar and avoid video capturing events
-          const vidEl = win.querySelector('video');
-          if (vidEl) vidEl.style.pointerEvents = 'none';
-          const title = win.querySelector('.title-bar');
-          if (title) {
-            title.style.userSelect = 'none';
-            title.style.pointerEvents = 'auto';
-            title.style.cursor = 'move';
-            const body = win.querySelector('.window-body');
-            title.addEventListener('pointerdown', () => {
-              if (body) body.style.pointerEvents = 'none';
-            });
-            title.addEventListener('pointerup', () => {
-              if (body) body.style.pointerEvents = '';
-            });
-          }
-          dragElement(win);
-        }, idx * 220); // staggered pop-ups
-      });
-    } else {
-      document.body.classList.remove('brainrot-on');
-    }
-  }
-
-  // Click/keyboard toggle
-  if (brainrotToggle) {
-    const updateVisual = (on) => {
-      brainrotToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
-      brainrotToggle.classList.toggle('on', !!on);
-      const txt = brainrotToggle.querySelector('.txt');
-      if (txt) txt.textContent = on ? 'Brainrot Mode: On' : 'Brainrot Mode: Off';
-    };
-    const toggle = () => {
-      const on = brainrotToggle.getAttribute('aria-pressed') !== 'true';
-      updateVisual(on);
-      renderBrainrot(on);
-    };
-    brainrotToggle.addEventListener('click', toggle);
-    brainrotToggle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
-    });
-    // Initialize off
-    updateVisual(false);
-  }
 
   // 3D corner hover effect for XP windows (exclude brainrot popups)
   (function enableCorner3D() {
