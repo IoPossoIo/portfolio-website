@@ -1,165 +1,158 @@
-import './style.scss'
+import './style.scss';
 
+// Define types for better type checking
+interface WindowElement extends HTMLElement {
+  style: CSSStyleDeclaration;
+}
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const interBubble = document.querySelector<HTMLDivElement>('.interactive')!;
-    const root = document.documentElement;
-    let curX = 0;
-    let curY = 0;
-    let tgX = 0;
-    let tgY = 0;
-
-    function move() {
-        curX += (tgX - curX) / 20;
-        curY += (tgY - curY) / 20;
-        interBubble.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
-        requestAnimationFrame(() => {
-            move();
-        });
-    }
-
-    window.addEventListener('mousemove', (event) => {
-        tgX = event.clientX;
-        tgY = event.clientY;
-        // Update CSS variables used by the reveal-layer mask
-        root.style.setProperty('--mx', `${event.clientX}px`);
-        root.style.setProperty('--my', `${event.clientY}px`);
-    });
-
-    move();
-});/* Enhanced window popup function */
-function openWindowWithAnimation(win, iconId) {
-  if (!win) return;
-  if (iconId) {
-    const icon = document.getElementById(iconId);
-    if (icon) icon.style.display = "none";
+// Global variables for window management
+const windows = {
+  music: {
+    iconId: 'iconMusic',
+    windowId: 'musicPlayer',
+    closeId: 'closeMusic'
+  },
+  gif: {
+    iconId: 'iconGifs',
+    windowId: 'gifViewer',
+    closeId: 'closeGif'
+  },
+  about: {
+    iconId: 'iconAbout',
+    windowId: 'aboutWindow',
+    closeId: 'closeAbout'
   }
-  win.style.display = "block";
-  win.style.position = "absolute";
-  win.style.zIndex = "100";
+};
+
+// Interactive bubble effect
+document.addEventListener('DOMContentLoaded', () => {
+  // Only run if interactive element exists
+  const interBubble = document.querySelector<HTMLDivElement>('.interactive');
+  if (!interBubble) return;
   
-  // Remove any existing animation classes
-  win.classList.remove("window-popup", "window-entrance");
+  const root = document.documentElement;
+  let curX = 0;
+  let curY = 0;
+  let tgX = 0;
+  let tgY = 0;
+
+  function move() {
+    curX += (tgX - curX) / 20;
+    curY += (tgY - curY) / 20;
+    interBubble.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+    requestAnimationFrame(move);
+  }
+
+  window.addEventListener('mousemove', (event) => {
+    tgX = event.clientX;
+    tgY = event.clientY;
+    root.style.setProperty('--mx', `${event.clientX}px`);
+    root.style.setProperty('--my', `${event.clientY}px`);
+  });
+
+  move();
+  initializeWindows();
+});
+
+// Window management functions
+function openWindowWithAnimation(win: HTMLElement | null, iconId: string): void {
+  if (!win) return;
   
-  // Add popup animation (force reflow to ensure animation plays)
-  win.offsetHeight; // Trigger reflow
-  win.classList.add("window-popup");
+  const icon = document.getElementById(iconId);
+  if (icon) icon.style.display = 'none';
   
-  // Always (re)enable dragging on open
+  win.style.display = 'block';
+  win.style.position = 'absolute';
+  win.style.zIndex = '100';
+  
+  // Trigger reflow and add animation
+  win.offsetHeight;
+  win.classList.add('window-popup');
+  
+  // Enable dragging
   dragElement(win);
 }
-/* Window popup animation with staggered timing */
-function openMusicPlayer() {
-  const musicPlayer = document.getElementById("musicPlayer");
-  if (musicPlayer) {
-    openWindowWithAnimation(musicPlayer, "iconMusic");
-  }
-}
 
-function openGifViewer() {
-  const gifViewer = document.getElementById("gifViewer");
-  if (gifViewer) {
-    openWindowWithAnimation(gifViewer, "iconGifs");
-  }
-}
-
-function openAboutWindow() {
-  const aboutWindow = document.getElementById("aboutWindow");
-  if (aboutWindow) {
-    openWindowWithAnimation(aboutWindow, "iconAbout");
-  }
-}
-/* Make popup functions globally available */
-(window as any).openMusicPlayer = openMusicPlayer;
-(window as any).openGifViewer = openGifViewer;
-(window as any).openAboutWindow = openAboutWindow;
-/* Enhanced close function to reset animations */
-function closeWindow(win, iconId) {
+function closeWindow(win: HTMLElement | null, iconId: string): void {
   if (!win) return;
-  win.style.display = "none";
-  // Remove animation classes so they can animate again when reopened
-  win.classList.remove("window-popup", "window-entrance");
-  if (iconId) {
+  
+  win.style.display = 'none';
+  win.classList.remove('window-popup', 'window-entrance');
+  
+  const icon = document.getElementById(iconId);
+  if (icon) icon.style.display = 'block';
+}
+
+// Initialize all windows and event listeners
+function initializeWindows(): void {
+  Object.values(windows).forEach(({ iconId, windowId, closeId }) => {
     const icon = document.getElementById(iconId);
-    if (icon) icon.style.display = "block";
+    const window = document.getElementById(windowId);
+    const closeBtn = document.getElementById(closeId);
+    
+    if (icon && window) {
+      icon.addEventListener('click', () => openWindowWithAnimation(window, iconId));
+    }
+    
+    if (closeBtn && window) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeWindow(window, iconId);
+      });
+    }
+  });
+}
+
+// Drag functionality
+function dragElement(elmnt: HTMLElement): void {
+  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  const header = elmnt.querySelector('.title-bar');
+  
+  if (!header) return;
+  
+  header.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e: MouseEvent): void {
+    e.preventDefault();
+    // Get the mouse cursor position at startup
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // Call a function whenever the cursor moves
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e: MouseEvent): void {
+    e.preventDefault();
+    // Calculate the new cursor position
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // Set the element's new position
+    elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
+  }
+
+  function closeDragElement(): void {
+    // Stop moving when mouse button is released
+    document.onmouseup = null;
+    document.onmousemove = null;
   }
 }
-// Add event listeners for window popup animations
-document.addEventListener("DOMContentLoaded", () => {
-  // Function to show window with animation
-  function showWindow(windowId, iconId) {
-    const window = document.getElementById(windowId);
-    const icon = document.getElementById(iconId);
-    
-    if (window) {
-      // Reset animation
-      window.style.animation = none;
-      void window.offsetWidth; // Trigger reflow
-      
-      // Apply the appropriate animation class
-      window.classList.add(window-popup);
-      window.style.display = block;
-      
-      // Hide the icon when window is open
-      if (icon) icon.style.display = none;
-    }
-  }
-  
-  // Function to close window
-  function closeWindow(windowId, iconId) {
-    const window = document.getElementById(windowId);
-    const icon = document.getElementById(iconId);
-    
-    if (window) {
-      window.style.display = none;
-      // Show the icon when window is closed
-      if (icon) icon.style.display = block;
-    }
-  }
-  
-  // Music Player
-  const musicIcon = document.getElementById(iconMusic);
-  const musicPlayer = document.getElementById(musicPlayer);
-  const closeMusic = document.getElementById(closeMusic);
-  
-  if (musicIcon && musicPlayer) {
-    musicIcon.addEventListener(click, () => showWindow(musicPlayer, iconMusic));
-  }
-  if (closeMusic && musicPlayer) {
-    closeMusic.addEventListener(click, (e) => {
-      e.stopPropagation();
-      closeWindow(musicPlayer, iconMusic);
-    });
-  }
-  
-  // GIF Viewer
-  const gifIcon = document.getElementById(iconGifs);
-  const gifViewer = document.getElementById(gifViewer);
-  const closeGif = document.getElementById(closeGif);
-  
-  if (gifIcon && gifViewer) {
-    gifIcon.addEventListener(click, () => showWindow(gifViewer, iconGifs));
-  }
-  if (closeGif && gifViewer) {
-    closeGif.addEventListener(click, (e) => {
-      e.stopPropagation();
-      closeWindow(gifViewer, iconGifs);
-    });
-  }
-  
-  // About Window
-  const aboutIcon = document.getElementById(iconAbout);
-  const aboutWindow = document.getElementById(aboutWindow);
-  const closeAbout = document.getElementById(closeAbout);
-  
-  if (aboutIcon && aboutWindow) {
-    aboutIcon.addEventListener(click, () => showWindow(aboutWindow, iconAbout));
-  }
-  if (closeAbout && aboutWindow) {
-    closeAbout.addEventListener(click, (e) => {
-      e.stopPropagation();
-      closeWindow(aboutWindow, iconAbout);
-    });
-  }
-});
+
+// Make functions available globally for HTML onclick handlers
+(window as any).openMusicPlayer = () => {
+  const { windowId, iconId } = windows.music;
+  openWindowWithAnimation(document.getElementById(windowId), iconId);
+};
+
+(window as any).openGifViewer = () => {
+  const { windowId, iconId } = windows.gif;
+  openWindowWithAnimation(document.getElementById(windowId), iconId);
+};
+
+(window as any).openAboutWindow = () => {
+  const { windowId, iconId } = windows.about;
+  openWindowWithAnimation(document.getElementById(windowId), iconId);
+};
