@@ -58,16 +58,26 @@ function openWindowWithAnimation(win: HTMLElement | null, iconId: string): void 
   const icon = document.getElementById(iconId);
   if (icon) icon.style.display = 'none';
   
-  win.style.display = 'block';
-  win.style.position = 'absolute';
-  win.style.zIndex = '100';
-  
-  // Trigger reflow and add animation
-  win.offsetHeight;
-  win.classList.add('window-popup');
-  
-  // Enable dragging
-  dragElement(win);
+  // Only show and animate if the window is the music player and it's not already visible
+  if (win.id === 'musicPlayer') {
+    win.style.display = 'block';
+    win.style.position = 'absolute';
+    win.style.zIndex = '100';
+    
+    // Trigger reflow and add animation
+    win.offsetHeight;
+    win.classList.add('window-popup');
+    
+    // Enable dragging
+    dragElement(win);
+  } else {
+    // For other windows, just show them normally
+    win.style.display = 'block';
+    win.style.position = 'absolute';
+    win.style.zIndex = '100';
+    win.classList.add('window-popup');
+    dragElement(win);
+  }
 }
 
 function closeWindow(win: HTMLElement | null, iconId: string): void {
@@ -86,6 +96,11 @@ function initializeWindows(): void {
     const icon = document.getElementById(iconId);
     const window = document.getElementById(windowId);
     const closeBtn = document.getElementById(closeId);
+    
+    // Ensure music player is hidden at startup
+    if (windowId === 'musicPlayer' && window) {
+      window.style.display = 'none';
+    }
     
     if (icon && window) {
       icon.addEventListener('click', () => openWindowWithAnimation(window, iconId));

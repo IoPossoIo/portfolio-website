@@ -512,11 +512,10 @@ body {
 
 #recycleBin {
   position: absolute;
-  top: 47%; /* Slightly above the Music icon */
-  right: 3.5%; /* Same right position as Music icon */
+  top: 61%;
+  left: 3.5%;
   width: 90px; /* narrow width like others */
   text-align: center;
-  z-index: 1; /* Ensure it stays above other elements */
 }
 
 
@@ -524,28 +523,22 @@ body {
 #iconMusic {
   position: absolute;
   top: 20%;
-  right: 5%; /* Right side, top */
+  right: 8%; /* Right side, top */
   display: none; /* Hidden since music window auto-opens */
 }
 
 #iconGifs {
   position: absolute;
-  top: 35%;  /* Moved up from 40% */
-  right: 5%;
+  top: 40%;
+  right: 8%; /* Right side, middle */
   display: none; /* Hidden since GIF window auto-opens */
 }
 
 #iconAbout {
   position: absolute;
-  top: 20%;
-  left: 5%;
-  display: none; /* Hidden by default */
-  
-  &:hover {
-    .folder-image {
-      transform: scale(1.1);
-    }
-  }
+  top: 60%;
+  right: 8%; /* Right side, bottom */
+  display: none; /* Hidden since About window auto-opens */
 }
 
 .folder {
@@ -553,12 +546,6 @@ body {
   text-align: center;
   cursor: pointer;
   width: 100px;
-  display: block;
-  padding: 4px;
-  
-  &:hover {
-    /* No background color on hover */
-  }
 }
 
 .folder-image {
@@ -727,7 +714,7 @@ body {
 }
 
 #gifViewer {
-  top: 5%;  // Moved up slightly from 2%
+  top: 2%;
   right: 5%;
   transform: none;
 }
@@ -739,8 +726,8 @@ body {
   width: 650px !important;
   z-index: 2000 !important;
   max-height: 85vh !important;
+  display: block !important;
   opacity: 1 !important;
-  /* THIS IS THE FIX: The 'display' property is now controlled by JS, not forced by CSS */
 }
 
 /* Enhanced About Window Styling - Windows XP style */
@@ -1094,9 +1081,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 120%;
-  height: 120%;
-  overflow: hidden;
   width: 100%;
   height: 100%;
   display: grid;
@@ -1498,17 +1482,46 @@ body {
   animation: zoomInWin 200ms ease-out;
 }
 
-/* Visible X on close buttons */
-.title-bar-controls button::before {
-  content: '✕';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 9px;
-  color: #333;
-  font-weight: bold;
-}
+/* Title bar controls - close, minimize, maximize buttons */
+.title-bar-controls {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  
+  button {
+    width: 22px;
+    height: 22px;
+    margin: 0 1px;
+    padding: 0;
+    border: 1px solid #7B7B7B;
+    background: #E0E0E0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset -1px -1px 0 0 #0A0A0A, inset 1px 1px 0 0 #FFFFFF;
+    
+    &:hover {
+      background: #E5F3FF;
+    }
+    
+    &:active {
+      box-shadow: inset 1px 1px 0 0 #0A0A0A, inset -1px -1px 0 0 #FFFFFF;
+      background: #D3D3D3;
+    }
+    
+    &::before {
+      content: '✕';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+      line-height: 1;
+    }
 
 /* Standardize file icon sizes inside windows - match main page folders */
 .window-xp .file-image,
@@ -2920,21 +2933,6 @@ body {
 .window-xp-widget,
 .about-window {
   animation: none !important;
-  cursor: url('https://static.cargo.site/images/up.png') 5 0, auto !important;
-}
-
-/* Ensure all clickable elements in the window use the pointer cursor */
-.window-xp-widget a,
-.window-xp-widget button,
-.window-xp-widget [onclick],
-.window-xp-widget [role="button"],
-.window-xp-widget .clickable {
-  cursor: url('https://static.cargo.site/images/up.png') 5 0, pointer !important;
-}
-
-/* Ensure the window body doesn't override the cursor */
-.window-xp-widget .window-body {
-  cursor: url('https://static.cargo.site/images/up.png') 5 0, auto !important;
 }
 
 .window-xp-widget.window-startup.animate-delay-6 {
@@ -2974,52 +2972,75 @@ body {
     transform: scale(1.05) translateY(-5px);
   }
   100% {
-    opacity: 1;
     transform: scale(1) translateY(0);
+    opacity: 1;
   }
 }
 
+// Window animations
 .window-popup {
-  animation: windowPopup 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: windowPopup 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   animation-fill-mode: both;
+  opacity: 1 !important;
+  transform: none !important;
+  display: block !important;
+}
+
+/* Ensure window is visible when active */
+.window-xp-widget:not(.closing),
+.window-xp:not(.closing) {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Closing animation */
+.window-xp-widget.closing,
+.window-xp.closing {
+  animation: windowClose 0.2s ease-out forwards !important;
+  pointer-events: none !important;
+}
+
+@keyframes windowClose {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 }
 
 /* Brainrot windows - ensure they display properly */
 .brainrot-win {
   opacity: 1 !important;
-  width: 300px !important;  /* Fixed width for windows */
-  height: 400px !important; /* Fixed height for windows */
-  overflow: hidden !important;
-  position: absolute !important;
-  
-  .window-body {
-    padding: 0 !important;
-    margin: 0 !important;
+  transform: none !important;
+  animation: none !important;
+  display: block !important;
+  visibility: visible !important;
+
+  video {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
     width: 100% !important;
-    height: calc(100% - 22px) !important; /* Account for title bar */
-    overflow: hidden !important;
+    height: 100% !important;
+  }
+
+  .window-body {
+    opacity: 1 !important;
     background: #000 !important;
-    position: relative;
-    
-    video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      object-position: center center;
-      transform: none !important;
-      min-width: 100% !important;
-      min-height: 100% !important;
-      max-width: none !important;
-      max-height: none !important;
-    }
+    padding: 0 !important;
+    height: calc(100% - 22px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 
 .window-entrance {
   animation: windowEntrance 0.3s ease-out;
+  animation-fill-mode: both;
 }
 /* Different popup animations for variety */
 @keyframes musicPlayerPopup {
@@ -3155,14 +3176,7 @@ body {
 
 /* Apply animations to specific windows */
 #musicPlayer {
-  display: none; /* Ensure it's hidden by default */
-  opacity: 0; /* Start with 0 opacity */
-  
-  /* Animation will be applied via JavaScript when opening */
-  &.window-popup {
-    animation: musicPlayerPopup 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    display: block;
-  }
+  animation: musicPlayerPopup 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 #gifViewer {

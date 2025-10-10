@@ -937,7 +937,7 @@ function renderRoute(pathname) {
       const starField = document.getElementById('starField');
       if (starField) starField.style.display = 'block';
 
-      // Open default XP windows on home and hide their desktop icons
+      // Initialize windows but keep them hidden by default
       try {
         const mp = document.getElementById('musicPlayer');
         const gv = document.getElementById('gifViewer');
@@ -946,15 +946,15 @@ function renderRoute(pathname) {
         const iconGifs = document.getElementById('iconGifs');
         const iconAbout = document.getElementById('iconAbout');
         
+        // Initialize music player but keep it hidden
         if (mp) {
-          mp.style.display = 'block';
+          mp.style.display = 'none'; // Keep it hidden by default
           mp.style.position = 'absolute';
           mp.style.zIndex = '2000';
-          mp.style.visibility = 'visible';
-          mp.style.opacity = '1';
-          // Ensure draggable after a brief delay
+          // Initialize draggable but don't show the window
           setTimeout(() => dragElement(mp), 50);
-          if (iconMusic) iconMusic.style.display = 'none';
+          // Keep the music icon visible
+          if (iconMusic) iconMusic.style.display = 'block';
         }
         if (gv) {
           // Keep gif viewer closed by default - only open when clicked
@@ -963,9 +963,10 @@ function renderRoute(pathname) {
           gv.style.zIndex = '2000';
           gv.style.visibility = 'visible';
           gv.style.opacity = '1';
-          // Ensure draggable after a brief delay
-          setTimeout(() => dragElement(gv), 50);
-          if (iconGifs) iconGifs.style.display = 'block'; // Show icon since window is closed
+          // Ensure draggable after a longer delay for smoother initialization
+          setTimeout(() => dragElement(gv), 100);
+          // Show icon since window is closed
+          if (iconGifs) iconGifs.style.display = 'block';
         }
         if (aw) {
           aw.style.display = 'block';
@@ -991,6 +992,7 @@ function renderRoute(pathname) {
           }
           // Ensure draggable after a longer delay for smoother initialization
           setTimeout(() => dragElement(aw), 100);
+          // Show the About window but keep the icon hidden
           if (iconAbout) iconAbout.style.display = 'none';
         }
       } catch {}
@@ -1156,17 +1158,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initStarField();
   initClippyDialogue();
   
-  // Show windows immediately without animation
-  const musicPlayer = document.getElementById('musicPlayer');
+  // Initialize windows
   const aboutWindow = document.getElementById('aboutWindow');
-  
-  if (musicPlayer) {
-    musicPlayer.style.display = 'block';
-    musicPlayer.style.opacity = '1';
-    musicPlayer.style.transform = 'translate(100px, 100px) scale(1)';
-    musicPlayer.classList.remove('zoom-in');
-    musicPlayer.classList.add('zoom-in'); // Add startup animation
-  }
   
   if (aboutWindow) {
     aboutWindow.classList.remove('zoom-in');
@@ -1184,37 +1177,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const brainrotVideos = document.getElementById('brainrotVideos');
   // Brainrot mode videos
   const brainrotSources = [
-    '/public/brainrot-1.mp4',
-    '/public/brainrot-2.mp4',
-    '/public/brainrot-3.mp4',
-    '/public/brainrot-5.mp4' 
+    '/brainrot-1.mp4',
+    '/brainrot-2.mp4',
+    '/brainrot-3.mp4',
+    '/brainrot-5.mp4' 
   ];
 
+  // Store timeouts for cleanup
+  let brainrotTimeouts = [];
+  
   function renderBrainrot(on) {
-    // Remove any existing brainrot windows
-    document.querySelectorAll('.brainrot-win').forEach(w => w.remove());
+    // Clear any pending timeouts first to prevent new windows from appearing
+    brainrotTimeouts.forEach(clearTimeout);
+    brainrotTimeouts = [];
+    
+    // Remove any existing brainrot windows and videos
+    document.querySelectorAll('.brainrot-win').forEach(w => {
+      // Pause any videos before removing
+      const video = w.querySelector('video');
+      if (video) {
+        video.pause();
+        video.src = ''; // Stop loading
+      }
+      w.remove();
+    });
+    
     if (on) {
       document.body.classList.add('brainrot-on');
-      // Spawn 5 XP windows sequentially like pop-up ads
-      // Default positions tuned to avoid left icons, Clippy and controls
+      // Spawn XP windows sequentially like pop-up ads
       const slots = [
-        { left: '12vw', top: '6vh'  }, // top-left (clear of Marketing/Photography)
-        { left: '68vw', top: '5vh'  }, // top-right (clear of GIF window)
+        { left: '12vw', top: '6vh' },  // top-left (clear of Marketing/Photography)
+        { left: '75vw', top: '5vh' },  // top-right (moved further right)
         { left: '70vw', top: '52vh' }, // bottom-right (nudged up)
-        { left: '14vw', top: '52h' }, // bottom-left (nudged up)
+        { left: '13vw', top: '51vh' }  // bottom-left (nudged up)
       ];
+      
       brainrotSources.slice(0,4).forEach((src, idx) => {
-        setTimeout(() => {
+        // Create a timeout for each video
+        const timeoutId = setTimeout(() => {
+          // Double check brainrot is still on before creating window
+          if (!document.body.classList.contains('brainrot-on')) return;
+          
           const win = document.createElement('div');
           win.className = 'window-xp brainrot-win zoom-in';
-          // Portrait window for 360x640 vertical videos (scaled down to fit viewport)
           win.style.width = '220px';
           win.style.height = '400px';
           win.style.position = 'absolute';
           win.style.left = (slots[idx] ? slots[idx].left : '10vw');
-          win.style.top  = (slots[idx] ? slots[idx].top  : '10vh');
+          win.style.top = (slots[idx] ? slots[idx].top : '10vh');
           win.style.zIndex = String(3000 + idx);
-          win.style.transition = 'none'; // avoid transform jitter during drag
+          win.style.transition = 'none';
           win.style.willChange = 'left, top';
           win.style.transform = 'none';
           win.innerHTML = `
@@ -1223,16 +1235,35 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="title-bar-controls"><button aria-label="Close"></button></div>
             </div>
             <div class="window-body" style="padding:0;background:#000;display:flex;align-items:center;justify-content:center;height:calc(100% - 22px);">
-              <video src="${src}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+              <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain;background:#000;">
+                <source src="${src}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
             </div>`;
+          
           document.body.appendChild(win);
-          // Close and drag hooks
-          win.querySelector('.title-bar-controls button').addEventListener('click', () => win.remove());
-          // reduce interference: remove zoom-in class after it runs
+          
+          // Close button handler
+          const closeBtn = win.querySelector('.title-bar-controls button');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const video = win.querySelector('video');
+              if (video) {
+                video.pause();
+                video.src = '';
+              }
+              win.remove();
+            });
+          }
+          
+          // Remove zoom-in class after animation
           setTimeout(() => win.classList.remove('zoom-in'), 260);
-          // ensure smooth dragging only via title bar and avoid video capturing events
+          
+          // Set up drag functionality
           const vidEl = win.querySelector('video');
           if (vidEl) vidEl.style.pointerEvents = 'none';
+          
           const title = win.querySelector('.title-bar');
           if (title) {
             title.style.userSelect = 'none';
@@ -1246,11 +1277,26 @@ document.addEventListener('DOMContentLoaded', () => {
               if (body) body.style.pointerEvents = '';
             });
           }
+          
           dragElement(win);
+          
         }, idx * 220); // staggered pop-ups
+        
+        brainrotTimeouts.push(timeoutId);
       });
     } else {
+      // When turning off, ensure all videos are removed
       document.body.classList.remove('brainrot-on');
+      
+      // Force remove any remaining brainrot windows
+      document.querySelectorAll('.brainrot-win').forEach(win => {
+        const video = win.querySelector('video');
+        if (video) {
+          video.pause();
+          video.src = '';
+        }
+        win.remove();
+      });
     }
   }
 
