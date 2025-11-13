@@ -198,47 +198,43 @@ const photographySections = {
 
 // Marketing section data structure (refactored to define each item once)
 const marketingFolders = {
-    "SOCIAL MEDIA CONTENT": {
+    "Case Studies & Strategy": {
         items: [
-            { label: "Hunters On-Chain 18 Seconds Sold Out!", link: "https://x.com/BoomLandGames/status/1620478702407778304", icon: "./images/text.png" },
-            { label: "Hunters On-Chain DappRadar Article", link: "https://dappradar.com/blog/hunters-on-chain-game-guide", icon: "./images/text.png" },
-            { label: "Planet Mojo New Game Announcement", link: "https://x.com/WeArePlanetMojo/status/1776365595040047194", icon: "./images/text.png" },
-            { label: "Get Plucked Medium Article", link: "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2", icon: "./images/text.png" },
-            { label: "VOX: What is it?", link: "https://www.youtube.com/watch?v=ojEZtZars7Q", icon: "./images/video.png" }
+            { label: "Voodoo Games' The Almanac", link: "/the-almanac.pdf", icon: "./images/pdf.png" },
+            { label: "Boombit's Hunters On-Chain", link: "/a-brief-campaign-overview.pdf", icon: "./images/pdf.png" },
+            { label: "Planet Mojo's X Growth YoY", link: "/Planet Mojo Twitter - YoY Impact.png", icon: "./images/pdf.png" },
+            { label: "Creators Brief Example", link: "https://ng-plus.notion.site/Summer-Surge-Creator-Brief-000aa2519cff4cfb9b81c752301c7c5b", icon: "./images/text.png" },
+
         ],
         headerText: "I swear i wrote copy and storyboarded this stuff without chatgpt"
     },
-    "IP PARTNERSHIPS": {
+    "IP Partnerships": {
         items: [
             { label: "VOX & DreamWorks Trolls", link: "https://www.youtube.com/watch?v=LJhwu2xsqaA", icon: "./images/video.png" },
             { label: "VOX & AMC's The Walking Dead ", link: "https://www.youtube.com/watch?v=mhnusMyUWm0", icon: "./images/video.png" },
-            { label: "Planet Mojo & WowWee Plushies", link: "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain", icon: "./images/text.png" },
             { label: "Planet Mojo & Talon Esports", link: "https://esportsinsider.com/2024/04/talon-esports-web3-planet-mojo", icon: "./images/text.png" }
         ],
         headerText: "a lot of cool partnerships with cool people!"
     },
-    "LIVESTREAMS": {
+    "Content & Copy": {
         items: [
-            { label: "Get Plucked Mobile Game Release", link: "https://www.youtube.com/watch?v=0bvVVXM1OqA", icon: "./images/video.png" },
-            { label: "Interview with Neo Tokyo", link: "https://x.com/NeoTokyoCode/status/1834373045311676533", icon: "./images/video.png" },
-            { label: "Interview with Decentraland", link: "https://www.linkedin.com/events/7208541648673210369/comments/", icon: "./images/video.png" }
+            { label: "Gala Games on Medium", link: "https://medium.com/@collectVOX/hatch-eggs-and-get-feathers-856cf13a26b2", icon: "./images/text.png" },            
+            { label: "Planet Mojo on X", link: "https://x.com/WeArePlanetMojo/status/1776365595040047194", icon: "./images/text.png" },
+            { label: "MovieFlo.AI on Forbes", link: "https://www.forbes.com/sites/charliefink/2025/06/23/three-new-ai-platforms-for-cinematic-ai-productions/?", icon: "./images/text.png" },
+            { label: "Planet Mojo & WowWee Plushies on Decrypt", link: "https://decrypt.co/225883/mystic-moose-and-wowwee-join-forces-to-create-planet-mojo-toys-connected-to-blockchain", icon: "./images/text.png" },
+            { label: "MovieFlo.AI Video Edit", link: "sound-fx-final.mp4", icon: "./images/video.png" },
+            { label: "Voodoo Games' The Almanac - Instagram Content", link: "Mosaic-Post.png", icon: "./images/image.png" },
+
+
         ],
         headerText: "Bonus: in all these videos you can see my pretty face!!"
     },
-    "METRICS": {
+    "Interviews & Q&As": {
         items: [
-            { label: "Planet Mojo Twitter Growth YoY", link: "/Planet Mojo Twitter - YoY Impact.png", icon: "./images/pdf.png" },
-            { label: "Boombit F2P Campaign Performance", link: "/a-brief-campaign-overview.pdf", icon: "./images/pdf.png" }
+            { label: "Interview with Neo Tokyo", link: "https://x.com/NeoTokyoCode/status/1834373045311676533", icon: "./images/video.png" },
+            { label: "Interview with Decentraland", link: "https://www.linkedin.com/events/7208541648673210369/comments/", icon: "./images/video.png" }
         ],
         headerText: "maybe the real impact was the friends we made along the way?"
-    },
-    "DATA ANALYTICS": {
-        items: [
-            { label: "United Nations PowerBI Dashboard", link: "/UN_MONUSCO.pdf", icon: "./images/pdf.png" },
-            { label: "A self-esteem journey through gender identities", link: "https://rpubs.com/iopossoio/psychometrics", icon: "./images/pdf.png" },
-            { label: "360X Art Pitch Deck", link: "/360X Art Pitch Deck.pdf", icon: "./images/pdf.png" }
-        ],
-        headerText: "yeah I happen to have a degree in this stuff"
     }
 };
 
